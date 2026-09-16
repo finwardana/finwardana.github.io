@@ -180,6 +180,35 @@ a{color:inherit;text-decoration:none}
   line-height:1.8;
   font-size:16px;
 }
+
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;
+  margin-top:35px;
+}
+.card{
+  background:#111;
+  border:1px solid #222;
+  border-radius:8px;
+  padding:24px;
+  transition:border-color 0.3s;
+}
+.card:hover{
+  border-color:#f21f2b;
+}
+.card h3{
+  margin:0 0 10px;
+  font-size:20px;
+  color:#fff;
+}
+.card p{
+  color:#aaa;
+  font-size:14px;
+  line-height:1.6;
+  margin:0 0 16px;
+}
+
 .about{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -202,8 +231,6 @@ footer h3{margin-top:0}
 footer p,footer a{font-size:13px;line-height:1.8}
 footer a{display:block}
 
-/* Satu desain untuk layar kecil: tidak mengganti struktur hero,
-   hanya mengecilkan ukuran dan jarak agar komposisinya tetap sama. */
 @media(max-width:800px){
   .nav{
     height:64px;
@@ -279,7 +306,7 @@ footer a{display:block}
   .section{padding:60px 16px}
   .section-title{font-size:45px}
   .home-text{font-size:13px}
-  .about{gap:25px}
+  .about{grid-template-columns:1fr;gap:25px}
   .about p{font-size:13px}
   footer{
     grid-template-columns:1fr;
@@ -293,10 +320,10 @@ footer a{display:block}
 <body>
 
 <nav class="nav">
-  <a class="logo" href="#home">FINWARDANA</a>
+  <a class="logo" href="index.html">FINWARDANA</a>
 
   <div class="navlinks">
-    <a class="active" href="#home">Home</a>
+    <a class="active" href="index.html">Home</a>
     <a href="games.html">Games</a>
     <a href="tools.html">Tools</a>
     <a href="projects.html">Projects</a>
@@ -321,7 +348,7 @@ footer a{display:block}
 
   <div class="hero-right">
     <p>Website sederhana untuk kumpulan game, tools, projects, dan karya digital Finwardana.</p>
-    <a class="btn" href="#content">EXPLORE →</a>
+    <a class="btn" href="games.html">EXPLORE →</a>
   </div>
 </section>
 
@@ -331,18 +358,71 @@ footer a{display:block}
   <div><strong>01</strong><span>CREATOR</span></div>
 </section>
 
-<section class="section" id="content">
-  <h2 class="section-title">WELCOME.</h2>
-  <p class="home-text">A simple space for games, tools, projects, invitations, and digital creations.</p>
+<!-- PREVIEW GAMES -->
+<section class="section">
+  <h2 class="section-title">GAMES.</h2>
+  <p class="home-text">Kumpulan game interaktif berbasis HTML & JavaScript buatan Finwardana.</p>
+  
+  <div class="card-grid">
+    <div class="card">
+      <h3>F/S INNER · THE FOUNDER'S ROOM</h3>
+      <p>Simulasi strategi & manajemen kandidat berbasis mesin slot 6×5 dengan kontrol penuh The Founder.</p>
+      <a class="btn" href="games.html">Buka Halaman Games →</a>
+    </div>
+  </div>
 </section>
 
+<!-- PREVIEW TOOLS -->
+<section class="section">
+  <h2 class="section-title">TOOLS.</h2>
+  <p class="home-text">Alat bantu digital, generator, dan utilitas eksperimental.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>Digital Utility Tools</h3>
+      <p>Kumpulan tools eksperimen digital akan muncul di sini segera.</p>
+      <a class="btn" href="tools.html">Buka Halaman Tools →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW PROJECTS -->
+<section class="section">
+  <h2 class="section-title">PROJECTS.</h2>
+  <p class="home-text">Portofolio karya digital, proyek 3D rigging, dan asset design.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>3D Assets & Rigging</h3>
+      <p>Showcase proyek animasi sprite, asset 3D Blender, dan karya visual.</p>
+      <a class="btn" href="projects.html">Buka Halaman Projects →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW INVITATION -->
+<section class="section">
+  <h2 class="section-title">INVITATION.</h2>
+  <p class="home-text">Halaman interaktif dan undangan digital khusus.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>Interactive Space</h3>
+      <p>Karya interaktif dan fitur undangan khusus.</p>
+      <a class="btn" href="invitation.html">Buka Halaman Invitation →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW ABOUT ME -->
 <section class="section about">
   <div>
     <h2 class="section-title">ABOUT<br>ME.</h2>
   </div>
   <div>
     <p>Finwardana adalah ruang untuk menyimpan berbagai karya digital yang saya buat—mulai dari game, tools, website, hingga proyek eksperimen.</p>
-    <p>Website ini masih dalam pengembangan.</p>
+    <p>Website ini terus dikembangkan untuk menjadi hub utama dari seluruh proyek digital saya.</p>
+    <a class="btn" href="about.html">Detail About Me →</a>
   </div>
 </section>
 
@@ -355,15 +435,16 @@ footer a{display:block}
   </div>
   <div>
     <h3>QUICK LINKS</h3>
-    <a href="#home">Home</a>
+    <a href="index.html">Home</a>
     <a href="games.html">Games</a>
     <a href="tools.html">Tools</a>
     <a href="projects.html">Projects</a>
     <a href="invitation.html">Invitation</a>
+    <a href="about.html">About Me</a>
   </div>
   <div>
     <h3>CONTACT</h3>
-    <p>About Me<br>More coming soon.</p>
+    <p>Finwardana 2026<br>All rights reserved.</p>
   </div>
 </footer>
 
