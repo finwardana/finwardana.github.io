@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#11100f">
+<title>Cyntya & Alfin — Wedding Invitation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#11100f;
+  --panel:#191715;
+  --text:#f4ecdf;
+  --muted:#bdb3a5;
+  --gold:#c9a66b;
+  --line:#c9a66b3d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"DM Sans",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+button,a{font:inherit}
+.cover{
+  min-height:100svh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:32px 22px;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 35%,#3b3026 0,#171412 43%,#0d0c0b 100%);
+}
+.cover:before,.cover:after{
+  content:"";
+  position:absolute;
+  border:1px solid #b99b6a33;
+  border-radius:50%;
+  pointer-events:none;
+}
+.cover:before{width:76vw;height:76vw;top:-30vw;left:-30vw}
+.cover:after{width:76vw;height:76vw;bottom:-30vw;right:-30vw}
+.cover-inner{position:relative;z-index:1;width:min(100%,520px)}
+.small{
+  font-size:11px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:#d7c29d;
+}
+.names{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(58px,15vw,104px);
+  font-weight:500;
+  line-height:.86;
+  letter-spacing:-2px;
+  margin:24px 0 28px;
+  color:#f5ead7;
+}
+.amp{font-style:italic;color:var(--gold);font-weight:400}
+.guest{
+  margin:0 auto 30px;
+  max-width:340px;
+  font-size:13px;
+  line-height:1.7;
+  color:#d9d1c6;
+}
+.guest strong{
+  display:block;
+  margin-top:5px;
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:25px;
+  line-height:1.15;
+  font-weight:600;
+  color:#fff;
+}
+.open{
+  border:1px solid var(--gold);
+  background:var(--gold);
+  color:#17120d;
+  padding:13px 25px;
+  border-radius:28px;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:1.3px;
+  min-height:46px;
+  touch-action:manipulation;
+}
+.main{display:none}
+.hero{
+  min-height:78svh;
+  display:grid;
+  place-items:end center;
+  text-align:center;
+  padding:56px 22px 72px;
+  background:
+    linear-gradient(#0002,#0009),
+    radial-gradient(circle at 50% 30%,#7d6750,#30251e 48%,#151210);
+}
+.hero h1{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(54px,14vw,88px);
+  line-height:.9;
+  font-weight:500;
+  letter-spacing:-1px;
+  margin:8px 0 14px;
+}
+.hero p{
+  margin:0;
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:#ddc8a4;
+}
+.section{
+  width:min(100%,780px);
+  margin:auto;
+  padding:72px 22px;
+  text-align:center;
+}
+.section h2{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:43px;
+  line-height:1;
+  font-weight:500;
+  margin:0 0 16px;
+}
+.section h3{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:27px;
+  line-height:1.1;
+  font-weight:500;
+  color:#d7b77d;
+  margin:10px 0;
+}
+.section p{
+  max-width:620px;
+  margin:10px auto;
+  font-size:14px;
+  line-height:1.85;
+  color:#d8d0c5;
+}
+.section em{color:#bca98d}
+.orn{
+  color:var(--gold);
+  font-size:19px;
+  line-height:1;
+  margin-bottom:16px;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+  margin-top:32px;
+}
+.card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:25px 20px;
+  background:#ffffff05;
+  min-width:0;
+}
+.card b{
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.card strong{font-weight:600}
+.count{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+  margin:30px auto;
+  max-width:580px;
+}
+.time{
+  background:#ffffff08;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:13px 6px;
+}
+.time b{
+  display:block;
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:29px;
+  line-height:1;
+  font-weight:600;
+}
+.time span{
+  display:block;
+  margin-top:6px;
+  font-size:9px;
+  letter-spacing:1px;
+  color:#bdb4a8;
+  text-transform:uppercase;
+}
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin-top:28px;
+}
+.photo{
+  aspect-ratio:1;
+  border-radius:14px;
+  background:linear-gradient(135deg,#6b5948,#241d18);
+  display:grid;
+  place-items:center;
+  color:#cfc2b1;
+  font-size:11px;
+}
+.gift{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:25px 18px;
+  margin:18px auto 0;
+  max-width:430px;
+  background:#ffffff04;
+}
+.bank-logo{
+  width:64px;
+  height:38px;
+  margin:0 auto 14px;
+  border-radius:7px;
+  background:#fff;
+  color:#0756a5;
+  display:grid;
+  place-items:center;
+  font:900 17px Arial,sans-serif;
+  letter-spacing:-1px;
+  box-shadow:0 3px 12px #0005;
+}
+.gift h3{font-family:"DM Sans",Arial,sans-serif;font-size:24px;letter-spacing:.5px}
+.copy,.map{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  border-radius:24px;
+  min-height:46px;
+  padding:11px 20px;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:1px;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+.copy{
+  min-width:210px;
+  color:#17120d;
+  background:var(--gold);
+}
+.map{
+  margin-top:15px;
+  border:1px solid var(--gold);
+  color:var(--gold);
+  background:transparent;
+}
+.footer{
+  text-align:center;
+  padding:55px 22px;
+  color:#9d9387;
+  font-size:11px;
+  line-height:1.7;
+  border-top:1px solid #ffffff12;
+}
+.music{
+  position:fixed;
+  right:16px;
+  bottom:16px;
+  z-index:9;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  border:1px solid var(--gold);
+  background:#181411;
+  color:var(--gold);
+  display:none;
+}
+.fade{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.fade.show{opacity:1;transform:none}
+@media(max-width:600px){
+  .cards{grid-template-columns:1fr}
+  .section{padding:60px 18px}
+  .card{padding:24px 18px}
+}
+@media(max-width:360px){
+  .names{font-size:54px}
+  .hero h1{font-size:50px}
+  .section h2{font-size:39px}
+  .count{gap:5px}
+  .time b{font-size:25px}
+}
+
+.event-card strong{
+  display:block;
+  margin:10px 0 6px;
+  font-family:"DM Sans",Arial,sans-serif;
+  font-size:24px;
+  line-height:1.15;
+  font-weight:600;
+}
+.event-card b{display:block}
+.account-number{
+  font-family:"DM Sans",Arial,sans-serif !important;
+  font-size:22px !important;
+  letter-spacing:1px;
+  line-height:1.2 !important;
+  margin:10px 0 6px !important;
+}
+.gift p strong{font-weight:500;color:#e7ded2}
+
+.gift-simple{max-width:520px;text-align:left;padding:26px 22px}
+.gift-simple .bank-logo{margin:0 auto 10px}
+.bank-title{
+  text-align:center;
+  font-family:"DM Sans",Arial,sans-serif !important;
+  font-size:18px !important;
+  font-weight:600 !important;
+  text-transform:none;
+  color:#f4ecdf !important;
+  margin:0 0 18px !important;
+}
+.account-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:15px 0;
+  border-top:1px solid #c9a66b2b;
+}
+.account-info{min-width:0}
+.account-info strong{
+  display:block;
+  font-family:"DM Sans",Arial,sans-serif;
+  font-size:18px;
+  line-height:1.25;
+  letter-spacing:.7px;
+  color:#d7b77d;
+  font-weight:600;
+}
+.account-info span{
+  display:block;
+  margin-top:4px;
+  font-size:12px;
+  line-height:1.4;
+  color:#d8d0c5;
+}
+.small-copy{
+  min-width:76px !important;
+  min-height:38px !important;
+  padding:8px 13px !important;
+  font-size:10px !important;
+  flex:none;
+}
+
+.small-copy{
+  width:82px !important;
+  min-width:82px !important;
+  max-width:82px !important;
+  height:40px !important;
+  min-height:40px !important;
+  max-height:40px !important;
+  padding:0 !important;
+  flex:0 0 82px !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  font-size:10px !important;
+  letter-spacing:1px !important;
+}
+.small-copy.copied{font-size:9px !important;letter-spacing:.5px !important}
+
+.wish-form{
+  max-width:560px;
+  margin:28px auto 0;
+  display:grid;
+  gap:12px;
+  text-align:left;
+}
+.wish-form input,.wish-form textarea{
+  width:100%;
+  border:1px solid #c9a66b44;
+  border-radius:13px;
+  background:#ffffff07;
+  color:#f4ecdf;
+  padding:14px 15px;
+  outline:none;
+  font-family:"DM Sans",Arial,sans-serif;
+  font-size:14px;
+}
+.wish-form input::placeholder,.wish-form textarea::placeholder{color:#91877a}
+.wish-form input:focus,.wish-form textarea:focus{border-color:#c9a66b99}
+.wish-form textarea{resize:vertical;min-height:120px}
+.wish-send{width:100%;border:0}
+.wish-list{
+  max-width:560px;
+  margin:26px auto 0;
+  display:grid;
+  gap:12px;
+  text-align:left;
+}
+.wish-item{
+  border:1px solid #c9a66b33;
+  border-radius:15px;
+  padding:16px;
+  background:#ffffff04;
+}
+.wish-item .wish-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+.wish-item strong{
+  color:#d7b77d;
+  font-size:14px;
+  font-weight:600;
+}
+.wish-item time{
+  color:#847b70;
+  font-size:10px;
+  white-space:nowrap;
+}
+.wish-item p{
+  margin:8px 0 0;
+  font-size:13px;
+  line-height:1.7;
+  color:#d8d0c5;
+}
+.wish-empty{
+  text-align:center;
+  color:#81786d;
+  font-size:12px;
+  padding:10px;
+}
+</style>
+</head>
+<body>
+<section class="cover" id="cover">
+ <div class="cover-inner">
+  <div class="small">The Wedding Of</div>
+  <div class="names">Cyntya <span class="amp">&</span> Alfin</div>
+  <div class="guest">Kepada Yth.<strong id="guest">Tamu Undangan</strong></div>
+  <button class="open" onclick="openInvitation()">BUKA UNDANGAN</button>
+ </div>
+</section>
+
+<main class="main" id="main">
+<section class="hero">
+ <div><p>Wedding Invitation</p><h1>Cyntya & Alfin</h1><p>We are getting married</p></div>
+</section>
+
+<section class="section fade">
+ <div class="orn">✦</div><h2>Assalamu'alaikum</h2>
+ <p>Dengan penuh kebahagiaan, kami mengundang Anda untuk menjadi bagian dari hari istimewa kami.</p>
+ <h3>Cyntya & Alfin</h3>
+ <p>Mohon doa restu agar perjalanan kami menjadi keluarga dipenuhi cinta, kebahagiaan, dan keberkahan.</p>
+</section>
+
+<section class="section fade">
+ <div class="orn">✦</div><h2>Save The Date</h2>
+ <p>Sabtu, 5 Juni 2027</p>
+ <div class="count">
+  <div class="time"><b id="d">--</b><span>Hari</span></div>
+  <div class="time"><b id="h">--</b><span>Jam</span></div>
+  <div class="time"><b id="m">--</b><span>Menit</span></div>
+  <div class="time"><b id="s">--</b><span>Detik</span></div>
+ </div>
+ <div class="cards">
+  <div class="card event-card"><b>Akad Nikah</b><strong>08.00 WIB</strong><p>Sabtu, 5 Juni 2027</p></div>
+  <div class="card event-card"><b>Resepsi</b><strong>13.00 WIB</strong><p>Sabtu, 5 Juni 2027</p></div>
+ </div>
+</section>
+
+<section class="section fade">
+ <div class="orn">✦</div><h2>Mempelai</h2>
+ <div class="cards">
+  <div class="card">
+   <div class="photo" style="margin-bottom:18px">Foto Cyntya</div>
+   <h3 style="margin:8px 0 18px">Cyntya Putri Edi Suhartini</h3>
+   <p style="margin:20px auto 8px"><em>Putri dari</em></p>
+   <p><strong>Bapak H. Edi Suroso</strong><br><strong>Ibu Hj. Eka Suhartini</strong></p>
+  </div>
+  <div class="card">
+   <div class="photo" style="margin-bottom:18px">Foto Alfin</div>
+   <h3 style="margin:8px 0 18px">Alfin Mahendra Wardana</h3>
+   <p style="margin:20px auto 8px"><em>Putra dari</em></p>
+   <p><strong>Bapak Drs. Samsul Arifin (Alm.)</strong><br><strong>Ibu Sri Wahyuni Respati Nugraheni</strong></p>
+  </div>
+ </div>
+</section>
+
+<section class="section fade">
+ <div class="orn">✦</div><h2>Our Story</h2>
+ <p>Setiap pertemuan memiliki cerita. Dari sebuah perkenalan sederhana, tumbuh rasa, keyakinan, dan akhirnya sebuah keputusan untuk berjalan bersama dalam satu perjalanan kehidupan.</p>
+</section>
+
+<section class="section fade">
+ <div class="orn">✦</div><h2>Gallery</h2>
+ <div class="gallery">
+  <div class="photo">Foto 1</div><div class="photo">Foto 2</div>
+  <div class="photo">Foto 3</div><div class="photo">Foto 4</div>
+ </div>
+</section>
+
+<section class="section fade">
+ <div class="orn">✦</div><h2>Location</h2>
+ <p>Ballroom Golden City<br>Jl. KH Abdul Wahab Siamin Surabaya No. 2–8, RW.2, Dukuh Pakis, Kec. Dukuhpakis, Surabaya, Jawa Timur 60225</p>
+ <a class="map" href="https://maps.app.goo.gl/5WKbhdBJmXTwDgQ37?g_st=ac" target="_blank">BUKA GOOGLE MAPS</a>
+</section>
+
+<section class="section fade">
+ <div class="orn">✦</div>
+ <h2>Wedding Gift</h2>
+ <p>Doa dan kehadiran Anda adalah hadiah terindah. Bagi yang ingin memberikan tanda kasih, dapat melalui:</p>
+
+ <div class="gift gift-simple">
+  <div class="bank-logo">BCA</div>
+  <h3 class="bank-title">Bank BCA</h3>
+
+  <div class="account-row">
+   <div class="account-info">
+    <strong>0881417412</strong>
+    <span>Alfin Mahendra Wardana</span>
+   </div>
+   <a class="copy small-copy" href="#" onclick="copyRek(event,'0881417412')">SALIN</a>
+  </div>
+
+  <div class="account-row">
+   <div class="account-info">
+    <strong>0886494135</strong>
+    <span>Cyntya Edi Putri Suhartini</span>
+   </div>
+   <a class="copy small-copy" href="#" onclick="copyRek(event,'0886494135')">SALIN</a>
+  </div>
+ </div>
+</section>
+
+<section class="section fade">
+ <div class="orn">✦</div>
+ <h2>Ucapan & Doa</h2>
+ <p>Berikan ucapan dan doa terbaik untuk Cyntya & Alfin.</p>
+
+ <form id="wishForm" class="wish-form">
+  <input id="wishName" type="text" maxlength="60" placeholder="Nama kamu" autocomplete="name" required>
+  <textarea id="wishMessage" maxlength="500" placeholder="Tulis ucapan dan doa..." rows="5" required></textarea>
+  <button class="open wish-send" type="submit">KIRIM UCAPAN</button>
+ </form>
+
+ <div id="wishList" class="wish-list"></div>
+</section>
+
+<footer class="footer">Terima kasih telah menjadi bagian dari hari bahagia Cyntya & Alfin.<br><br>Made with love</footer>
+</main>
+<button class="music" id="music" onclick="toggleMusic()">♫</button>
+<audio id="audio" loop preload="none"></audio>
+
+<script>
+const params=new URLSearchParams(location.search);
+const to=params.get('to');
+if(to) document.getElementById('guest').textContent=decodeURIComponent(to.replace(/\+/g,' '));
+
+function openInvitation(){
+ document.getElementById('cover').style.display='none';
+ document.getElementById('main').style.display='block';
+ document.getElementById('music').style.display='block';
+ window.scrollTo(0,0);
+ document.querySelectorAll('.fade').forEach((x,i)=>setTimeout(()=>x.classList.add('show'),i*120));
+}
+
+const target=new Date('2027-06-05T08:00:00+07:00').getTime();
+function tick(){
+ let x=Math.max(0,target-Date.now());
+ document.getElementById('d').textContent=Math.floor(x/86400000);
+ document.getElementById('h').textContent=Math.floor(x%86400000/3600000);
+ document.getElementById('m').textContent=Math.floor(x%3600000/60000);
+ document.getElementById('s').textContent=Math.floor(x%60000/1000);
+}
+tick();setInterval(tick,1000);
+
+async function copyRek(e, nomor){
+ e.preventDefault();
+ e.stopPropagation();
+ const btn = e.currentTarget;
+ const original = 'SALIN';
+ let berhasil = false;
+
+ try {
+   if (navigator.clipboard && window.isSecureContext) {
+     await navigator.clipboard.writeText(nomor);
+     berhasil = true;
+   }
+ } catch(err) {}
+
+ if (!berhasil) {
+   try {
+     const ta = document.createElement('textarea');
+     ta.value = nomor;
+     ta.setAttribute('readonly','');
+     ta.style.position = 'fixed';
+     ta.style.left = '-9999px';
+     document.body.appendChild(ta);
+     ta.select();
+     berhasil = document.execCommand('copy');
+     ta.remove();
+   } catch(err) {}
+ }
+
+ btn.textContent = berhasil ? 'TERSALIN ✓' : 'GAGAL';
+ btn.classList.add('copied');
+
+ clearTimeout(btn._copyTimer);
+ btn._copyTimer = setTimeout(() => {
+   btn.textContent = original;
+   btn.classList.remove('copied');
+ }, 1400);
+}
+let playing=false;
+function toggleMusic(){
+ const a=document.getElementById('audio');
+ if(!a.src){alert('Tambahkan file musik ke atribut audio pada HTML untuk mengaktifkan musik.');return}
+ if(playing){a.pause();playing=false}else{a.play();playing=true}
+}
+
+// Ucapan tersimpan di browser perangkat ini (localStorage).
+const WISH_KEY = 'cyntya_alfin_wishes_v1';
+
+function getWishes(){
+  try{
+    return JSON.parse(localStorage.getItem(WISH_KEY) || '[]');
+  }catch(e){
+    return [];
+  }
+}
+
+function saveWishes(items){
+  localStorage.setItem(WISH_KEY, JSON.stringify(items));
+}
+
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g, ch => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+  }[ch]));
+}
+
+function renderWishes(){
+  const list = document.getElementById('wishList');
+  if(!list) return;
+  const wishes = getWishes();
+
+  if(!wishes.length){
+    list.innerHTML = '<div class="wish-empty">Belum ada ucapan. Jadilah yang pertama memberikan doa.</div>';
+    return;
+  }
+
+  list.innerHTML = wishes.map(item => `
+    <article class="wish-item">
+      <div class="wish-head">
+        <strong>${escapeHTML(item.name)}</strong>
+        <time>${escapeHTML(item.date)}</time>
+      </div>
+      <p>${escapeHTML(item.message).replace(/\n/g,'<br>')}</p>
+    </article>
+  `).join('');
+}
+
+document.getElementById('wishForm')?.addEventListener('submit', function(e){
+  e.preventDefault();
+
+  const name = document.getElementById('wishName').value.trim();
+  const message = document.getElementById('wishMessage').value.trim();
+  if(!name || !message) return;
+
+  const wishes = getWishes();
+  wishes.unshift({
+    name,
+    message,
+    date: new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})
+  });
+
+  try{
+    saveWishes(wishes);
+    this.reset();
+    renderWishes();
+  }catch(err){
+    alert('Ucapan belum bisa disimpan di browser ini.');
+  }
+});
+
+renderWishes();
+</script>
+</body>
+</html>
