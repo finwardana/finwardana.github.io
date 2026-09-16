@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finwardana</title>
+
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#080808;color:#fff;font-family:Arial,Helvetica,sans-serif}
+html{scroll-behavior:smooth}
+a{color:inherit;text-decoration:none}
+
+.nav{
+  position:sticky;
+  top:0;
+  z-index:20;
+  height:76px;
+  display:flex;
+  align-items:center;
+  gap:clamp(20px,4vw,70px);
+  padding:0 clamp(20px,6vw,90px);
+  background:#080808;
+  border-bottom:1px solid #222;
+  overflow:hidden;
+}
+.logo{
+  flex:0 0 auto;
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+.navlinks{
+  display:flex;
+  align-items:center;
+  gap:clamp(18px,2.8vw,38px);
+  margin-left:auto;
+  white-space:nowrap;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{
+  position:relative;
+  flex:0 0 auto;
+  padding:28px 0 24px;
+  font-size:13px;
+  opacity:.72;
+}
+.navlinks a:hover,.navlinks a.active{opacity:1}
+.navlinks a.active::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:17px;
+  height:2px;
+  background:#f21f2b;
+}
+
+.hero{
+  min-height:0;
+  max-width:1500px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1.35fr 1fr;
+  align-items:center;
+  gap:clamp(25px,5vw,70px);
+  padding:55px clamp(20px,7vw,100px) 80px;
+  transform:none;
+  border-bottom:1px solid #222;
+}
+.hero-left h1{
+  margin:0;
+  font-size:clamp(70px,10vw,150px);
+  line-height:.8;
+  letter-spacing:-.07em;
+}
+.dot{color:#f21f2b}
+.vertical{
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  letter-spacing:.28em;
+  font-size:14px;
+  margin-top:45px;
+  opacity:.7;
+}
+.hero-center{
+  position:relative;
+  min-height:520px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.circle{
+  position:absolute;
+  width:min(34vw,390px);
+  height:min(34vw,390px);
+  min-width:260px;
+  min-height:260px;
+  border-radius:50%;
+  background:#f21f2b;
+}
+.figure{
+  position:relative;
+  width:260px;
+  height:390px;
+  background:linear-gradient(135deg,#e1e1e1,#777);
+  clip-path:polygon(25% 0,75% 0,88% 25%,100% 100%,0 100%,12% 25%);
+  filter:grayscale(1);
+}
+.figure:before{
+  content:"";
+  position:absolute;
+  width:105px;height:105px;
+  border-radius:50%;
+  background:#bdbdbd;
+  top:35px;left:78px;
+}
+.figure:after{
+  content:"";
+  position:absolute;
+  width:150px;height:190px;
+  background:#eee;
+  left:55px;bottom:0;
+  border-radius:45px 45px 0 0;
+}
+.badge{
+  position:absolute;
+  right:0;
+  top:35px;
+  border:1px solid #777;
+  padding:15px 20px;
+  font-size:12px;
+  letter-spacing:.12em;
+}
+.badge b{
+  display:block;
+  font-size:20px;
+  margin-top:4px;
+}
+.hero-right{
+  max-width:320px;
+}
+.hero-right p{
+  color:#aaa;
+  line-height:1.7;
+  font-size:15px;
+}
+.btn{
+  display:inline-block;
+  margin-top:18px;
+  padding:14px 22px;
+  background:#f21f2b;
+  font-size:12px;
+  font-weight:800;
+}
+.btn:hover{background:#ff303b}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  padding:28px clamp(20px,7vw,100px);
+  border-bottom:1px solid #222;
+  text-align:center;
+}
+.stats strong{font-size:28px;color:#f21f2b}
+.stats span{display:block;margin-top:5px;color:#aaa;font-size:12px}
+
+.section{
+  padding:clamp(70px,9vw,120px) clamp(20px,7vw,100px);
+  border-bottom:1px solid #222;
+}
+.section-title{
+  margin:0 0 30px;
+  font-size:clamp(45px,7vw,90px);
+  letter-spacing:-.05em;
+}
+.home-text{
+  max-width:560px;
+  color:#aaa;
+  line-height:1.8;
+  font-size:16px;
+}
+.about{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+}
+.about p{
+  max-width:600px;
+  color:#aaa;
+  line-height:1.9;
+}
+
+footer{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:40px;
+  padding:55px clamp(20px,7vw,100px);
+  background:#f21f2b;
+}
+footer h3{margin-top:0}
+footer p,footer a{font-size:13px;line-height:1.8}
+footer a{display:block}
+
+/* Satu desain untuk layar kecil: tidak mengganti struktur hero,
+   hanya mengecilkan ukuran dan jarak agar komposisinya tetap sama. */
+@media(max-width:800px){
+  .nav{
+    height:64px;
+    padding:0 16px;
+    gap:18px;
+  }
+  .logo{font-size:13px}
+  .navlinks{
+    gap:18px;
+  }
+  .navlinks a{
+    padding:24px 0 20px;
+    font-size:10px;
+  }
+  .navlinks a.active::after{bottom:14px}
+
+  .hero{
+    min-height:0;
+    grid-template-columns:1fr 1.35fr 1fr;
+    gap:12px;
+    padding:30px 16px 70px;
+    transform:none;
+  }
+  .hero-left h1{font-size:clamp(42px,12vw,75px)}
+  .vertical{
+    font-size:9px;
+    margin-top:28px;
+  }
+  .hero-center{
+    min-height:360px;
+  }
+  .circle{
+    width:clamp(150px,36vw,260px);
+    height:clamp(150px,36vw,260px);
+    min-width:0;
+    min-height:0;
+  }
+  .figure{
+    width:clamp(105px,25vw,190px);
+    height:clamp(165px,39vw,290px);
+  }
+  .figure:before{
+    width:clamp(42px,10vw,78px);
+    height:clamp(42px,10vw,78px);
+    left:calc(50% - clamp(21px,5vw,39px));
+    top:clamp(15px,4vw,30px);
+  }
+  .figure:after{
+    width:clamp(60px,14vw,110px);
+    height:clamp(75px,18vw,145px);
+    left:calc(50% - clamp(30px,7vw,55px));
+  }
+  .badge{
+    right:-5px;
+    top:10px;
+    padding:9px 10px;
+    font-size:7px;
+  }
+  .badge b{font-size:13px}
+  .hero-right{max-width:none}
+  .hero-right p{
+    font-size:9px;
+    line-height:1.55;
+  }
+  .btn{
+    padding:9px 11px;
+    margin-top:10px;
+    font-size:8px;
+  }
+  .stats{padding:20px 16px}
+  .stats strong{font-size:18px}
+  .stats span{font-size:8px}
+  .section{padding:60px 16px}
+  .section-title{font-size:45px}
+  .home-text{font-size:13px}
+  .about{gap:25px}
+  .about p{font-size:13px}
+  footer{
+    grid-template-columns:1fr;
+    gap:20px;
+    padding:40px 16px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+  <a class="logo" href="#home">FINWARDANA</a>
+
+  <div class="navlinks">
+    <a class="active" href="#home">Home</a>
+    <a href="games.html">Games</a>
+    <a href="tools.html">Tools</a>
+    <a href="projects.html">Projects</a>
+    <a href="invitation.html">Invitation</a>
+    <a href="about.html">About Me</a>
+  </div>
+</nav>
+
+<main id="home">
+
+<section class="hero">
+  <div class="hero-left">
+    <h1>FW<span class="dot">.</span></h1>
+    <div class="vertical">FINWARDANA</div>
+  </div>
+
+  <div class="hero-center">
+    <div class="circle"></div>
+    <div class="figure"></div>
+    <div class="badge">FINWARDANA<br><b>2026</b></div>
+  </div>
+
+  <div class="hero-right">
+    <p>Website sederhana untuk kumpulan game, tools, projects, dan karya digital Finwardana.</p>
+    <a class="btn" href="#content">EXPLORE →</a>
+  </div>
+</section>
+
+<section class="stats">
+  <div><strong>01</strong><span>WEBSITE</span></div>
+  <div><strong>∞</strong><span>PROJECTS</span></div>
+  <div><strong>01</strong><span>CREATOR</span></div>
+</section>
+
+<section class="section" id="content">
+  <h2 class="section-title">WELCOME.</h2>
+  <p class="home-text">A simple space for games, tools, projects, invitations, and digital creations.</p>
+</section>
+
+<section class="section about">
+  <div>
+    <h2 class="section-title">ABOUT<br>ME.</h2>
+  </div>
+  <div>
+    <p>Finwardana adalah ruang untuk menyimpan berbagai karya digital yang saya buat—mulai dari game, tools, website, hingga proyek eksperimen.</p>
+    <p>Website ini masih dalam pengembangan.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div>
+    <h3>FINWARDANA</h3>
+    <p>Games, tools, projects and more.</p>
+  </div>
+  <div>
+    <h3>QUICK LINKS</h3>
+    <a href="#home">Home</a>
+    <a href="games.html">Games</a>
+    <a href="tools.html">Tools</a>
+    <a href="projects.html">Projects</a>
+    <a href="invitation.html">Invitation</a>
+  </div>
+  <div>
+    <h3>CONTACT</h3>
+    <p>About Me<br>More coming soon.</p>
+  </div>
+</footer>
+
+</body>
+</html>
