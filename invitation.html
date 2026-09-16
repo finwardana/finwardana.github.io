@@ -359,14 +359,6 @@ button,a{font:inherit}
   color:#d8d0c5;
 }
 .small-copy{
-  min-width:76px !important;
-  min-height:38px !important;
-  padding:8px 13px !important;
-  font-size:10px !important;
-  flex:none;
-}
-
-.small-copy{
   width:82px !important;
   min-width:82px !important;
   max-width:82px !important;
@@ -480,7 +472,7 @@ button,a{font:inherit}
  </div>
  <div class="cards">
   <div class="card event-card"><b>Akad Nikah</b><strong>08.00 WIB</strong><p>Sabtu, 5 Juni 2027</p></div>
-  <div class="card event-card"><b>Resepsi</b><strong>13.00 WIB</strong><p>Sabtu, 5 Juni 2027</p></div>
+  <div class="card event-card"><b>Resepsi</b><strong>10.00 WIB</strong><p>Sabtu, 5 Juni 2027</p></div>
  </div>
 </section>
 
@@ -489,9 +481,9 @@ button,a{font:inherit}
  <div class="cards">
   <div class="card">
    <div class="photo" style="margin-bottom:18px">Foto Cyntya</div>
-   <h3 style="margin:8px 0 18px">Cyntya Putri Edi Suhartini</h3>
+   <h3 style="margin:8px 0 18px">Cyntya Putri Edy Suhartini</h3>
    <p style="margin:20px auto 8px"><em>Putri dari</em></p>
-   <p><strong>Bapak H. Edi Suroso</strong><br><strong>Ibu Hj. Eka Suhartini</strong></p>
+   <p><strong>Bapak H. Edy Suroso</strong></p>
   </div>
   <div class="card">
    <div class="photo" style="margin-bottom:18px">Foto Alfin</div>
@@ -517,7 +509,7 @@ button,a{font:inherit}
 
 <section class="section fade">
  <div class="orn">✦</div><h2>Location</h2>
- <p>Ballroom Golden City<br>Jl. KH Abdul Wahab Siamin Surabaya No. 2–8, RW.2, Dukuh Pakis, Kec. Dukuhpakis, Surabaya, Jawa Timur 60225</p>
+ <p>Ballroom Golden City (Lantai 1)<br>Jl. KH Abdul Wahab Siamin Surabaya No. 2–8, RW.2, Dukuh Pakis, Kec. Dukuhpakis, Surabaya, Jawa Timur 60225</p>
  <a class="map" href="https://maps.app.goo.gl/5WKbhdBJmXTwDgQ37?g_st=ac" target="_blank">BUKA GOOGLE MAPS</a>
 </section>
 
@@ -532,16 +524,8 @@ button,a{font:inherit}
 
   <div class="account-row">
    <div class="account-info">
-    <strong>0881417412</strong>
-    <span>Alfin Mahendra Wardana</span>
-   </div>
-   <a class="copy small-copy" href="#" onclick="copyRek(event,'0881417412')">SALIN</a>
-  </div>
-
-  <div class="account-row">
-   <div class="account-info">
     <strong>0886494135</strong>
-    <span>Cyntya Edi Putri Suhartini</span>
+    <span>Cyntya Putri Edy Suhartini</span>
    </div>
    <a class="copy small-copy" href="#" onclick="copyRek(event,'0886494135')">SALIN</a>
   </div>
@@ -634,7 +618,6 @@ function toggleMusic(){
  if(playing){a.pause();playing=false}else{a.play();playing=true}
 }
 
-// Ucapan tersimpan di browser perangkat ini (localStorage).
 const WISH_KEY = 'cyntya_alfin_wishes_v1';
 
 function getWishes(){
