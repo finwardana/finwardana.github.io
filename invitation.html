@@ -115,8 +115,10 @@ button,a{font:inherit}
   border: 1px dashed var(--gold);
   border-radius: 16px;
   background: linear-gradient(135deg,#3b3026,#1a1512);
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   color: #d7c29d;
   font-size: 12px;
   letter-spacing: 1px;
@@ -124,6 +126,9 @@ button,a{font:inherit}
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);
   position: relative;
   z-index: 2;
+  padding: 10px;
+  background-size: cover;
+  background-position: center;
 }
 
 .hero h1{
@@ -146,7 +151,6 @@ button,a{font:inherit}
   z-index: 2;
 }
 
-/* Pop-up 1 & 2 di Atas (Kiri & Kanan Atas) */
 .pop-up-1, .pop-up-2 {
   position: absolute;
   top: 0;
@@ -159,7 +163,6 @@ button,a{font:inherit}
 .pop-up-1 { left: 0; transform: translateX(-120px); }
 .pop-up-2 { right: 0; transform: translateX(120px); }
 
-/* Pop-up 3 & 4 di Bawah (Kiri & Kanan Bawah area hero) */
 .pop-up-3, .pop-up-4 {
   position: absolute;
   bottom: 0;
@@ -172,7 +175,6 @@ button,a{font:inherit}
 .pop-up-3 { left: 0; transform: translateX(-120px); }
 .pop-up-4 { right: 0; transform: translateX(120px); }
 
-/* Animasi Masuk Saat Undangan Dibuka */
 .hero.animate-flowers .pop-up-1,
 .hero.animate-flowers .pop-up-3 {
   animation: geserDariKiri 1.8s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
@@ -270,6 +272,11 @@ button,a{font:inherit}
   background-position: center;
   border: 1px solid var(--line);
   border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
 }
 .couple-cards h3 {
   font-size: 17px !important;
@@ -314,47 +321,38 @@ button,a{font:inherit}
   text-transform:uppercase;
 }
 
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;
-  margin-top:28px;
+.gallery {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 10px 4px 20px 4px;
+  margin-top: 24px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
-.photo{
-  aspect-ratio:1;
-  border-radius:14px;
+.gallery::-webkit-scrollbar {
+  display: none;
+}
+.gallery .photo {
+  flex: 0 0 72%;
+  max-width: 260px;
+  aspect-ratio: 4/5;
+  border-radius: 16px;
   background: linear-gradient(135deg,#6b5948,#241d18);
-  display:grid;
-  place-items:center;
-  color:#cfc2b1;
-  font-size:11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #cfc2b1;
+  font-size: 12px;
   background-size: cover;
   background-position: center;
   border: 1px solid var(--line);
-  transition: transform 0.3s ease;
+  scroll-snap-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  padding: 10px;
 }
-.photo:hover{
-  transform: scale(1.02);
-}
-
-.gallery .photo {
-  opacity: 0;
-  transform: scale(0.5);
-  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.section.fade.show .gallery .photo {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.gallery .photo:nth-child(1) { transition-delay: 0.1s; }
-.gallery .photo:nth-child(2) { transition-delay: 0.2s; }
-.gallery .photo:nth-child(3) { transition-delay: 0.3s; }
-.gallery .photo:nth-child(4) { transition-delay: 0.4s; }
-.gallery .photo:nth-child(5) { transition-delay: 0.5s; }
-.gallery .photo:nth-child(6) { transition-delay: 0.6s; }
-.gallery .photo:nth-child(7) { transition-delay: 0.7s; }
-.gallery .photo:nth-child(8) { transition-delay: 0.8s; }
 
 .single-photo {
   width: 100%;
@@ -365,6 +363,11 @@ button,a{font:inherit}
   background: linear-gradient(135deg,#6b5948,#241d18);
   background-size: cover;
   background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
 }
 
 .location-photo {
@@ -376,6 +379,11 @@ button,a{font:inherit}
   background: linear-gradient(135deg,#6b5948,#241d18);
   background-size: cover;
   background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
 }
 
 .gift{
@@ -585,15 +593,12 @@ button,a{font:inherit}
 
 <main class="main" id="main">
 <section class="hero" id="heroSection">
- <!-- Pop-up 1 & 2 di Atas (Kiri & Kanan) -->
- <img src="images/bunga-kiri.png" alt="Pop-up 1" class="pop-up-1">
- <img src="images/bunga-kanan.png" alt="Pop-up 2" class="pop-up-2">
+ <img src="images/popup1.png" alt="Pop-up 1" class="pop-up-1">
+ <img src="images/popup2.png" alt="Pop-up 2" class="pop-up-2">
+ <img src="images/popup3.png" alt="Pop-up 3" class="pop-up-3">
+ <img src="images/popup4.png" alt="Pop-up 4" class="pop-up-4">
 
- <!-- Pop-up 3 & 4 di Bawah (Kiri & Kanan) -->
- <img src="images/bunga-kiri.png" alt="Pop-up 3" class="pop-up-3">
- <img src="images/bunga-kanan.png" alt="Pop-up 4" class="pop-up-4">
-
- <div class="hero-photo-box">Foto Utama / Prewedding</div>
+ <div class="hero-photo-box" style="background-image: linear-gradient(135deg, rgba(59,48,38,0.85), rgba(26,21,18,0.85)), url('images/fotoutama');">fotoutama</div>
 
  <div>
   <p>Wedding Invitation</p>
@@ -629,13 +634,13 @@ button,a{font:inherit}
  <div class="orn">✦</div><h2>Mempelai</h2>
  <div class="couple-cards">
   <div class="card">
-   <div class="photo">Foto Cyntya</div>
+   <div class="photo" style="background-image: linear-gradient(135deg, rgba(94,77,61,0.85), rgba(41,33,28,0.85)), url('images/cyntya');">cyntya</div>
    <h3>Cyntya Putri Edy Suhartini</h3>
    <p style="margin:8px auto 4px"><em>Putri dari</em></p>
    <p class="parent-names"><strong>Bapak H. Edy Suroso</strong><br><strong>Ibu Hj. Eka Suhartini</strong></p>
   </div>
   <div class="card">
-   <div class="photo">Foto Alfin</div>
+   <div class="photo" style="background-image: linear-gradient(135deg, rgba(94,77,61,0.85), rgba(41,33,28,0.85)), url('images/alfin');">alfin</div>
    <h3>Alfin Mahendra Wardana</h3>
    <p style="margin:8px auto 4px"><em>Putra dari</em></p>
    <p class="parent-names"><strong>Bapak Drs. Samsul Arifin (Alm.)</strong><br><strong>Ibu Sri Wahyuni Respati Nugraheni</strong></p>
@@ -645,27 +650,27 @@ button,a{font:inherit}
 
 <section class="section fade">
  <div class="orn">✦</div><h2>Our Story</h2>
- <div class="photo single-photo">Foto Story</div>
+ <div class="photo single-photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/story');">story</div>
  <p>Setiap pertemuan memiliki cerita. Dari sebuah perkenalan sederhana, tumbuh rasa, keyakinan, dan akhirnya sebuah keputusan untuk berjalan bersama dalam satu perjalanan kehidupan.</p>
 </section>
 
 <section class="section fade">
  <div class="orn">✦</div><h2>Gallery</h2>
  <div class="gallery">
-  <div class="photo">Foto 1</div>
-  <div class="photo">Foto 2</div>
-  <div class="photo">Foto 3</div>
-  <div class="photo">Foto 4</div>
-  <div class="photo">Foto 5</div>
-  <div class="photo">Foto 6</div>
-  <div class="photo">Foto 7</div>
-  <div class="photo">Foto 8</div>
+  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto1');">foto1</div>
+  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto2');">foto2</div>
+  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto3');">foto3</div>
+  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto4');">foto4</div>
+  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto5');">foto5</div>
+  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto6');">foto6</div>
+  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto7');">foto7</div>
+  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto8');">foto8</div>
  </div>
 </section>
 
 <section class="section fade">
  <div class="orn">✦</div><h2>Location</h2>
- <div class="photo location-photo" id="loc-photo">Foto Lokasi</div>
+ <div class="photo location-photo" id="loc-photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/lokasi');">lokasi</div>
  <p>Ballroom Golden City (Lantai 1)<br>Jl. KH Abdul Wahab Siamin Surabaya No. 2–8, RW.2, Dukuh Pakis, Kec. Dukuhpakis, Surabaya, Jawa Timur 60225</p>
  <a class="map" href="https://maps.app.goo.gl/5WKbhdBJmXTwDgQ37?g_st=ac" target="_blank">BUKA GOOGLE MAPS</a>
 </section>
