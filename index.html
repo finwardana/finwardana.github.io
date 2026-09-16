@@ -7,7 +7,7 @@
 
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;background:#080808;color:#fff;font-family:Arial,Helvetica,sans-serif}
+html,body{margin:0;background:#080808;color:#fff;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 
 .nav{
@@ -56,15 +56,14 @@ a{color:inherit;text-decoration:none}
 }
 
 .hero{
-  min-height:0;
+  min-height:calc(100vh - 76px);
   max-width:1500px;
   margin:auto;
   display:grid;
   grid-template-columns:1fr 1.35fr 1fr;
   align-items:center;
   gap:clamp(25px,5vw,70px);
-  padding:55px clamp(20px,7vw,100px) 80px;
-  transform:none;
+  padding:0 clamp(20px,7vw,100px);
 }
 .hero-left h1{
   margin:0;
@@ -121,20 +120,6 @@ a{color:inherit;text-decoration:none}
   left:55px;bottom:0;
   border-radius:45px 45px 0 0;
 }
-.badge{
-  position:absolute;
-  right:0;
-  top:35px;
-  border:1px solid #777;
-  padding:15px 20px;
-  font-size:12px;
-  letter-spacing:.12em;
-}
-.badge b{
-  display:block;
-  font-size:20px;
-  margin-top:4px;
-}
 .hero-right{
   max-width:320px;
 }
@@ -170,11 +155,10 @@ a{color:inherit;text-decoration:none}
   .navlinks a.active::after{bottom:14px}
 
   .hero{
-    min-height:0;
+    min-height:calc(100vh - 64px);
     grid-template-columns:1fr 1.35fr 1fr;
     gap:12px;
-    padding:30px 16px 70px;
-    transform:none;
+    padding:20px 16px;
   }
   .hero-left h1{font-size:clamp(42px,12vw,75px)}
   .vertical{
@@ -205,13 +189,6 @@ a{color:inherit;text-decoration:none}
     height:clamp(75px,18vw,145px);
     left:calc(50% - clamp(30px,7vw,55px));
   }
-  .badge{
-    right:-5px;
-    top:10px;
-    padding:9px 10px;
-    font-size:7px;
-  }
-  .badge b{font-size:13px}
   .hero-right{max-width:none}
   .hero-right p{
     font-size:9px;
@@ -241,7 +218,7 @@ a{color:inherit;text-decoration:none}
   </div>
 </nav>
 
-<main id="home">
+<main>
 
 <section class="hero">
   <div class="hero-left">
@@ -252,7 +229,6 @@ a{color:inherit;text-decoration:none}
   <div class="hero-center">
     <div class="circle"></div>
     <div class="figure"></div>
-    <div class="badge">FINWARDANA<br><b>2026</b></div>
   </div>
 
   <div class="hero-right">
