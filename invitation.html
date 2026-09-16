@@ -37,6 +37,7 @@ button,a{font:inherit}
   overflow:hidden;
   background:
     radial-gradient(circle at 50% 35%,#3b3026 0,#171412 43%,#0d0c0b 100%);
+  z-index: 10;
 }
 .cover:before,.cover:after{
   content:"";
@@ -47,7 +48,7 @@ button,a{font:inherit}
 }
 .cover:before{width:76vw;height:76vw;top:-30vw;left:-30vw}
 .cover:after{width:76vw;height:76vw;bottom:-30vw;right:-30vw}
-.cover-inner{position:relative;z-index:1;width:min(100%,520px)}
+.cover-inner{position:relative;z-index:20;width:min(100%,520px)}
 .small{
   font-size:11px;
   letter-spacing:4px;
@@ -84,14 +85,16 @@ button,a{font:inherit}
   border:1px solid var(--gold);
   background:var(--gold);
   color:#17120d;
-  padding:13px 25px;
+  padding:14px 28px;
   border-radius:28px;
   cursor:pointer;
   font-size:12px;
   font-weight:600;
   letter-spacing:1.3px;
-  min-height:46px;
+  min-height:48px;
   touch-action:manipulation;
+  position: relative;
+  z-index: 30;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 .open:active{transform:scale(0.96)}
@@ -114,7 +117,7 @@ button,a{font:inherit}
   margin: 0 auto 20px auto;
   border: 1px dashed var(--gold);
   border-radius: 16px;
-  background: linear-gradient(135deg,#3b3026,#1a1512);
+  background-image: url('images/fotoutama.jpeg');
   display: flex;
   align-items: center;
   justify-content: center;
@@ -158,7 +161,6 @@ button,a{font:inherit}
   height: auto;
   z-index: 1;
   pointer-events: none;
-  opacity: 0;
 }
 .pop-up-1 { left: 0; transform: translateX(-120px); }
 .pop-up-2 { right: 0; transform: translateX(120px); }
@@ -170,7 +172,6 @@ button,a{font:inherit}
   height: auto;
   z-index: 1;
   pointer-events: none;
-  opacity: 0;
 }
 .pop-up-3 { left: 0; transform: translateX(-120px); }
 .pop-up-4 { right: 0; transform: translateX(120px); }
@@ -598,7 +599,7 @@ button,a{font:inherit}
  <img src="images/popup3.png" alt="Pop-up 3" class="pop-up-3">
  <img src="images/popup4.png" alt="Pop-up 4" class="pop-up-4">
 
- <div class="hero-photo-box" style="background-image: linear-gradient(135deg, rgba(59,48,38,0.85), rgba(26,21,18,0.85)), url('images/fotoutama.png');">fotoutama</div>
+ <div class="hero-photo-box" style="background-image: url('images/fotoutama.jpeg');"></div>
 
  <div>
   <p>Wedding Invitation</p>
@@ -634,13 +635,13 @@ button,a{font:inherit}
  <div class="orn">✦</div><h2>Mempelai</h2>
  <div class="couple-cards">
   <div class="card">
-   <div class="photo" style="background-image: linear-gradient(135deg, rgba(94,77,61,0.85), rgba(41,33,28,0.85)), url('images/cyntya');">cyntya</div>
+   <div class="photo" style="background-image: url('images/cyntya.jpeg');"></div>
    <h3>Cyntya Putri Edy Suhartini</h3>
    <p style="margin:8px auto 4px"><em>Putri dari</em></p>
    <p class="parent-names"><strong>Bapak H. Edy Suroso</strong><br><strong>Ibu Hj. Eka Suhartini</strong></p>
   </div>
   <div class="card">
-   <div class="photo" style="background-image: linear-gradient(135deg, rgba(94,77,61,0.85), rgba(41,33,28,0.85)), url('images/alfin');">alfin</div>
+   <div class="photo" style="background-image: url('images/alfin.jpeg');"></div>
    <h3>Alfin Mahendra Wardana</h3>
    <p style="margin:8px auto 4px"><em>Putra dari</em></p>
    <p class="parent-names"><strong>Bapak Drs. Samsul Arifin (Alm.)</strong><br><strong>Ibu Sri Wahyuni Respati Nugraheni</strong></p>
@@ -650,27 +651,27 @@ button,a{font:inherit}
 
 <section class="section fade">
  <div class="orn">✦</div><h2>Our Story</h2>
- <div class="photo single-photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/story');">story</div>
+ <div class="photo single-photo" style="background-image: url('images/story.jpeg');"></div>
  <p>Setiap pertemuan memiliki cerita. Dari sebuah perkenalan sederhana, tumbuh rasa, keyakinan, dan akhirnya sebuah keputusan untuk berjalan bersama dalam satu perjalanan kehidupan.</p>
 </section>
 
 <section class="section fade">
  <div class="orn">✦</div><h2>Gallery</h2>
  <div class="gallery">
-  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto1');">foto1</div>
-  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto2');">foto2</div>
-  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto3');">foto3</div>
-  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto4');">foto4</div>
-  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto5');">foto5</div>
-  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto6');">foto6</div>
-  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto7');">foto7</div>
-  <div class="photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/foto8');">foto8</div>
+  <div class="photo" style="background-image: url('images/foto1.jpeg');"></div>
+  <div class="photo" style="background-image: url('images/foto2.jpeg');"></div>
+  <div class="photo" style="background-image: url('images/foto3.jpeg');"></div>
+  <div class="photo" style="background-image: url('images/foto4.jpeg');"></div>
+  <div class="photo" style="background-image: url('images/foto5.jpeg');"></div>
+  <div class="photo" style="background-image: url('images/foto6.jpeg');"></div>
+  <div class="photo" style="background-image: url('images/foto7.jpeg');"></div>
+  <div class="photo" style="background-image: url('images/foto8.jpeg');"></div>
  </div>
 </section>
 
 <section class="section fade">
  <div class="orn">✦</div><h2>Location</h2>
- <div class="photo location-photo" id="loc-photo" style="background-image: linear-gradient(135deg, rgba(107,89,72,0.85), rgba(36,29,24,0.85)), url('images/lokasi');">lokasi</div>
+ <div class="photo location-photo" id="loc-photo" style="background-image: url('images/lokasi.jpeg');"></div>
  <p>Ballroom Golden City (Lantai 1)<br>Jl. KH Abdul Wahab Siamin Surabaya No. 2–8, RW.2, Dukuh Pakis, Kec. Dukuhpakis, Surabaya, Jawa Timur 60225</p>
  <a class="map" href="https://maps.app.goo.gl/5WKbhdBJmXTwDgQ37?g_st=ac" target="_blank">BUKA GOOGLE MAPS</a>
 </section>
