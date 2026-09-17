@@ -4,290 +4,136 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FINWARDANA</title>
-
 <style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:Arial,Helvetica,sans-serif;background:#080808;color:#fff;padding-top:105px;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
-}
+.header{position:fixed;top:0;left:0;width:100%;background:#080808;border-bottom:1px solid #222;z-index:9999}
+.logo-bar{height:55px;display:flex;align-items:center;padding:0 18px;font-size:20px;font-weight:900;letter-spacing:2px}
+.navbar{height:50px;display:flex;overflow-x:auto;white-space:nowrap;scrollbar-width:none;border-top:1px solid #151515}
+.navbar::-webkit-scrollbar{display:none}
+.navbar a{padding:0 18px;height:50px;display:flex;align-items:center;color:#999}
+.navbar a.active{color:#fff;border-bottom:2px solid #ff2333}
 
-html{
-scroll-behavior:smooth;
-}
+.hero{padding:18px 15px 8px;text-align:center}
+.hero h1{font-size:30px;font-weight:900;margin-bottom:8px}
+.hero p{font-size:12px;line-height:1.6;color:#999;max-width:500px;margin:auto}
 
-body{
-font-family:Arial,Helvetica,sans-serif;
-background:#080808;
-color:#fff;
-padding-top:110px;
-overflow-x:hidden;
-}
+.section{padding:10px 12px 25px}
+.section-title{font-size:22px;font-weight:900;margin-bottom:12px}
 
-a{
-text-decoration:none;
-color:inherit;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.header{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-z-index:9999;
-background:#080808;
-border-bottom:1px solid #222;
-}
-
-.logo-bar{
-height:58px;
+.latest-slider{
 display:flex;
-align-items:center;
-padding:0 18px;
-font-size:22px;
-font-weight:900;
-letter-spacing:2px;
-}
-
-.navbar{
-height:52px;
-display:flex;
-align-items:center;
+gap:10px;
 overflow-x:auto;
-overflow-y:hidden;
-white-space:nowrap;
-border-top:1px solid #151515;
 scrollbar-width:none;
+padding-bottom:10px;
 }
-
-.navbar::-webkit-scrollbar{
-display:none;
-}
-
-.navbar a{
-flex:0 0 auto;
-padding:0 18px;
-height:52px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:14px;
-color:#999;
-transition:.2s;
-}
-
-.navbar a:hover{
-color:#fff;
-}
-
-.navbar a.active{
-color:#fff;
-border-bottom:2px solid #f21f2b;
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-min-height:40vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:40px 25px;
-}
-
-.hero h1{
-font-size:clamp(48px,10vw,120px);
-font-weight:900;
-letter-spacing:-2px;
-margin-bottom:15px;
-}
-
-.hero span{
-color:#f21f2b;
-}
-
-.hero p{
-max-width:700px;
-color:#999;
-line-height:1.9;
-font-size:15px;
-}
-
-/* =========================
-   RECENTLY ADDED
-========================= */
-
-.section{
-padding:20px 18px 80px;
-}
-
-.section-title{
-font-size:28px;
-font-weight:800;
-margin-bottom:25px;
-}
-
-.latest-grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-gap:18px;
-}
+.latest-slider::-webkit-scrollbar{display:none}
 
 .latest-card{
-display:block;
+flex:0 0 115px;
 background:#111;
 border:1px solid #222;
-border-radius:16px;
+border-radius:8px;
 overflow:hidden;
-transition:.25s;
-}
-
-.latest-card:hover{
-transform:translateY(-4px);
-border-color:#f21f2b;
 }
 
 .latest-thumb{
-height:180px;
+height:145px;
 background:#1a1a1a;
 background-size:cover;
 background-position:center;
 }
 
 .latest-card h3{
-padding:18px 18px 8px;
-font-size:18px;
+font-size:11px;
+padding:8px;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+text-align:center;
 }
-
-.latest-card p{
-padding:0 18px 18px;
-color:#999;
-line-height:1.7;
-font-size:14px;
-}
-
-/* =========================
-   FOOTER
-========================= */
 
 footer{
-padding:35px 20px;
-text-align:center;
 border-top:1px solid #222;
+padding:20px;
+text-align:center;
+font-size:12px;
 color:#777;
-font-size:14px;
 }
-
-/* =========================
-   DESKTOP
-========================= */
 
 @media(min-width:900px){
-
-body{
-padding-top:76px;
+body{padding-top:76px}
+.header{display:flex;height:76px;align-items:center}
+.logo-bar{height:76px;font-size:24px;padding:0 35px}
+.navbar{height:76px;border-top:none;margin-left:auto;overflow:visible}
+.navbar a{height:76px}
+.hero h1{font-size:56px}
+.hero p{font-size:14px}
+.latest-card{flex:0 0 180px}
+.latest-thumb{height:230px}
 }
-
-.header{
-display:flex;
-align-items:center;
-height:76px;
-}
-
-.logo-bar{
-height:76px;
-padding:0 35px;
-font-size:24px;
-}
-
-.navbar{
-height:76px;
-border-top:none;
-margin-left:auto;
-overflow:visible;
-}
-
-.navbar a{
-height:76px;
-padding:0 22px;
-}
-
-.hero{
-min-height:50vh;
-}
-
-}
-
 </style>
 </head>
 <body>
 
 <header class="header">
-
-<div class="logo-bar">
-FINWARDANA
-</div>
-
+<div class="logo-bar">FINWARDANA</div>
 <nav class="navbar">
-
 <a class="active" href="index.html">Home</a>
 <a href="games/">Games</a>
 <a href="tools/">Tools</a>
 <a href="projects/">Projects</a>
 <a href="invitation/">Invitation</a>
-<a href="about/">About</a>
-
 </nav>
-
 </header>
 
 <section class="hero">
-
-<h1>FINWARDANA<span>.</span></h1>
-
-<p>
-Kumpulan game, tools, projects, invitation, dan karya digital.
-</p>
-
+<h1>FINWARDANA</h1>
+<p>Kumpulan game, tools, projects, invitation, dan karya digital.</p>
 </section>
 
 <section class="section">
+<h2 class="section-title">RECENTLY ADDED</h2>
 
-<h2 class="section-title">
-RECENTLY ADDED
-</h2>
-
-<div class="latest-grid">
+<div class="latest-slider">
 
 <a href="#" class="latest-card">
-
 <div class="latest-thumb"></div>
+<h3>Game 1</h3>
+</a>
 
-<h3>Belum Ada Konten</h3>
+<a href="#" class="latest-card">
+<div class="latest-thumb"></div>
+<h3>Game 2</h3>
+</a>
 
-<p>
-Game, project, atau tools terbaru akan muncul di sini.
-</p>
+<a href="#" class="latest-card">
+<div class="latest-thumb"></div>
+<h3>Project 1</h3>
+</a>
 
+<a href="#" class="latest-card">
+<div class="latest-thumb"></div>
+<h3>Tool 1</h3>
+</a>
+
+<a href="#" class="latest-card">
+<div class="latest-thumb"></div>
+<h3>Game 3</h3>
+</a>
+
+<a href="#" class="latest-card">
+<div class="latest-thumb"></div>
+<h3>Game 4</h3>
 </a>
 
 </div>
-
 </section>
 
-<footer>
-© 2026 FINWARDANA
-</footer>
+<footer>© 2026 FINWARDANA</footer>
 
 </body>
 </html>
