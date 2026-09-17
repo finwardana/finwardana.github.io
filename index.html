@@ -3,241 +3,291 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Finwardana</title>
+<title>FINWARDANA</title>
 
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;background:#080808;color:#fff;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
 
-.nav{
-  position:sticky;
-  top:0;
-  z-index:20;
-  height:76px;
-  display:flex;
-  align-items:center;
-  gap:clamp(20px,4vw,70px);
-  padding:0 clamp(20px,6vw,90px);
-  background:#080808;
-  border-bottom:1px solid #222;
-  overflow:hidden;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
 }
-.logo{
-  flex:0 0 auto;
-  font-size:15px;
-  font-weight:800;
-  letter-spacing:.04em;
+
+html{
+scroll-behavior:smooth;
 }
-.navlinks{
-  display:flex;
-  align-items:center;
-  gap:clamp(18px,2.8vw,38px);
-  margin-left:auto;
-  white-space:nowrap;
-  overflow-x:auto;
-  scrollbar-width:none;
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#080808;
+color:#fff;
+padding-top:110px;
+overflow-x:hidden;
 }
-.navlinks::-webkit-scrollbar{display:none}
-.navlinks a{
-  position:relative;
-  flex:0 0 auto;
-  padding:28px 0 24px;
-  font-size:13px;
-  opacity:.72;
+
+a{
+text-decoration:none;
+color:inherit;
 }
-.navlinks a:hover,.navlinks a.active{opacity:1}
-.navlinks a.active::after{
-  content:"";
-  position:absolute;
-  left:0;right:0;bottom:17px;
-  height:2px;
-  background:#f21f2b;
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:9999;
+background:#080808;
+border-bottom:1px solid #222;
+}
+
+.logo-bar{
+height:58px;
+display:flex;
+align-items:center;
+padding:0 18px;
+font-size:22px;
+font-weight:900;
+letter-spacing:2px;
+}
+
+.navbar{
+height:52px;
+display:flex;
+align-items:center;
+overflow-x:auto;
+overflow-y:hidden;
+white-space:nowrap;
+border-top:1px solid #151515;
+scrollbar-width:none;
+}
+
+.navbar::-webkit-scrollbar{
+display:none;
+}
+
+.navbar a{
+flex:0 0 auto;
+padding:0 18px;
+height:52px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:14px;
+color:#999;
+transition:.2s;
+}
+
+.navbar a:hover{
+color:#fff;
+}
+
+.navbar a.active{
+color:#fff;
+border-bottom:2px solid #f21f2b;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+min-height:40vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:40px 25px;
+}
+
+.hero h1{
+font-size:clamp(48px,10vw,120px);
+font-weight:900;
+letter-spacing:-2px;
+margin-bottom:15px;
+}
+
+.hero span{
+color:#f21f2b;
+}
+
+.hero p{
+max-width:700px;
+color:#999;
+line-height:1.9;
+font-size:15px;
+}
+
+/* =========================
+   RECENTLY ADDED
+========================= */
+
+.section{
+padding:20px 18px 80px;
+}
+
+.section-title{
+font-size:28px;
+font-weight:800;
+margin-bottom:25px;
+}
+
+.latest-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+gap:18px;
+}
+
+.latest-card{
+display:block;
+background:#111;
+border:1px solid #222;
+border-radius:16px;
+overflow:hidden;
+transition:.25s;
+}
+
+.latest-card:hover{
+transform:translateY(-4px);
+border-color:#f21f2b;
+}
+
+.latest-thumb{
+height:180px;
+background:#1a1a1a;
+background-size:cover;
+background-position:center;
+}
+
+.latest-card h3{
+padding:18px 18px 8px;
+font-size:18px;
+}
+
+.latest-card p{
+padding:0 18px 18px;
+color:#999;
+line-height:1.7;
+font-size:14px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+padding:35px 20px;
+text-align:center;
+border-top:1px solid #222;
+color:#777;
+font-size:14px;
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media(min-width:900px){
+
+body{
+padding-top:76px;
+}
+
+.header{
+display:flex;
+align-items:center;
+height:76px;
+}
+
+.logo-bar{
+height:76px;
+padding:0 35px;
+font-size:24px;
+}
+
+.navbar{
+height:76px;
+border-top:none;
+margin-left:auto;
+overflow:visible;
+}
+
+.navbar a{
+height:76px;
+padding:0 22px;
 }
 
 .hero{
-  min-height:calc(100vh - 76px);
-  max-width:1500px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:1fr 1.35fr 1fr;
-  align-items:center;
-  gap:clamp(25px,5vw,70px);
-  padding:0 clamp(20px,7vw,100px);
+min-height:50vh;
 }
-.hero-left h1{
-  margin:0;
-  font-size:clamp(70px,10vw,150px);
-  line-height:.8;
-  letter-spacing:-.07em;
-}
-.dot{color:#f21f2b}
-.vertical{
-  writing-mode:vertical-rl;
-  transform:rotate(180deg);
-  letter-spacing:.28em;
-  font-size:14px;
-  margin-top:45px;
-  opacity:.7;
-}
-.hero-center{
-  position:relative;
-  min-height:520px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.circle{
-  position:absolute;
-  width:min(34vw,390px);
-  height:min(34vw,390px);
-  min-width:260px;
-  min-height:260px;
-  border-radius:50%;
-  background:#f21f2b;
-}
-.figure{
-  position:relative;
-  width:260px;
-  height:390px;
-  background:linear-gradient(135deg,#e1e1e1,#777);
-  clip-path:polygon(25% 0,75% 0,88% 25%,100% 100%,0 100%,12% 25%);
-  filter:grayscale(1);
-}
-.figure:before{
-  content:"";
-  position:absolute;
-  width:105px;height:105px;
-  border-radius:50%;
-  background:#bdbdbd;
-  top:35px;left:78px;
-}
-.figure:after{
-  content:"";
-  position:absolute;
-  width:150px;height:190px;
-  background:#eee;
-  left:55px;bottom:0;
-  border-radius:45px 45px 0 0;
-}
-.hero-right{
-  max-width:320px;
-}
-.hero-right p{
-  color:#aaa;
-  line-height:1.7;
-  font-size:15px;
-}
-.btn{
-  display:inline-block;
-  margin-top:18px;
-  padding:14px 22px;
-  background:#f21f2b;
-  font-size:12px;
-  font-weight:800;
-}
-.btn:hover{background:#ff303b}
 
-@media(max-width:800px){
-  .nav{
-    height:64px;
-    padding:0 16px;
-    gap:18px;
-  }
-  .logo{font-size:13px}
-  .navlinks{
-    gap:18px;
-  }
-  .navlinks a{
-    padding:24px 0 20px;
-    font-size:10px;
-  }
-  .navlinks a.active::after{bottom:14px}
-
-  .hero{
-    min-height:calc(100vh - 64px);
-    grid-template-columns:1fr 1.35fr 1fr;
-    gap:12px;
-    padding:20px 16px;
-  }
-  .hero-left h1{font-size:clamp(42px,12vw,75px)}
-  .vertical{
-    font-size:9px;
-    margin-top:28px;
-  }
-  .hero-center{
-    min-height:360px;
-  }
-  .circle{
-    width:clamp(150px,36vw,260px);
-    height:clamp(150px,36vw,260px);
-    min-width:0;
-    min-height:0;
-  }
-  .figure{
-    width:clamp(105px,25vw,190px);
-    height:clamp(165px,39vw,290px);
-  }
-  .figure:before{
-    width:clamp(42px,10vw,78px);
-    height:clamp(42px,10vw,78px);
-    left:calc(50% - clamp(21px,5vw,39px));
-    top:clamp(15px,4vw,30px);
-  }
-  .figure:after{
-    width:clamp(60px,14vw,110px);
-    height:clamp(75px,18vw,145px);
-    left:calc(50% - clamp(30px,7vw,55px));
-  }
-  .hero-right{max-width:none}
-  .hero-right p{
-    font-size:9px;
-    line-height:1.55;
-  }
-  .btn{
-    padding:9px 11px;
-    margin-top:10px;
-    font-size:8px;
-  }
 }
+
 </style>
 </head>
-
 <body>
 
-<nav class="nav">
-  <a class="logo" href="index.html">FINWARDANA</a>
+<header class="header">
 
-  <div class="navlinks">
-    <a class="active" href="index.html">Home</a>
-    <a href="games.html">Games</a>
-    <a href="tools.html">Tools</a>
-    <a href="projects.html">Projects</a>
-    <a href="invitation.html">Invitation</a>
-    <a href="about.html">About Me</a>
-  </div>
+<div class="logo-bar">
+FINWARDANA
+</div>
+
+<nav class="navbar">
+
+<a class="active" href="index.html">Home</a>
+<a href="games/">Games</a>
+<a href="tools/">Tools</a>
+<a href="projects/">Projects</a>
+<a href="invitation/">Invitation</a>
+<a href="about/">About</a>
+
 </nav>
 
-<main>
+</header>
 
 <section class="hero">
-  <div class="hero-left">
-    <h1>FW<span class="dot">.</span></h1>
-    <div class="vertical">FINWARDANA</div>
-  </div>
 
-  <div class="hero-center">
-    <div class="circle"></div>
-    <div class="figure"></div>
-  </div>
+<h1>FINWARDANA<span>.</span></h1>
 
-  <div class="hero-right">
-    <p>Website sederhana untuk kumpulan game, tools, projects, dan karya digital Finwardana.</p>
-    <a class="btn" href="games.html">EXPLORE →</a>
-  </div>
+<p>
+Kumpulan game, tools, projects, invitation, dan karya digital.
+</p>
+
 </section>
 
-</main>
+<section class="section">
+
+<h2 class="section-title">
+RECENTLY ADDED
+</h2>
+
+<div class="latest-grid">
+
+<a href="#" class="latest-card">
+
+<div class="latest-thumb"></div>
+
+<h3>Belum Ada Konten</h3>
+
+<p>
+Game, project, atau tools terbaru akan muncul di sini.
+</p>
+
+</a>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 FINWARDANA
+</footer>
 
 </body>
 </html>
