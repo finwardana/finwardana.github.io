@@ -78,4 +78,131 @@ a{
 .section-title{
     font-size:14px;
     font-weight:800;
-    letter-spacing:
+    letter-spacing:1px;
+    margin-bottom:10px;
+    color:#ddd;
+}
+
+/* HOME SLIDER */
+
+.slider{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    scrollbar-width:none;
+    padding-bottom:4px;
+}
+
+.slider::-webkit-scrollbar{
+    display:none;
+}
+
+/* GRID PAGE */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+/* CARD */
+
+.card{
+    flex:0 0 130px;
+    background:#111;
+    border:1px solid #222;
+    border-radius:10px;
+    overflow:hidden;
+    display:block;
+    transition:.2s;
+}
+
+.card:hover{
+    border-color:#ff2b3a;
+}
+
+.grid .card{
+    width:100%;
+    flex:none;
+}
+
+.thumb{
+    width:100%;
+    height:180px;
+    background:#1a1a1a;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.grid .thumb{
+    height:220px;
+}
+
+.card h3{
+    font-size:12px;
+    padding:8px;
+    text-align:center;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* FOOTER */
+
+footer{
+    padding:20px;
+    text-align:center;
+    color:#666;
+    font-size:12px;
+    border-top:1px solid #222;
+    margin-top:20px;
+}
+
+/* DESKTOP */
+
+@media(min-width:900px){
+
+    body{
+        padding-top:76px;
+    }
+
+    .header{
+        display:flex;
+        height:76px;
+        align-items:center;
+    }
+
+    .logo-bar{
+        height:76px;
+        font-size:24px;
+        padding:0 30px;
+    }
+
+    .navbar{
+        height:76px;
+        border-top:none;
+        margin-left:auto;
+        overflow:visible;
+    }
+
+    .navbar a{
+        height:76px;
+    }
+
+    .card{
+        flex:0 0 200px;
+    }
+
+    .thumb{
+        height:280px;
+    }
+
+    .grid{
+        grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    }
+
+    .grid .thumb{
+        height:300px;
+    }
+}
