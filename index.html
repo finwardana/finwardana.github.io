@@ -4,136 +4,81 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FINWARDANA</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:Arial,Helvetica,sans-serif;background:#080808;color:#fff;padding-top:105px;overflow-x:hidden}
-a{text-decoration:none;color:inherit}
 
-.header{position:fixed;top:0;left:0;width:100%;background:#080808;border-bottom:1px solid #222;z-index:9999}
-.logo-bar{height:55px;display:flex;align-items:center;padding:0 18px;font-size:20px;font-weight:900;letter-spacing:2px}
-.navbar{height:50px;display:flex;overflow-x:auto;white-space:nowrap;scrollbar-width:none;border-top:1px solid #151515}
-.navbar::-webkit-scrollbar{display:none}
-.navbar a{padding:0 18px;height:50px;display:flex;align-items:center;color:#999}
-.navbar a.active{color:#fff;border-bottom:2px solid #ff2333}
+<link rel="stylesheet" href="css/style.css">
 
-.hero{padding:18px 15px 8px;text-align:center}
-.hero h1{font-size:30px;font-weight:900;margin-bottom:8px}
-.hero p{font-size:12px;line-height:1.6;color:#999;max-width:500px;margin:auto}
-
-.section{padding:10px 12px 25px}
-.section-title{font-size:22px;font-weight:900;margin-bottom:12px}
-
-.latest-slider{
-display:flex;
-gap:10px;
-overflow-x:auto;
-scrollbar-width:none;
-padding-bottom:10px;
-}
-.latest-slider::-webkit-scrollbar{display:none}
-
-.latest-card{
-flex:0 0 115px;
-background:#111;
-border:1px solid #222;
-border-radius:8px;
-overflow:hidden;
-}
-
-.latest-thumb{
-height:145px;
-background:#1a1a1a;
-background-size:cover;
-background-position:center;
-}
-
-.latest-card h3{
-font-size:11px;
-padding:8px;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-text-align:center;
-}
-
-footer{
-border-top:1px solid #222;
-padding:20px;
-text-align:center;
-font-size:12px;
-color:#777;
-}
-
-@media(min-width:900px){
-body{padding-top:76px}
-.header{display:flex;height:76px;align-items:center}
-.logo-bar{height:76px;font-size:24px;padding:0 35px}
-.navbar{height:76px;border-top:none;margin-left:auto;overflow:visible}
-.navbar a{height:76px}
-.hero h1{font-size:56px}
-.hero p{font-size:14px}
-.latest-card{flex:0 0 180px}
-.latest-thumb{height:230px}
-}
-</style>
 </head>
 <body>
 
 <header class="header">
-<div class="logo-bar">FINWARDANA</div>
+
+<div class="logo-bar">
+FINWARDANA
+</div>
+
 <nav class="navbar">
-<a class="active" href="index.html">Home</a>
+<a class="active" href="/">Home</a>
 <a href="games/">Games</a>
 <a href="tools/">Tools</a>
-<a href="projects/">Projects</a>
-<a href="invitation/">Invitation</a>
+<a href="invitations/">Invitations</a>
 </nav>
+
 </header>
 
-<section class="hero">
-<h1>FINWARDANA</h1>
-<p>Kumpulan game, tools, projects, invitation, dan karya digital.</p>
-</section>
 
 <section class="section">
-<h2 class="section-title">RECENTLY ADDED</h2>
 
-<div class="latest-slider">
+<h2 class="section-title">
+RECENTLY ADDED
+</h2>
 
-<a href="#" class="latest-card">
-<div class="latest-thumb"></div>
-<h3>Game 1</h3>
-</a>
-
-<a href="#" class="latest-card">
-<div class="latest-thumb"></div>
-<h3>Game 2</h3>
-</a>
-
-<a href="#" class="latest-card">
-<div class="latest-thumb"></div>
-<h3>Project 1</h3>
-</a>
-
-<a href="#" class="latest-card">
-<div class="latest-thumb"></div>
-<h3>Tool 1</h3>
-</a>
-
-<a href="#" class="latest-card">
-<div class="latest-thumb"></div>
-<h3>Game 3</h3>
-</a>
-
-<a href="#" class="latest-card">
-<div class="latest-thumb"></div>
-<h3>Game 4</h3>
-</a>
-
+<div class="slider" id="recent-slider">
 </div>
+
 </section>
 
-<footer>© 2026 FINWARDANA</footer>
+
+<section class="section">
+
+<h2 class="section-title">
+GAMES
+</h2>
+
+<div class="slider" id="games-slider">
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2 class="section-title">
+TOOLS
+</h2>
+
+<div class="slider" id="tools-slider">
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2 class="section-title">
+INVITATIONS
+</h2>
+
+<div class="slider" id="invitations-slider">
+</div>
+
+</section>
+
+
+<footer>
+© 2026 FINWARDANA
+</footer>
+
+<script src="js/main.js"></script>
 
 </body>
 </html>
