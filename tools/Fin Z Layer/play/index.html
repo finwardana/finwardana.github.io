@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FIN Z-LAYER EDITOR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html, body { 
+            margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; 
+            background: #050505; color: #fff; font-family: sans-serif; touch-action: none; 
+        }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-thumb { background-color: #8b0000; border-radius: 4px; }
+        
+        input[type="range"] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: #ff0000; cursor: pointer; margin-top: -6px; border: 1px solid #000;}
+        input[type="range"]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #330000; border-radius: 2px; }
+        
+        button { touch-action: manipulation; transition: transform 0.1s ease; cursor: pointer;}
+        button:active { transform: scale(0.95); }
+
+        #camera-guide { position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 2px solid rgba(255, 255, 255, 0.85); pointer-events: none; z-index: 5; box-shadow: 0 0 0 9999px rgba(0,0,0,0.6); }
+        #camera-guide::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; border-top: 1px dashed rgba(255,255,255,0.4); }
+        #camera-guide::after { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; border-left: 1px dashed rgba(255,255,255,0.4); }
+        
+        #rec-overlay { animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    </style>
+</head>
+<body class="flex flex-col h-[100dvh]">
+    
+    <!-- TOP NAVBAR -->
+    <div id="ui-navbar" class="h-[50px] shrink-0 bg-[#0a0a0a] border-b-2 border-[#8b0000] flex justify-between items-center px-3 z-20">
+        <div class="font-bold text-sm text-[#ff0000] tracking-wider truncate">FIN Z-LAYER</div>
+        <div class="flex items-center gap-1.5">
+            <select id="canvas-ratio" class="text-[10px] font-bold text-[#ff0000] bg-black border border-[#8b0000] p-1 rounded">
+                <option value="free">FREE</option>
+                <option value="9:16">9:16 (VT)</option>
+                <option value="1:1">1:1 (SQ)</option>
+                <option value="16:9">16:9 (YT)</option>
+            </select>
+            <select id="video-format" class="text-[10px] font-bold text-[#ff0000] bg-black border border-[#8b0000] p-1 rounded">
+                <option value="webm">WEBM</option>
+                <option value="mp4">MP4</option>
+            </select>
+            <button id="btn-record" class="bg-[#8b0000] text-white px-3 py-1 rounded font-bold border border-[#ff0000] text-xs">EXPORT</button>
+        </div>
+    </div>
+
+    <!-- FBLR View Controls & PREVIEW BTN -->
+    <div id="fblr-bar" class="bg-[#050505] px-3 py-1.5 border-b border-[#330000] flex items-center justify-between z-15">
+        <button id="btn-preview-mode" class="bg-black text-[#ff0000] px-3 py-0.5 rounded font-bold border border-[#ff0000] text-[10px] flex items-center gap-1">
+            FULL PREVIEW
+        </button>
+        <div class="flex bg-black border border-[#8b0000] rounded p-0.5 gap-1">
+            <button id="btn-view-f" class="text-[10px] font-bold text-[#ff0000] px-2 py-0.5 bg-[#1a0000] rounded hover:bg-[#8b0000] hover:text-white">FRONT</button>
+            <button id="btn-view-b" class="text-[10px] font-bold text-[#ff0000] px-2 py-0.5 bg-[#1a0000] rounded hover:bg-[#8b0000] hover:text-white">BACK</button>
+            <button id="btn-view-l" class="text-[10px] font-bold text-[#ff0000] px-2 py-0.5 bg-[#1a0000] rounded hover:bg-[#8b0000] hover:text-white">LEFT</button>
+            <button id="btn-view-r" class="text-[10px] font-bold text-[#ff0000] px-2 py-0.5 bg-[#1a0000] rounded hover:bg-[#8b0000] hover:text-white">RIGHT</button>
+        </div>
+    </div>
+
+    <!-- MAIN CANVAS AREA -->
+    <div id="canvas-wrapper" class="flex-1 bg-[#020000] relative flex justify-center items-center overflow-hidden shrink-0 touch-none">
+        <!-- Floating Exit Preview Button -->
+        <button id="btn-exit-preview" class="absolute top-4 left-4 bg-[#8b0000] text-white px-4 py-2 rounded font-bold border border-[#ff0000] text-xs z-30 hidden shadow-lg shadow-black/50">EXIT PREVIEW</button>
+
+        <div id="canvas-container" class="relative">
+            <div id="camera-guide"></div>
+            <div id="rec-overlay" class="absolute top-4 right-4 text-red-500 font-bold text-xl hidden z-20">REC</div>
+        </div>
+    </div>
+
+    <!-- TIMELINE & ACTION BUTTONS -->
+    <div id="ui-timeline" class="h-[75px] shrink-0 border-t-2 border-[#8b0000] flex bg-[#0a0a0a] w-full z-10">
+        <div id="timeline-track" class="flex-1 flex items-center overflow-x-auto p-2 gap-2">
+            <span class="text-xs text-gray-700 italic px-2">Empty. Tap +.</span>
+        </div>
+        <div class="w-[70px] shrink-0 flex flex-col justify-center p-1.5 gap-1.5 border-l border-[#330000] bg-black">
+            <button id="btn-capture" class="flex-1 bg-[#8b0000] text-[#fff] text-[20px] leading-none flex justify-center items-center font-bold rounded border border-[#ff0000]">+</button>
+            <button id="btn-play" class="flex-1 bg-black text-[#ff0000] text-[11px] font-bold rounded border border-[#ff0000]">PLAY</button>
+        </div>
+    </div>
+
+    <!-- TABS -->
+    <div id="ui-tabs" class="flex h-[38px] shrink-0 border-t border-[#8b0000] w-full z-10">
+        <button id="tab-layer" class="flex-1 bg-black text-[#ff0000] font-bold text-xs border-b-2 border-[#ff0000]">LAYER</button>
+        <button id="tab-scene" class="flex-1 bg-[#1a0000] text-gray-500 font-bold text-xs border-b-2 border-transparent">SCENE</button>
+    </div>
+
+    <!-- CONTROLS CONTAINER -->
+    <div id="ui-controls" class="h-[210px] shrink-0 bg-[#0a0a0a] overflow-y-auto w-full p-3 z-10 border-t border-[#330000]">
+        
+        <!-- LAYER TAB CONTENT -->
+        <div id="content-layer" class="flex flex-col gap-3">
+            <div class="flex gap-2 items-center">
+                <label class="w-1/3 bg-[#8b0000] text-white text-center py-2 rounded font-bold cursor-pointer border border-[#ff0000] text-[10px]">
+                    + ADD PNG <input type="file" id="image-upload" accept="image/png, image/jpeg" class="hidden">
+                </label>
+                <select id="layer-select" class="w-2/3 text-[10px] font-bold text-[#ff0000] p-2 bg-black border border-[#8b0000] rounded outline-none"></select>
+            </div>
+            
+            <div class="flex gap-1">
+                <button id="btn-layer-up" class="flex-[2] bg-[#1a1a1a] text-gray-300 py-2 rounded font-bold text-[9px] border border-[#444]">▲ UP</button>
+                <button id="btn-layer-down" class="flex-[2] bg-[#1a1a1a] text-gray-300 py-2 rounded font-bold text-[9px] border border-[#444]">▼ DOWN</button>
+                <button id="btn-center-layer" class="flex-[1] bg-black text-[#ff0000] py-2 rounded flex justify-center items-center border border-[#ff0000]">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+                </button>
+                <button id="btn-dup-layer" class="flex-[1] bg-black text-[#ff0000] py-2 rounded flex justify-center items-center border border-[#ff0000]">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                </button>
+                <button id="btn-delete-layer" class="flex-[1] bg-[#330000] text-red-400 py-2 rounded flex justify-center items-center border border-red-700">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </button>
+            </div>
+
+            <div id="transform-controls" class="grid grid-cols-2 gap-x-4 gap-y-2.5 opacity-30 pointer-events-none mt-1">
+                <div><div class="flex justify-between text-[9px] text-[#ff0000] font-bold"><span>POS X</span><span id="val-x">0</span></div><input type="range" id="slider-x" min="-50" max="50" step="0.1" value="0"></div>
+                <div><div class="flex justify-between text-[9px] text-[#ff0000] font-bold"><span>POS Y</span><span id="val-y">0</span></div><input type="range" id="slider-y" min="-50" max="50" step="0.1" value="0"></div>
+                <div><div class="flex justify-between text-[9px] text-[#ff0000] font-bold"><span>POS Z</span><span id="val-z">0</span></div><input type="range" id="slider-z" min="-50" max="50" step="0.1" value="0"></div>
+                <div><div class="flex justify-between text-[9px] text-[#ff0000] font-bold"><span>SCALE</span><span id="val-scale">1.0</span></div><input type="range" id="slider-scale" min="0.1" max="10" step="0.1" value="1"></div>
+                <div><div class="flex justify-between text-[9px] text-[#ff0000] font-bold"><span>ROT X</span><span id="val-rotx">0</span></div><input type="range" id="slider-rotx" min="-180" max="180" step="1" value="0"></div>
+                <div><div class="flex justify-between text-[9px] text-[#ff0000] font-bold"><span>ROT Y</span><span id="val-roty">0</span></div><input type="range" id="slider-roty" min="-180" max="180" step="1" value="0"></div>
+                <div class="col-span-2"><div class="flex justify-between text-[9px] text-[#ff0000] font-bold"><span>ROT Z</span><span id="val-rotz">0</span></div><input type="range" id="slider-rotz" min="-180" max="180" step="1" value="0"></div>
+                
+                <!-- NEW AUTO ANIMATE SECTION -->
+                <div class="col-span-2 mt-1 pt-2 border-t border-[#330000]">
+                    <span class="text-[9px] text-[#ff0000] font-bold block mb-1">AUTO ANIMATE (CONTINUOUS LOOP)</span>
+                    <div class="flex gap-2">
+                        <select id="anim-type" class="w-1/3 text-[9px] font-bold text-[#ff0000] p-1 bg-black border border-[#8b0000] rounded outline-none">
+                            <option value="none">NONE</option>
+                            <option value="sway">SWAY (ROT Z)</option>
+                            <option value="float_x">FLOAT X</option>
+                            <option value="float_y">FLOAT Y</option>
+                        </select>
+                        <div class="w-1/3 flex flex-col">
+                            <div class="flex justify-between text-[8px] text-[#ff0000] font-bold"><span>SPEED</span><span id="val-anim-spd">1.0</span></div>
+                            <input type="range" id="slider-anim-spd" min="0.1" max="10" step="0.1" value="1.0">
+                        </div>
+                        <div class="w-1/3 flex flex-col">
+                            <div class="flex justify-between text-[8px] text-[#ff0000] font-bold"><span>RANGE</span><span id="val-anim-rng">5.0</span></div>
+                            <input type="range" id="slider-anim-rng" min="0.1" max="50" step="0.1" value="5.0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE TAB CONTENT -->
+        <div id="content-scene" class="hidden flex-col gap-2">
+            <select id="scene-select" class="w-full text-[10px] font-bold text-[#ff0000] p-2 bg-black border border-[#8b0000] rounded outline-none"></select>
+            
+            <div class="flex items-center gap-3 bg-[#110000] p-2 border border-[#330000] rounded">
+                <div class="flex-1 flex flex-col gap-1">
+                    <label class="text-[9px] font-bold text-[#ff0000]">BG COLOR:</label>
+                    <input type="color" id="bg-color-picker" value="#000000" class="w-full h-6 p-0 cursor-pointer rounded border border-[#330000]">
+                </div>
+                <div class="flex-1 flex flex-col gap-1">
+                    <label class="text-[9px] font-bold text-[#ff0000]">GRID COLOR:</label>
+                    <input type="color" id="grid-color-picker" value="#ff0000" class="w-full h-6 p-0 cursor-pointer rounded border border-[#330000]">
+                </div>
+                <div class="flex-1 flex flex-col items-center justify-center gap-1">
+                    <label class="text-[9px] font-bold text-[#ff0000]">GRID</label>
+                    <input type="checkbox" id="toggle-grid" checked class="accent-[#8b0000] w-4 h-4 cursor-pointer">
+                </div>
+            </div>
+
+            <div id="cam-controls" class="mt-1">
+                <div class="flex gap-2 items-center">
+                    <div class="flex-1 grid grid-cols-2 gap-x-3 gap-y-2">
+                        <div><div class="flex justify-between text-[9px] text-[#ff0000] font-bold"><span>SPEED</span><span id="vcam-dur">2.0s</span></div><input type="range" id="scam-dur" min="0.1" max="10" step="0.1" value="2.0"></div>
+                        <div><div class="flex justify-between text-[9px] text-[#ff0000] font-bold"><span>CAM X</span><span id="vcam-x">0</span></div><input type="range" id="scam-x" min="-50" max="50" step="0.1" value="0"></div>
+                        <div><div class="flex justify-between text-[9px] text-[#ff0000] font-bold"><span>CAM Y</span><span id="vcam-y">0</span></div><input type="range" id="scam-y" min="-50" max="50" step="0.1" value="0"></div>
+                        <div><div class="flex justify-between text-[9px] text-[#ff0000] font-bold"><span>ZOOM Z</span><span id="vcam-z">15</span></div><input type="range" id="scam-z" min="-100" max="100" step="0.1" value="15"></div>
+                        <div class="col-span-2 mt-1 text-[8px] text-gray-500 italic">Pinch screen to zoom natively. Target adjusts automatically.</div>
+                    </div>
+                    <!-- D-Pad Camera -->
+                    <div class="w-[85px] flex flex-col items-center justify-center bg-[#110000] border border-[#330000] rounded p-1 pb-2">
+                        <span class="text-[8px] text-[#ff0000] font-bold mb-1">PAN (X/Z)</span>
+                        <div class="grid grid-cols-3 gap-1 w-full">
+                           <div></div>
+                           <button id="pan-fwd" class="bg-black border border-[#8b0000] text-[#ff0000] rounded text-[10px] h-6 flex items-center justify-center active:bg-[#8b0000] active:text-white">▲</button>
+                           <div></div>
+                           <button id="pan-left" class="bg-black border border-[#8b0000] text-[#ff0000] rounded text-[10px] h-6 flex items-center justify-center active:bg-[#8b0000] active:text-white">◄</button>
+                           <div></div>
+                           <button id="pan-right" class="bg-black border border-[#8b0000] text-[#ff0000] rounded text-[10px] h-6 flex items-center justify-center active:bg-[#8b0000] active:text-white">►</button>
+                           <div></div>
+                           <button id="pan-bwd" class="bg-black border border-[#8b0000] text-[#ff0000] rounded text-[10px] h-6 flex items-center justify-center active:bg-[#8b0000] active:text-white">▼</button>
+                           <div></div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        const tabLayer = document.getElementById('tab-layer');
+        const tabScene = document.getElementById('tab-scene');
+        const contentLayer = document.getElementById('content-layer');
+        const contentScene = document.getElementById('content-scene');
+
+        tabLayer.addEventListener('click', () => {
+            tabLayer.className = "flex-1 bg-black text-[#ff0000] font-bold text-xs border-b-2 border-[#ff0000]";
+            tabScene.className = "flex-1 bg-[#1a0000] text-gray-500 font-bold text-xs border-b-2 border-transparent";
+            contentLayer.style.display = 'flex'; contentScene.style.display = 'none';
+        });
+
+        tabScene.addEventListener('click', () => {
+            tabScene.className = "flex-1 bg-black text-[#ff0000] font-bold text-xs border-b-2 border-[#ff0000]";
+            tabLayer.className = "flex-1 bg-[#1a0000] text-gray-500 font-bold text-xs border-b-2 border-transparent";
+            contentScene.style.display = 'flex'; contentLayer.style.display = 'none';
+        });
+
+        const wrapper = document.getElementById('canvas-wrapper');
+        const container = document.getElementById('canvas-container');
+        const cameraGuide = document.getElementById('camera-guide');
+        
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color('#000000');
+
+        const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
+        camera.position.set(0, 0, 15);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, alpha: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        renderer.domElement.style.position = 'absolute'; renderer.domElement.style.top = '0';
+        renderer.domElement.style.left = '0'; renderer.domElement.style.width = '100%'; renderer.domElement.style.height = '100%';
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; 
+        controls.dampingFactor = 0.05;
+        controls.maxPolarAngle = Math.PI - 0.01;
+        controls.minPolarAngle = 0.01;
+
+        let isPreviewMode = false;
+        const btnPreviewMode = document.getElementById('btn-preview-mode');
+        const btnExitPreview = document.getElementById('btn-exit-preview');
+        const uiNavbar = document.getElementById('ui-navbar');
+        const fblrBar = document.getElementById('fblr-bar');
+        const uiTimeline = document.getElementById('ui-timeline');
+        const uiTabs = document.getElementById('ui-tabs');
+        const uiControls = document.getElementById('ui-controls');
+
+        btnPreviewMode.addEventListener('click', () => {
+            isPreviewMode = true;
+            uiNavbar.style.display = 'none';
+            fblrBar.style.display = 'none';
+            uiTimeline.style.display = 'none';
+            uiTabs.style.display = 'none';
+            uiControls.style.display = 'none';
+            cameraGuide.style.display = 'none';
+            btnExitPreview.style.display = 'block'; 
+            if(gridHelper) gridHelper.visible = false;
+            resizeCanvas();
+        });
+
+        btnExitPreview.addEventListener('click', () => {
+            isPreviewMode = false;
+            uiNavbar.style.display = 'flex';
+            fblrBar.style.display = 'flex';
+            uiTimeline.style.display = 'flex';
+            uiTabs.style.display = 'flex';
+            uiControls.style.display = 'flex';
+            cameraGuide.style.display = 'block';
+            btnExitPreview.style.display = 'none'; 
+            if(document.getElementById('toggle-grid').checked && gridHelper) gridHelper.visible = true;
+            resizeCanvas();
+        });
+
+        controls.addEventListener('change', () => {
+            if (!isPlaying) {
+                const dist = camera.position.distanceTo(controls.target);
+                if (dist < 3.0) {
+                    const forward = new THREE.Vector3();
+                    camera.getWorldDirection(forward);
+                    controls.target.copy(camera.position).addScaledVector(forward, 15);
+                }
+                syncCamSliders();
+            }
+        });
+
+        let gridHelper = new THREE.GridHelper(100, 100, 0xff0000, 0x330000);
+        gridHelper.position.y = -5;
+        scene.add(gridHelper);
+
+        document.getElementById('toggle-grid').addEventListener('change', (e) => { if(!isPreviewMode) gridHelper.visible = e.target.checked; });
+        document.getElementById('bg-color-picker').addEventListener('input', (e) => { scene.background = new THREE.Color(e.target.value); });
+        document.getElementById('grid-color-picker').addEventListener('input', (e) => {
+            scene.remove(gridHelper);
+            gridHelper = new THREE.GridHelper(100, 100, e.target.value, 0x220000);
+            gridHelper.position.y = -5;
+            gridHelper.visible = document.getElementById('toggle-grid').checked && !isPreviewMode;
+            scene.add(gridHelper);
+        });
+
+        function setCamView(direction) {
+            const currentDist = camera.position.distanceTo(controls.target);
+            const dist = currentDist > 0 ? currentDist : 15;
+            
+            if (direction === 'F') { camera.position.set(controls.target.x, controls.target.y, controls.target.z + dist); }
+            else if (direction === 'B') { camera.position.set(controls.target.x, controls.target.y, controls.target.z - dist); }
+            else if (direction === 'L') { camera.position.set(controls.target.x - dist, controls.target.y, controls.target.z); }
+            else if (direction === 'R') { camera.position.set(controls.target.x + dist, controls.target.y, controls.target.z); }
+            
+            camera.lookAt(controls.target); controls.update(); syncCamSliders();
+        }
+
+        document.getElementById('btn-view-f').addEventListener('click', () => setCamView('F'));
+        document.getElementById('btn-view-b').addEventListener('click', () => setCamView('B'));
+        document.getElementById('btn-view-l').addEventListener('click', () => setCamView('L'));
+        document.getElementById('btn-view-r').addEventListener('click', () => setCamView('R'));
+
+        const ratioSelect = document.getElementById('canvas-ratio');
+        
+        function resizeCanvas() {
+            setTimeout(() => {
+                const availW = wrapper.clientWidth; const availH = wrapper.clientHeight;
+                if(availW === 0 || availH === 0) return; 
+                let w = availW, h = availH;
+                const ratioVal = ratioSelect.value;
+                if (ratioVal !== 'free') {
+                    const parts = ratioVal.split(':');
+                    const targetRatio = parseInt(parts[0]) / parseInt(parts[1]);
+                    const containerRatio = w / h;
+                    if (containerRatio > targetRatio) w = h * targetRatio;
+                    else h = w / targetRatio;
+                }
+                container.style.width = w + 'px'; container.style.height = h + 'px';
+                camera.aspect = w / h; camera.updateProjectionMatrix();
+                renderer.setSize(w, h);
+            }, 50);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        ratioSelect.addEventListener('change', resizeCanvas);
+        resizeCanvas();
+
+        let layers = [], activeLayerIndex = -1;
+        const layerSelect = document.getElementById('layer-select');
+
+        function generateId() { return Math.random().toString(36).substring(2, 11); }
+
+        function updateLayerSelect() {
+            layerSelect.innerHTML = '';
+            if (layers.length === 0) {
+                layerSelect.innerHTML = '<option value="-1">EMPTY</option>';
+                document.getElementById('transform-controls').style.opacity = '0.3';
+                document.getElementById('transform-controls').style.pointerEvents = 'none';
+                return;
+            }
+            layers.forEach((layer, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx; opt.text = `[${idx}] ${layer.name}`;
+                layerSelect.appendChild(opt);
+            });
+            layerSelect.value = activeLayerIndex;
+            document.getElementById('transform-controls').style.opacity = '1';
+            document.getElementById('transform-controls').style.pointerEvents = 'auto';
+            
+            layers.forEach((layer, idx) => { layer.mesh.renderOrder = idx; });
+            syncSliders();
+        }
+
+        document.getElementById('image-upload').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const textureLoader = new THREE.TextureLoader();
+                textureLoader.load(event.target.result, (texture) => {
+                    texture.minFilter = THREE.LinearFilter;
+                    const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, alphaTest: 0.02, side: THREE.DoubleSide, depthWrite: false });
+                    const aspect = texture.image.width / texture.image.height;
+                    const geometry = new THREE.PlaneGeometry(10, 10 / aspect);
+                    const mesh = new THREE.Mesh(geometry, material);
+                    const group = new THREE.Group(); group.add(mesh); scene.add(group);
+
+                    const newLayer = { 
+                        id: generateId(), name: `IMG_${layers.length + 1}`, group: group, mesh: mesh,
+                        autoAnim: { type: 'none', speed: 1.0, range: 5.0 } // DATA ANIMASI OTOMATIS
+                    };
+                    layers.push(newLayer);
+                    
+                    scenes.forEach(s => { s.layerStates.push({ id: newLayer.id, pos: new THREE.Vector3(), rot: new THREE.Quaternion(), scale: new THREE.Vector3(1,1,1) }); });
+                    activeLayerIndex = layers.length - 1; updateLayerSelect();
+                });
+            };
+            reader.readAsDataURL(file); e.target.value = ''; 
+        });
+
+        document.getElementById('btn-layer-up').addEventListener('click', () => {
+            if (activeLayerIndex < layers.length - 1 && activeLayerIndex !== -1) {
+                const temp = layers[activeLayerIndex]; layers[activeLayerIndex] = layers[activeLayerIndex + 1]; layers[activeLayerIndex + 1] = temp;
+                activeLayerIndex++; updateLayerSelect();
+            }
+        });
+
+        document.getElementById('btn-layer-down').addEventListener('click', () => {
+            if (activeLayerIndex > 0) {
+                const temp = layers[activeLayerIndex]; layers[activeLayerIndex] = layers[activeLayerIndex - 1]; layers[activeLayerIndex - 1] = temp;
+                activeLayerIndex--; updateLayerSelect();
+            }
+        });
+
+        document.getElementById('btn-center-layer').addEventListener('click', () => {
+            if (activeLayerIndex === -1) return;
+            const g = layers[activeLayerIndex].group;
+            g.position.set(0, 0, 0); g.rotation.set(0, 0, 0); g.scale.set(1, 1, 1);
+            syncSliders();
+        });
+
+        document.getElementById('btn-delete-layer').addEventListener('click', () => {
+            if (activeLayerIndex === -1) return;
+            const deletedId = layers[activeLayerIndex].id;
+            scene.remove(layers[activeLayerIndex].group); 
+            layers.splice(activeLayerIndex, 1);
+            scenes.forEach(s => { s.layerStates = s.layerStates.filter(st => st.id !== deletedId); });
+            activeLayerIndex = layers.length > 0 ? layers.length - 1 : -1; 
+            updateLayerSelect();
+        });
+
+        document.getElementById('btn-dup-layer').addEventListener('click', () => {
+            if (activeLayerIndex === -1) return;
+            const src = layers[activeLayerIndex];
+            const newGroup = new THREE.Group(); newGroup.position.copy(src.group.position); newGroup.rotation.copy(src.group.rotation); newGroup.scale.copy(src.group.scale); newGroup.add(src.mesh.clone());
+            scene.add(newGroup);
+            const newLayer = { 
+                id: generateId(), name: `${src.name}_DUP`, group: newGroup, mesh: newGroup.children[0],
+                autoAnim: { ...src.autoAnim } // COPY ANIMASI OTOMATIS
+            };
+            layers.push(newLayer);
+            scenes.forEach(s => { s.layerStates.push({ id: newLayer.id, pos: newGroup.position.clone(), rot: newGroup.quaternion.clone(), scale: newGroup.scale.clone() }); });
+            activeLayerIndex = layers.length - 1; updateLayerSelect();
+        });
+
+        layerSelect.addEventListener('change', (e) => { activeLayerIndex = parseInt(e.target.value); syncSliders(); });
+
+        const s = { x: document.getElementById('slider-x'), y: document.getElementById('slider-y'), z: document.getElementById('slider-z'), scale: document.getElementById('slider-scale'), rotx: document.getElementById('slider-rotx'), roty: document.getElementById('slider-roty'), rotz: document.getElementById('slider-rotz') };
+        const v = { x: document.getElementById('val-x'), y: document.getElementById('val-y'), z: document.getElementById('val-z'), scale: document.getElementById('val-scale'), rotx: document.getElementById('val-rotx'), roty: document.getElementById('val-roty'), rotz: document.getElementById('val-rotz') };
+        
+        // AUTO ANIMATE UI CONTROLS
+        const animType = document.getElementById('anim-type');
+        const sliderAnimSpd = document.getElementById('slider-anim-spd');
+        const valAnimSpd = document.getElementById('val-anim-spd');
+        const sliderAnimRng = document.getElementById('slider-anim-rng');
+        const valAnimRng = document.getElementById('val-anim-rng');
+
+        function syncSliders() {
+            if (activeLayerIndex === -1) return;
+            const g = layers[activeLayerIndex].group;
+            s.x.value = g.position.x; v.x.innerText = g.position.x.toFixed(1);
+            s.y.value = g.position.y; v.y.innerText = g.position.y.toFixed(1);
+            s.z.value = g.position.z; v.z.innerText = g.position.z.toFixed(1);
+            s.scale.value = g.scale.x; v.scale.innerText = g.scale.x.toFixed(1);
+            s.rotx.value = THREE.MathUtils.radToDeg(g.rotation.x); v.rotx.innerText = Math.round(s.rotx.value);
+            s.roty.value = THREE.MathUtils.radToDeg(g.rotation.y); v.roty.innerText = Math.round(s.roty.value);
+            s.rotz.value = THREE.MathUtils.radToDeg(g.rotation.z); v.rotz.innerText = Math.round(s.rotz.value);
+
+            const anim = layers[activeLayerIndex].autoAnim;
+            animType.value = anim.type;
+            sliderAnimSpd.value = anim.speed; valAnimSpd.innerText = anim.speed.toFixed(1);
+            sliderAnimRng.value = anim.range; valAnimRng.innerText = anim.range.toFixed(1);
+        }
+
+        Object.keys(s).forEach(key => {
+            s[key].addEventListener('input', (e) => {
+                if (activeLayerIndex === -1) return;
+                const val = parseFloat(e.target.value); const g = layers[activeLayerIndex].group;
+                if (key === 'x') { g.position.x = val; v.x.innerText = val.toFixed(1); }
+                if (key === 'y') { g.position.y = val; v.y.innerText = val.toFixed(1); }
+                if (key === 'z') { g.position.z = val; v.z.innerText = val.toFixed(1); }
+                if (key === 'scale') { g.scale.set(val, val, val); v.scale.innerText = val.toFixed(1); }
+                if (key === 'rotx') { g.rotation.x = THREE.MathUtils.degToRad(val); v.rotx.innerText = val; }
+                if (key === 'roty') { g.rotation.y = THREE.MathUtils.degToRad(val); v.roty.innerText = val; }
+                if (key === 'rotz') { g.rotation.z = THREE.MathUtils.degToRad(val); v.rotz.innerText = val; }
+            });
+        });
+
+        // AUTO ANIMATE EVENTS
+        animType.addEventListener('change', (e) => { if (activeLayerIndex !== -1) layers[activeLayerIndex].autoAnim.type = e.target.value; });
+        sliderAnimSpd.addEventListener('input', (e) => {
+            if (activeLayerIndex !== -1) {
+                const val = parseFloat(e.target.value);
+                layers[activeLayerIndex].autoAnim.speed = val; valAnimSpd.innerText = val.toFixed(1);
+            }
+        });
+        sliderAnimRng.addEventListener('input', (e) => {
+            if (activeLayerIndex !== -1) {
+                const val = parseFloat(e.target.value);
+                layers[activeLayerIndex].autoAnim.range = val; valAnimRng.innerText = val.toFixed(1);
+            }
+        });
+
+        let scenes = [];
+        const timelineTrackUI = document.getElementById('timeline-track');
+        const btnPlayAll = document.getElementById('btn-play');
+        const sceneSelect = document.getElementById('scene-select');
+
+        const scam = { dur: document.getElementById('scam-dur'), x: document.getElementById('scam-x'), y: document.getElementById('scam-y'), z: document.getElementById('scam-z') };
+        const vcam = { dur: document.getElementById('vcam-dur'), x: document.getElementById('vcam-x'), y: document.getElementById('vcam-y'), z: document.getElementById('vcam-z') };
+
+        function updateSceneSelect() {
+            sceneSelect.innerHTML = '';
+            if (scenes.length === 0) {
+                sceneSelect.innerHTML = '<option value="-1">NO SCENE YET</option>';
+                return;
+            }
+            scenes.forEach((sc, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx; opt.text = `🎬 Scene ${idx + 1} (${sc.duration}s)`;
+                sceneSelect.appendChild(opt);
+            });
+            syncCamSliders();
+        }
+
+        sceneSelect.addEventListener('change', (e) => {
+            const idx = parseInt(e.target.value);
+            if(idx >= 0 && idx < scenes.length) { loadScene(idx); syncCamSliders(); }
+        });
+
+        function syncCamSliders() {
+            const idx = parseInt(sceneSelect.value);
+            if(isNaN(idx) || idx < 0 || !scenes[idx]) {
+                vcam.x.innerText = camera.position.x.toFixed(1); scam.x.value = camera.position.x;
+                vcam.y.innerText = camera.position.y.toFixed(1); scam.y.value = camera.position.y;
+                vcam.z.innerText = camera.position.z.toFixed(1); scam.z.value = camera.position.z;
+                return;
+            }
+            const sc = scenes[idx];
+            scam.x.value = sc.camPos.x; vcam.x.innerText = sc.camPos.x.toFixed(1);
+            scam.y.value = sc.camPos.y; vcam.y.innerText = sc.camPos.y.toFixed(1);
+            scam.z.value = sc.camPos.z; vcam.z.innerText = sc.camPos.z.toFixed(1);
+            scam.dur.value = sc.duration; vcam.dur.innerText = sc.duration.toFixed(1) + 's';
+        }
+
+        scam.dur.addEventListener('input', (e) => {
+            const idx = parseInt(sceneSelect.value);
+            if(isNaN(idx) || idx < 0 || !scenes[idx]) return;
+            scenes[idx].duration = parseFloat(e.target.value);
+            vcam.dur.innerText = scenes[idx].duration.toFixed(1) + 's';
+            sceneSelect.options[idx].text = `🎬 Scene ${idx + 1} (${scenes[idx].duration}s)`;
+        });
+
+        Object.keys(scam).forEach(key => {
+            if(key === 'dur') return;
+            scam[key].addEventListener('input', (e) => {
+                const val = parseFloat(e.target.value);
+                const idx = parseInt(sceneSelect.value);
+                
+                let dx = 0, dy = 0, dz = 0;
+                if(key === 'x') dx = val - camera.position.x;
+                if(key === 'y') dy = val - camera.position.y;
+                if(key === 'z') dz = val - camera.position.z;
+
+                camera.position.x += dx; controls.target.x += dx;
+                camera.position.y += dy; controls.target.y += dy;
+                camera.position.z += dz; controls.target.z += dz;
+
+                if(key === 'x') vcam.x.innerText = camera.position.x.toFixed(1);
+                if(key === 'y') vcam.y.innerText = camera.position.y.toFixed(1);
+                if(key === 'z') vcam.z.innerText = camera.position.z.toFixed(1);
+
+                if(!isNaN(idx) && idx >= 0 && scenes[idx]) {
+                    const sc = scenes[idx];
+                    sc.camPos.copy(camera.position); sc.camTarget.copy(controls.target);
+                }
+                controls.update();
+            });
+        });
+
+        function panCamera(dx, dz) {
+            const idx = parseInt(sceneSelect.value);
+            camera.position.x += dx; controls.target.x += dx; camera.position.z += dz; controls.target.z += dz;
+            if(!isNaN(idx) && idx >= 0 && scenes[idx]) { const sc = scenes[idx]; sc.camPos.copy(camera.position); sc.camTarget.copy(controls.target); }
+            controls.update(); syncCamSliders();
+        }
+
+        document.getElementById('pan-fwd').addEventListener('click', () => panCamera(0, -0.5));
+        document.getElementById('pan-bwd').addEventListener('click', () => panCamera(0, 0.5));
+        document.getElementById('pan-left').addEventListener('click', () => panCamera(-0.5, 0));
+        document.getElementById('pan-right').addEventListener('click', () => panCamera(0.5, 0));
+
+        function getLayerSnapshot() { return layers.map(l => ({ id: l.id, pos: l.group.position.clone(), rot: l.group.quaternion.clone(), scale: l.group.scale.clone() })); }
+
+        function renderTimeline() {
+            timelineTrackUI.innerHTML = '';
+            if (scenes.length === 0) {
+                timelineTrackUI.innerHTML = '<span class="text-xs text-gray-700 italic px-2">Empty. Tap +.</span>';
+                updateSceneSelect(); return;
+            }
+            
+            scenes.forEach((sc, i) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = "flex items-center shrink-0 h-full gap-2";
+                
+                const thumbContainer = document.createElement('div');
+                thumbContainer.className = "relative cursor-pointer border-2 border-[#8b0000] hover:border-[#ff0000] bg-black transition-colors rounded p-0.5 h-[55px] flex flex-col justify-center";
+                thumbContainer.onclick = () => { loadScene(i); sceneSelect.value = i; syncCamSliders(); };
+                
+                const img = document.createElement('img');
+                img.src = sc.thumbnail; img.className = "w-16 h-full object-cover";
+                
+                const delBtn = document.createElement('div');
+                delBtn.className = "absolute -top-2 -right-2 bg-black border border-[#ff0000] text-[#ff0000] text-[8px] font-bold px-1 py-0.5 rounded cursor-pointer z-10 hover:bg-[#8b0000] hover:text-white";
+                delBtn.innerText = "DEL";
+                delBtn.onclick = (e) => { e.stopPropagation(); deleteScene(i); };
+                
+                thumbContainer.appendChild(img); thumbContainer.appendChild(delBtn); wrapper.appendChild(thumbContainer);
+                
+                if (i < scenes.length - 1) { const line = document.createElement('div'); line.className = "w-3 h-0.5 bg-[#8b0000] rounded"; wrapper.appendChild(line); }
+                timelineTrackUI.appendChild(wrapper);
+            });
+            updateSceneSelect();
+        }
+
+        document.getElementById('btn-capture').addEventListener('click', () => {
+            cameraGuide.style.display = 'none'; 
+            renderer.render(scene, camera); 
+            const thumbData = renderer.domElement.toDataURL('image/jpeg', 0.5);
+            cameraGuide.style.display = 'block';
+
+            scenes.push({
+                thumbnail: thumbData, duration: 2.0,
+                camPos: camera.position.clone(), camTarget: controls.target.clone(),
+                layerStates: getLayerSnapshot()
+            });
+            renderTimeline(); sceneSelect.value = scenes.length - 1; syncCamSliders();
+            setTimeout(() => { timelineTrackUI.scrollLeft = timelineTrackUI.scrollWidth; }, 50);
+        });
+
+        window.loadScene = function(i) {
+            const sc = scenes[i];
+            camera.position.copy(sc.camPos); controls.target.copy(sc.camTarget); controls.update();
+            layers.forEach(l => {
+                const state = sc.layerStates.find(x => x.id === l.id);
+                if (state) { l.group.position.copy(state.pos); l.group.quaternion.copy(state.rot); l.group.scale.copy(state.scale); }
+            });
+            syncSliders();
+        };
+
+        window.deleteScene = function(i) { scenes.splice(i, 1); renderTimeline(); };
+
+        let isPlaying = false, animK1 = 0, animK2 = 1, animStartTime = 0;
+        let isExporting = false;
+
+        function startPlayback() {
+            if(scenes.length < 1) return false;
+            isPlaying = true; animK1 = 0; animK2 = 1; animStartTime = performance.now(); controls.enabled = false;
+            btnPlayAll.innerHTML = "STOP"; btnPlayAll.classList.replace('bg-black', 'bg-[#8b0000]'); loadScene(0);
+            return true;
+        }
+
+        function stopPlayback() {
+            isPlaying = false; controls.enabled = true;
+            btnPlayAll.innerHTML = "PLAY"; btnPlayAll.classList.replace('bg-[#8b0000]', 'bg-black');
+            if(isExporting) stopRecording();
+        }
+
+        btnPlayAll.addEventListener('click', () => {
+            if(scenes.length < 2) return;
+            if(isPlaying) stopPlayback();
+            else startPlayback();
+        });
+
+        function animate(time) {
+            requestAnimationFrame(animate);
+
+            // LOGIKA AUTO-ANIMATE PER-LAYER (Jalan Terus Walaupun Tidak Play Scene)
+            const timeSec = time * 0.001;
+            layers.forEach(l => {
+                const anim = l.autoAnim;
+                if (anim && anim.type !== 'none') {
+                    if (anim.type === 'sway') {
+                        const angle = Math.sin(timeSec * anim.speed) * anim.range;
+                        l.mesh.rotation.z = THREE.MathUtils.degToRad(angle);
+                        l.mesh.position.set(0, 0, 0);
+                    } else if (anim.type === 'float_x') {
+                        const offset = Math.sin(timeSec * anim.speed) * anim.range;
+                        l.mesh.position.x = offset;
+                        l.mesh.position.y = 0;
+                        l.mesh.rotation.z = 0;
+                    } else if (anim.type === 'float_y') {
+                        const offset = Math.sin(timeSec * anim.speed) * anim.range;
+                        l.mesh.position.y = offset;
+                        l.mesh.position.x = 0;
+                        l.mesh.rotation.z = 0;
+                    }
+                } else {
+                    l.mesh.rotation.z = 0;
+                    l.mesh.position.set(0, 0, 0);
+                }
+            });
+
+            if (isPlaying) {
+                if (scenes.length > 1) {
+                    let k1 = scenes[animK1], k2 = scenes[animK2];
+                    let durMs = k2.duration * 1000;
+                    let t = Math.min((time - animStartTime) / durMs, 1.0);
+                    let easeT = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+                    camera.position.lerpVectors(k1.camPos, k2.camPos, easeT);
+                    controls.target.lerpVectors(k1.camTarget, k2.camTarget, easeT);
+                    camera.lookAt(controls.target);
+
+                    layers.forEach(l => {
+                        let s1 = k1.layerStates.find(x => x.id === l.id), s2 = k2.layerStates.find(x => x.id === l.id);
+                        if (s1 && s2) {
+                            l.group.position.lerpVectors(s1.pos, s2.pos, easeT);
+                            l.group.quaternion.slerpQuaternions(s1.rot, s2.rot, easeT);
+                            l.group.scale.lerpVectors(s1.scale, s2.scale, easeT);
+                        }
+                    });
+
+                    if (t >= 1.0) {
+                        camera.position.copy(k2.camPos); controls.target.copy(k2.camTarget);
+                        layers.forEach(l => {
+                            let s2 = k2.layerStates.find(x => x.id === l.id);
+                            if (s2) { l.group.position.copy(s2.pos); l.group.quaternion.copy(s2.rot); l.group.scale.copy(s2.scale); }
+                        });
+
+                        if (animK2 < scenes.length - 1) { animK1++; animK2++; animStartTime = time; } 
+                        else { stopPlayback(); syncSliders(); }
+                    }
+                }
+            }
+            if (!isPlaying) controls.update();
+            renderer.render(scene, camera);
+        }
+        animate(performance.now());
+
+        let mediaRecorder, recordedChunks = [];
+        
+        const uiToHide = [ uiNavbar, fblrBar, uiTimeline, uiTabs, uiControls ];
+        const recOverlay = document.getElementById('rec-overlay');
+        const formatSelect = document.getElementById('video-format');
+
+        document.getElementById('btn-record').addEventListener('click', () => { 
+            if (!isExporting) {
+                if (scenes.length === 0) { alert("Please capture at least 1 scene first."); return; }
+                startExporting();
+            } else stopRecording();
+        });
+
+        function startExporting() {
+            isExporting = true;
+            recordedChunks = [];
+            uiToHide.forEach(el => el.style.display = 'none');
+            cameraGuide.style.display = 'none'; recOverlay.style.display = 'block';
+            gridHelper.visible = false; document.body.style.background = scene.background.getStyle(); 
+            resizeCanvas();
+
+            const stream = renderer.domElement.captureStream(60);
+            const reqFormat = formatSelect.value;
+            let options = {};
+
+            if (reqFormat === 'mp4' && MediaRecorder.isTypeSupported('video/mp4')) options = { mimeType: 'video/mp4', videoBitsPerSecond: 8000000 };
+            else if (MediaRecorder.isTypeSupported('video/webm; codecs=vp9')) options = { mimeType: 'video/webm; codecs=vp9', videoBitsPerSecond: 8000000 };
+            else options = { mimeType: 'video/webm' };
+
+            try { mediaRecorder = new MediaRecorder(stream, options); } catch (e) { mediaRecorder = new MediaRecorder(stream); }
+            mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) recordedChunks.push(e.data); };
+            mediaRecorder.onstop = saveVideo; mediaRecorder.start();
+
+            if (scenes.length > 1) { startPlayback(); } 
+            else { loadScene(0); setTimeout(() => { stopRecording(); }, (scenes[0].duration || 2.0) * 1000); }
+            wrapper.addEventListener('click', tapToStopRecord);
+        }
+
+        function tapToStopRecord() { if(isExporting) stopPlayback(); }
+
+        function stopRecording() {
+            if(!isExporting) return;
+            isExporting = false;
+            if(mediaRecorder && mediaRecorder.state !== "inactive") mediaRecorder.stop();
+            if (!isPreviewMode) {
+                uiToHide.forEach(el => el.style.display = 'flex');
+                cameraGuide.style.display = 'block';
+                if(document.getElementById('toggle-grid').checked) gridHelper.visible = true;
+            }
+            recOverlay.style.display = 'none';
+            resizeCanvas();
+            wrapper.removeEventListener('click', tapToStopRecord);
+        }
+
+        function saveVideo() {
+            const ext = mediaRecorder.mimeType.includes('mp4') ? 'mp4' : 'webm';
+            const blob = new Blob(recordedChunks, { type: mediaRecorder.mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.style.display = 'none'; a.href = url; a.download = `FIN_ZLAYER_REC.${ext}`;
+            document.body.appendChild(a); a.click();
+            setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+        }
+    </script>
+</body>
+</html>
