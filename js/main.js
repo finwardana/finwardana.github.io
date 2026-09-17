@@ -23,11 +23,15 @@ const invitationsList = document.getElementById("invitations-list");
 function createCard(item){
 
 return `
-<a href="${item.url}" class="card">
-<div class="thumb"
-style="background-image:url('${item.thumb}')">
+<a href="/${item.url}" class="card">
+
+<div
+class="thumb"
+style="background-image:url('/${item.thumb}')">
 </div>
+
 <h3>${item.title}</h3>
+
 </a>
 `;
 
@@ -37,13 +41,10 @@ style="background-image:url('${item.thumb}')">
 
 if(recent){
 
-data
+recent.innerHTML = data
 .slice(0,10)
-.forEach(item=>{
-
-recent.innerHTML += createCard(item);
-
-});
+.map(createCard)
+.join("");
 
 }
 
@@ -51,13 +52,10 @@ recent.innerHTML += createCard(item);
 
 if(games){
 
-data
-.filter(item=>item.type==="game")
-.forEach(item=>{
-
-games.innerHTML += createCard(item);
-
-});
+games.innerHTML = data
+.filter(item => item.type === "game")
+.map(createCard)
+.join("");
 
 }
 
@@ -65,13 +63,10 @@ games.innerHTML += createCard(item);
 
 if(tools){
 
-data
-.filter(item=>item.type==="tool")
-.forEach(item=>{
-
-tools.innerHTML += createCard(item);
-
-});
+tools.innerHTML = data
+.filter(item => item.type === "tool")
+.map(createCard)
+.join("");
 
 }
 
@@ -79,13 +74,10 @@ tools.innerHTML += createCard(item);
 
 if(invitations){
 
-data
-.filter(item=>item.type==="invitation")
-.forEach(item=>{
-
-invitations.innerHTML += createCard(item);
-
-});
+invitations.innerHTML = data
+.filter(item => item.type === "invitation")
+.map(createCard)
+.join("");
 
 }
 
@@ -93,13 +85,10 @@ invitations.innerHTML += createCard(item);
 
 if(gamesList){
 
-data
-.filter(item=>item.type==="game")
-.forEach(item=>{
-
-gamesList.innerHTML += createCard(item);
-
-});
+gamesList.innerHTML = data
+.filter(item => item.type === "game")
+.map(createCard)
+.join("");
 
 }
 
@@ -107,13 +96,10 @@ gamesList.innerHTML += createCard(item);
 
 if(toolsList){
 
-data
-.filter(item=>item.type==="tool")
-.forEach(item=>{
-
-toolsList.innerHTML += createCard(item);
-
-});
+toolsList.innerHTML = data
+.filter(item => item.type === "tool")
+.map(createCard)
+.join("");
 
 }
 
@@ -121,19 +107,16 @@ toolsList.innerHTML += createCard(item);
 
 if(invitationsList){
 
-data
-.filter(item=>item.type==="invitation")
-.forEach(item=>{
-
-invitationsList.innerHTML += createCard(item);
-
-});
+invitationsList.innerHTML = data
+.filter(item => item.type === "invitation")
+.map(createCard)
+.join("");
 
 }
 
 })
-.catch(err=>{
+.catch(err => {
 
-console.error(err);
+console.error("JSON ERROR:", err);
 
 });
