@@ -1,2 +1,20 @@
 [
+  {
+    "title":"Zombie War",
+    "type":"game",
+    "thumb":"games/zombie-war/thumb.webp",
+    "url":"games/zombie-war/"
+  },
+  {
+    "title":"QR Generator",
+    "type":"tool",
+    "thumb":"tools/qr-generator/thumb.webp",
+    "url":"tools/qr-generator/"
+  },
+  {
+    "title":"Wedding Gold",
+    "type":"invitation",
+    "thumb":"invitations/wedding-gold/thumb.webp",
+    "url":"invitations/wedding-gold/"
+  }
 ]
