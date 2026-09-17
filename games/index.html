@@ -3,22 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FINWARDANA - Kategori</title>
-
-<!-- Path ke CSS utama -->
+<title>Games - FINWARDANA</title>
 <link rel="stylesheet" href="../css/style.css">
-
-<style>
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    padding: 14px 12px;
-}
-@media(min-width: 900px) {
-    .grid-container { grid-template-columns: repeat(6, 1fr); gap: 15px; }
-}
-</style>
 </head>
 <body>
 
@@ -26,68 +12,17 @@
 <div class="logo-bar">FINWARDANA</div>
 <nav class="navbar">
 <a href="../">Home</a>
-<a href="../games/" id="nav-games">Games</a>
-<a href="../tools/" id="nav-tools">Tools</a>
-<a href="../invitations/" id="nav-invitation">Invitation</a>
+<a class="active">Games</a>
+<a href="../tools/">Tools</a>
+<a href="../invitations/">Invitations</a>
 </nav>
 </header>
 
 <section class="section">
-<h2 class="section-title" id="page-title">KATEGORI</h2>
-
-<!-- Tempat kartu konten muncul -->
-<div class="grid-container" id="filtered-container"></div>
+<h2 class="section-title">ALL GAMES</h2>
+<div id="games-list" class="grid"></div>
 </section>
 
-<footer>© 2026 FINWARDANA</footer>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    let currentCategory = "";
-    const path = window.location.pathname;
-    
-    // Deteksi halaman & ubah judul
-    if (path.includes("games")) {
-        currentCategory = "game";
-        document.getElementById("page-title").innerText = "ALL GAMES";
-        document.getElementById("nav-games").classList.add("active");
-    } else if (path.includes("tools")) {
-        currentCategory = "tool";
-        document.getElementById("page-title").innerText = "ALL TOOLS";
-        document.getElementById("nav-tools").classList.add("active");
-    } else if (path.includes("invitat")) {
-        currentCategory = "invitation";
-        document.getElementById("page-title").innerText = "ALL INVITATIONS";
-        document.getElementById("nav-invitation").classList.add("active");
-    }
-
-    // Ambil data dari file JSON utama
-    fetch("../data.json")
-        .then(res => res.json())
-        .then(data => {
-            const container = document.getElementById("filtered-container");
-            container.innerHTML = "";
-
-            // Saring data sesuai kategori
-            const filtered = data.filter(item => item.type === currentCategory);
-
-            if(filtered.length === 0) {
-                container.innerHTML = "<p style='color:#777; grid-column: 1/-1;'>Kosong.</p>";
-                return;
-            }
-
-            // Render ke HTML
-            filtered.forEach(item => {
-                container.innerHTML += `
-                    <a href="${item.url}" class="card" style="flex: unset; width: 100%;">
-                        <div class="thumb" style="background-image: url('../${item.thumb}')"></div>
-                        <h3>${item.title}</h3>
-                    </a>
-                `;
-            });
-        })
-        .catch(err => console.error("Error:", err));
-});
-</script>
+<script src="../js/main.js"></script>
 </body>
 </html>
