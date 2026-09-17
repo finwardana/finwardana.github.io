@@ -1,1 +1,176 @@
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#080808;
+    color:#fff;
+    padding-top:100px;
+    overflow-x:hidden;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* HEADER */
+
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background:#080808;
+    border-bottom:1px solid #222;
+    z-index:9999;
+}
+
+.logo-bar{
+    height:50px;
+    display:flex;
+    align-items:center;
+    padding:0 16px;
+    font-size:20px;
+    font-weight:900;
+}
+
+.navbar{
+    height:50px;
+    display:flex;
+    overflow-x:auto;
+    white-space:nowrap;
+    border-top:1px solid #151515;
+    scrollbar-width:none;
+}
+
+.navbar::-webkit-scrollbar{
+    display:none;
+}
+
+.navbar a{
+    padding:0 16px;
+    height:50px;
+    display:flex;
+    align-items:center;
+    color:#aaa;
+}
+
+.navbar a.active{
+    color:#fff;
+    border-bottom:2px solid #ff2b3a;
+}
+
+/* SECTION */
+
+.section{
+    padding:14px 12px;
+}
+
+.section-title{
+    font-size:14px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:10px;
+    color:#ddd;
+}
+
+/* SLIDER */
+
+.slider{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    scrollbar-width:none;
+    padding-bottom:4px;
+}
+
+.slider::-webkit-scrollbar{
+    display:none;
+}
+
+/* CARD */
+
+.card{
+    flex:0 0 130px;
+    background:#111;
+    border:1px solid #222;
+    border-radius:8px;
+    overflow:hidden;
+    transition:.2s;
+}
+
+.card:hover{
+    border-color:#ff2b3a;
+}
+
+.thumb{
+    height:170px;
+    background:#1a1a1a;
+    background-size:cover;
+    background-position:center;
+}
+
+.card h3{
+    font-size:12px;
+    padding:8px;
+    text-align:center;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* FOOTER */
+
+footer{
+    padding:20px;
+    text-align:center;
+    color:#666;
+    font-size:12px;
+    border-top:1px solid #222;
+    margin-top:20px;
+}
+
+/* DESKTOP */
+
+@media(min-width:900px){
+
+    body{
+        padding-top:76px;
+    }
+
+    .header{
+        display:flex;
+        height:76px;
+        align-items:center;
+    }
+
+    .logo-bar{
+        height:76px;
+        font-size:24px;
+        padding:0 30px;
+    }
+
+    .navbar{
+        height:76px;
+        border-top:none;
+        margin-left:auto;
+        overflow:visible;
+    }
+
+    .navbar a{
+        height:76px;
+    }
+
+    .card{
+        flex:0 0 200px;
+    }
+
+    .thumb{
+        height:260px;
+    }
+}
