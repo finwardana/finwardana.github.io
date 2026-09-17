@@ -1,11 +1,5 @@
 [
   {
-    "title":"Zombie War",
-    "type":"game",
-    "thumb":"games/zombiewar/thumb.webp",
-    "url":"games/zombiewar/"
-  },
-  {
     "title":"FZL",
     "type":"tool",
     "thumb":"tools/Fin Z Layer/thumb.webp",
