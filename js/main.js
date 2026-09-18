@@ -4,7 +4,7 @@ console.log("FINWARDANA Loaded");
    DATA.JSON PATH
 ======================================== */
 
-// Menyesuaikan jalur data.json secara dinamis berdasarkan keberadaan window.root dari layout.js
+// Menyesuaikan jalur data.json secara dinamis berdasarkan window.root dari layout.js
 const dataPath = window.root ? window.root + "data.json" : "data.json";
 
 /* ========================================
@@ -12,13 +12,15 @@ const dataPath = window.root ? window.root + "data.json" : "data.json";
 ======================================== */
 
 function createCard(item){
-    // Menggunakan window.root agar path gambar selalu akurat dari root direktori utama
     const prefix = window.root || "";
     
-    // Cek apakah thumb benar-benar ada dan tidak kosong
-    const hasThumb = item.thumb && item.thumb.trim() !== "" && item.thumb !== "undefined";
+    // Cek apakah data thumb benar-benar ada isinya dan tidak kosong
+    const hasThumb = item.thumb && item.thumb.trim() !== "";
     
+    // Jika ada thumb, pasang background-image. Jika tidak, kosongkan.
     const bgStyle = hasThumb ? `style="background-image:url('${prefix}${item.thumb}')"` : "";
+    
+    // Jika ada thumb, teks kosong. Jika kosong, tampilkan "COMING SOON".
     const cardContent = hasThumb ? "" : "COMING SOON";
 
     return `
