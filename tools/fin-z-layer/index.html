@@ -1,72 +1,229 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fin Z Layer (FZL)</title>
-<link rel="stylesheet" href="../../css/style.css">
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fin Z Layer (FZL)</title>
+    <!-- Pastikan path CSS ini benar sesuai struktur foldermu -->
+    <link rel="stylesheet" href="../../css/style.css">
+    
+    <style>
+        /* ========================================
+           STYLE HALAMAN DETAIL ALA PRIME VIDEO
+        ======================================== */
+        
+        .detail-container {
+            padding: 16px;
+            max-width: 800px;
+            margin: auto;
+            /* Jarak atas sedikit agar tidak terlalu mepet dengan navbar bawaan */
+            margin-top: 10px; 
+        }
 
-.detail{
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-}
+        /* Banner ditaruh di dalam wadah konten agar tidak menimpa header atas */
+        .hero-backdrop {
+            width: 100%;
+            height: 200px;
+            border-radius: 12px;
+            background-image: url('thumb.webp'); /* Memanggil gambar aslimu */
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 16px;
+            /* Memberikan efek bayangan hitam memudar di bagian bawah gambar */
+            box-shadow: inset 0 -50px 40px -10px var(--bg); 
+            border: 1px solid var(--border);
+        }
 
-.cover{
-    width: 100%;
-    max-width: 100px; /* UKURAN POSTER */
-    margin: 0 auto;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid #222;
-}
+        .detail-title {
+            font-size: 26px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
 
-.cover img{
-    width: 100%;
-    height: auto;
-    display: block;
-}
+        .detail-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
 
-.desc{
-    margin-top: 20px;
-    color: #ccc;
-    line-height: 1.7;
-}
+        .meta-badge {
+            background: #222;
+            color: #fff;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
 
-.play-btn{
-    margin-top: 25px;
-    display: block;
-    width: 100%;
-    text-align: center;
-    padding: 15px;
-    background: #ff2b3a;
-    color: white;
-    font-weight: 700;
-    border-radius: 10px;
-}
+        /* Tombol Utama ala 'Subscribe' Prime Video */
+        .btn-primary {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background: #fff; /* Warna putih agar sangat menonjol */
+            color: #000;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            transition: 0.2s;
+        }
 
-</style>
+        .btn-primary:active {
+            background: #ccc;
+        }
+
+        /* Baris Tombol Aksi Sekunder */
+        .action-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .btn-action {
+            flex: 1;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-action:active {
+            background: var(--border);
+        }
+
+        .detail-desc {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #ccc;
+            margin-bottom: 24px;
+        }
+
+        /* Kolom Info ala rilis & musim (Releases / Seasons) di Prime */
+        .detail-stats {
+            display: flex;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            margin-bottom: 24px;
+        }
+
+        .stat-box {
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat-box span {
+            display: block;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .stat-box strong {
+            font-size: 15px;
+            font-weight: 900;
+        }
+
+        /* Tab ala navigasi konten (Details, Episodes, Related) */
+        .detail-tabs {
+            display: flex;
+            gap: 24px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+
+        .tab-item {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--text-muted);
+            padding-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .tab-item.active {
+            color: var(--text);
+            border-bottom: 2px solid var(--text);
+        }
+    </style>
 </head>
 <body>
-<header class="header">
-<div class="logo-bar">FINWARDANA</div>
-</header>
-<section class="detail">
-<div class="cover">
-<img src="thumb.webp" alt="Fin Z Layer">
-</div>
-<h1 style="margin-top:20px;">
-FZL (FIN Z LAYER)
-</h1>
-<p class="desc">
-FIN Z-LAYER adalah aplikasi editor berbasis web yang dirancang khusus untuk Smartphone dalam menciptakan animasi paralaks 2.5D, 
-serta fly-through camera animation. Dilengkapi dengan sistem multi-lapisan (multi-layer),
-manajemen keyframe scene, serta fitur Auto-Animate independen untuk 
-menciptakan efek gerakan berulang.
-<a class="play-btn" href="play/">
-BUKA TOOLS
-</a>
-</section>
+
+    <!-- Area ini dibiarkan kosong, Header otomatis dimasukkan oleh layout.js -->
+
+    <div class="detail-container">
+        <!-- 1. Hero / Banner -->
+        <div class="hero-backdrop"></div>
+
+        <!-- 2. Judul & Meta Data -->
+        <h1 class="detail-title">FZL (FIN Z LAYER)</h1>
+        <div class="detail-meta">
+            <span class="meta-badge">Web App</span>
+            <span>Animation</span>
+            <span>Editor</span>
+        </div>
+
+        <!-- 3. Tombol Buka Aplikasi (Gaya Utama) -->
+        <a href="play/" class="btn-primary">
+            BUKA TOOLS
+        </a>
+
+        <!-- 4. Tombol Aksi Tambahan -->
+        <div class="action-row">
+            <div class="btn-action">Panduan</div>
+            <div class="btn-action">+ Simpan</div>
+            <div class="btn-action">Bagikan</div>
+        </div>
+
+        <!-- 5. Deskripsi Aplikasi -->
+        <p class="detail-desc">
+            FIN Z-LAYER adalah aplikasi editor berbasis web yang dirancang khusus untuk Smartphone dalam menciptakan animasi paralaks 2.5D, 
+            serta fly-through camera animation. Dilengkapi dengan sistem multi-lapisan (multi-layer), 
+            manajemen keyframe scene, serta fitur Auto-Animate independen untuk 
+            menciptakan efek gerakan berulang.
+        </p>
+
+        <!-- 6. Info Teknis (Versi & Tahun) -->
+        <div class="detail-stats">
+            <div class="stat-box">
+                <span>Rilis</span>
+                <strong>2026</strong>
+            </div>
+            <div class="stat-box">
+                <span>Versi</span>
+                <strong>1.0.0</strong>
+            </div>
+        </div>
+
+        <!-- 7. Tab Bawah -->
+        <div class="detail-tabs">
+            <div class="tab-item active">Details</div>
+            <div class="tab-item">Updates</div>
+            <div class="tab-item">Related</div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         SAMBUNGAN SCRIPT LAYOUT & DATA
+    ======================================== -->
+    <script>
+        // Deklarasi agar script mengerti ini berada di sub-folder
+        window.isSubPage = true;
+    </script>
+    <script src="../../js/layout.js"></script>
+    <script src="../../js/main.js"></script>
+
 </body>
 </html>
