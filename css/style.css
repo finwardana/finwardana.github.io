@@ -180,28 +180,26 @@ img{
 }
 
 /* ========================================
-   SLIDER
+   SLIDER (KHUSUS HOME)
 ======================================== */
 
-.slider{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    padding-bottom:4px;
-    scrollbar-width:none;
+.section > .slider {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
 }
 
-.slider::-webkit-scrollbar{
-    display:none;
+.section > .slider::-webkit-scrollbar {
+    display: none;
 }
 
 /* ========================================
-   CARD & THUMBNAIL STYLE (Prime Video Style)
+   CARD & THUMBNAIL STYLE
 ======================================== */
 
 .card {
-    flex: 0 0 110px;
-    width: 110px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -212,6 +210,12 @@ img{
     
     transform: none !important;
     -webkit-tap-highlight-color: transparent;
+}
+
+/* Ukuran kartu khusus untuk Home (Slider) */
+.section > .slider .card {
+    flex: 0 0 110px;
+    width: 110px;
 }
 
 .thumb {
@@ -260,20 +264,20 @@ footer {
 }
 
 /* ========================================
-   GRID KHUSUS HALAMAN ALL LIST (3 Kolom / 3-3)
+   GRID LIST KE BAWAH 3 KOLOM (Halaman Games, Tools, Invitations)
 ======================================== */
-.section .slider#games-list, 
-.section .slider#tools-list, 
-.section .slider#invitations-list {
+#games-list, 
+#tools-list, 
+#invitations-list {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 8px !important;
     overflow-x: visible !important;
 }
 
-.section .slider#games-list .card, 
-.section .slider#tools-list .card, 
-.section .slider#invitations-list .card {
+#games-list .card, 
+#tools-list .card, 
+#invitations-list .card {
     width: 100% !important;
     flex: unset !important;
 }
