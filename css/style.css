@@ -118,9 +118,9 @@ img{
 
 .hero{
     position: relative;
-    height: 160px; /* Tinggi sedikit dinaikkan agar lebih lega */
-    margin: 12px 0; /* Margin kiri-kanan 0 agar menempel penuh ke sisi layar */
-    border-radius: 0; /* Mengikuti gaya full-width ala app streaming */
+    height: 160px;
+    margin: 12px 0;
+    border-radius: 0;
     overflow: hidden;
     border-left: none;
     border-right: none;
@@ -210,9 +210,7 @@ img{
     flex-direction: column;
     text-decoration: none;
     
-    /* Mematikan efek geser/transform agar kartu diam dan tidak kepotong */
     transform: none !important;
-    /* Menghilangkan kotak biru saat di-tap di HP */
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -232,11 +230,9 @@ img{
     text-align: center;
     text-transform: uppercase;
     
-    /* Transisi mulus untuk efek redup */
     transition: filter 0.15s ease;
 }
 
-/* Efek saat kartu disentuh/ditekan (tap) jadi sedikit menggelap */
 .card:active .thumb {
     filter: brightness(0.7);
 }
@@ -261,4 +257,24 @@ footer {
     color: var(--text-muted);
     font-size: 12px;
     border-top: 1px solid var(--border);
+}
+
+/* ========================================
+   GRID KHUSUS HALAMAN ALL LIST (Games, Tools, Invitations)
+======================================== */
+.section .slider#games-list, 
+.section .slider#tools-list, 
+.section .slider#invitations-list {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+    overflow-x: visible !important;
+}
+
+@media (max-width: 600px) {
+    .section .slider#games-list, 
+    .section .slider#tools-list, 
+    .section .slider#invitations-list {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
 }
