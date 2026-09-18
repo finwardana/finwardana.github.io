@@ -1,17 +1,50 @@
 /* ========================================
+   FINWARDANA LAYOUT
+   Header + Footer Global
+======================================== */
+
+/* ========================================
+   DETECT PAGE
+======================================== */
+
+const path = window.location.pathname;
+
+const isSubPage =
+    path.includes("/games/") ||
+    path.includes("/tools/") ||
+    path.includes("/invitations/");
+
+const root = isSubPage ? "../" : "";
+
+/* ========================================
+   ACTIVE MENU
+======================================== */
+
+const active = {
+    home:
+        path === "/" ||
+        path.endsWith("/index.html") ||
+        path.endsWith("/FINWARDANA/"),
+
+    games:
+        path.includes("/games/"),
+
+    tools:
+        path.includes("/tools/"),
+
+    invitations:
+        path.includes("/invitations/")
+};
+
+/* ========================================
    HEADER
 ======================================== */
 
-const header = document.getElementById("header");
+function renderHeader(){
 
-if(header){
+    const header = document.getElementById("header");
 
-    const isSubPage =
-        location.pathname.includes("/games/") ||
-        location.pathname.includes("/tools/") ||
-        location.pathname.includes("/invitations/");
-
-    const root = isSubPage ? "../" : "";
+    if(!header) return;
 
     header.innerHTML = `
     <header class="header">
@@ -20,8 +53,8 @@ if(header){
 
             <img
                 src="${root}img/logo.png"
-                class="logo-icon"
-                alt="Logo">
+                alt="FINWARDANA"
+                class="logo-icon">
 
             <span>FINWARDANA</span>
 
@@ -29,19 +62,27 @@ if(header){
 
         <nav class="navbar">
 
-            <a href="${root}">
+            <a
+                href="${root}"
+                class="${active.home ? "active" : ""}">
                 Home
             </a>
 
-            <a href="${root}games/">
+            <a
+                href="${root}games/"
+                class="${active.games ? "active" : ""}">
                 Games
             </a>
 
-            <a href="${root}tools/">
+            <a
+                href="${root}tools/"
+                class="${active.tools ? "active" : ""}">
                 Tools
             </a>
 
-            <a href="${root}invitations/">
+            <a
+                href="${root}invitations/"
+                class="${active.invitations ? "active" : ""}">
                 Invitations
             </a>
 
@@ -55,13 +96,24 @@ if(header){
    FOOTER
 ======================================== */
 
-const footer = document.getElementById("footer");
+function renderFooter(){
 
-if(footer){
+    const footer = document.getElementById("footer");
+
+    if(!footer) return;
+
+    const year = new Date().getFullYear();
 
     footer.innerHTML = `
     <footer>
-        © 2026 FINWARDANA
+        © ${year} FINWARDANA
     </footer>
     `;
 }
+
+/* ========================================
+   INIT
+======================================== */
+
+renderHeader();
+renderFooter();
