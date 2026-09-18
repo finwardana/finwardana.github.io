@@ -117,12 +117,15 @@ img{
 ======================================== */
 
 .hero{
-    position:relative;
-    height:120px;
-    margin:10px 12px;
-    border-radius:14px;
-    overflow:hidden;
-    border:1px solid var(--border);
+    position: relative;
+    height: 160px; /* Tinggi sedikit dinaikkan agar lebih lega */
+    margin: 12px 0; /* Margin kiri-kanan 0 agar menempel penuh ke sisi layar */
+    border-radius: 0; /* Mengikuti gaya full-width ala app streaming */
+    overflow: hidden;
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
 .hero-image{
