@@ -1,30 +1,29 @@
-
 console.log("FINWARDANA Loaded");
 
 /* ========================================
    DATA.JSON PATH
 ======================================== */
 
-// Menggunakan window.isSubPage dari layout.js agar tidak terjadi deklarasi ganda
-const dataPath = window.isSubPage
-    ? "../data.json"
-    : "data.json";
+// Menyesuaikan jalur data.json secara dinamis berdasarkan keberadaan window.root dari layout.js
+const dataPath = window.root ? window.root + "data.json" : "data.json";
 
 /* ========================================
    CARD TEMPLATE
 ======================================== */
 
 function createCard(item){
-    const prefix = window.isSubPage ? "../" : "";
+    // Menggunakan window.root agar path gambar selalu akurat dari root direktori utama
+    const prefix = window.root || "";
     
-    // Cek apakah item punya thumb dan tidak kosong
-    const bgStyle = (item.thumb && item.thumb.trim() !== "") 
-        ? `style="background-image:url('${prefix}${item.thumb}')"` 
-        : "";
+    // Cek apakah thumb benar-benar ada dan tidak kosong
+    const hasThumb = item.thumb && item.thumb.trim() !== "" && item.thumb !== "undefined";
+    
+    const bgStyle = hasThumb ? `style="background-image:url('${prefix}${item.thumb}')"` : "";
+    const cardContent = hasThumb ? "" : "COMING SOON";
 
     return `
     <a href="${prefix}${item.url}" class="card">
-        <div class="thumb" ${bgStyle}>COMING SOON</div>
+        <div class="thumb" ${bgStyle}>${cardContent}</div>
         <h3>${item.title}</h3>
     </a>
     `;
