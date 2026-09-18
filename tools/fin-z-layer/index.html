@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="../../css/style.css">
     
     <style>
-        /* ========================================
-           
-        ======================================== */
-        
         .detail-container {
             padding: 16px;
             max-width: 800px;
@@ -68,7 +64,6 @@
             font-weight: 900;
             margin-bottom: 16px;
             transition: 0.2s;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-primary:active {
@@ -91,8 +86,8 @@
             font-size: 12px;
             font-weight: bold;
             text-align: center;
+            transition: 0.2s;
             cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-action:active {
@@ -154,14 +149,11 @@
 </head>
 <body>
 
-    <!-- WADAH HEADER OTOMATIS DARI layout.js -->
-    <div id="header"></div>
-
     <div class="detail-container">
-        <!-- 1. Hero / Banner -->
+        <!-- Hero / Banner -->
         <div class="hero-backdrop"></div>
 
-        <!-- 2. Judul & Meta Data -->
+        <!-- Judul & Meta Data -->
         <h1 class="detail-title">FZL (FIN Z LAYER)</h1>
         <div class="detail-meta">
             <span class="meta-badge">Web App</span>
@@ -169,19 +161,19 @@
             <span>Editor</span>
         </div>
 
-        <!-- 3. Tombol Buka Aplikasi -->
+        <!-- Tombol Buka Tools -->
         <a href="play/" class="btn-primary">
             BUKA TOOLS
         </a>
 
-        <!-- 4. Tombol Aksi Tambahan -->
+        <!-- Tombol Aksi Tambahan -->
         <div class="action-row">
-            <div class="btn-action">Panduan</div>
-            <div class="btn-action">+ Simpan</div>
-            <div class="btn-action">Bagikan</div>
+            <div class="btn-action" onclick="alert('Panduan belum tersedia')">Panduan</div>
+            <div class="btn-action" onclick="alert('Berhasil disimpan ke Watchlist!')">+ Simpan</div>
+            <div class="btn-action" id="share-btn">Bagikan</div>
         </div>
 
-        <!-- 5. Deskripsi Aplikasi -->
+        <!-- Deskripsi -->
         <p class="detail-desc">
             FIN Z-LAYER adalah aplikasi editor berbasis web yang dirancang khusus untuk Smartphone dalam menciptakan animasi paralaks 2.5D, 
             serta fly-through camera animation. Dilengkapi dengan sistem multi-lapisan (multi-layer), 
@@ -189,7 +181,7 @@
             menciptakan efek gerakan berulang.
         </p>
 
-        <!-- 6. Info Teknis -->
+        <!-- Info Statistik (Rilis, Versi, Dev) -->
         <div class="detail-stats">
             <div class="stat-box">
                 <span>Rilis</span>
@@ -199,9 +191,13 @@
                 <span>Versi</span>
                 <strong>1.0.0</strong>
             </div>
+            <div class="stat-box">
+                <span>Dev</span>
+                <strong>Fin Wardana</strong>
+            </div>
         </div>
 
-        <!-- 7. Tab Bawah -->
+        <!-- Tab Bawah -->
         <div class="detail-tabs">
             <div class="tab-item active">Details</div>
             <div class="tab-item">Updates</div>
@@ -209,10 +205,26 @@
         </div>
     </div>
 
-    <!-- WADAH FOOTER OTOMATIS DARI layout.js -->
-    <div id="footer"></div>
+    <!-- Script Fungsionalitas Tombol Bagikan -->
+    <script>
+        document.getElementById('share-btn').addEventListener('click', async () => {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: document.title,
+                        url: window.location.href
+                    });
+                } catch (err) {
+                    console.log('Share dibatalkan');
+                }
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Link halaman berhasil disalin ke clipboard!');
+            }
+        });
+    </script>
 
-    <!-- SCRIPT LAYOUT -->
+    <!-- Sambungan Layout & Data Global -->
     <script>
         window.isSubPage = true;
     </script>
