@@ -1,5 +1,22 @@
 /* ========================================
-   FINWARDANA
+   FINWARDANA THEME
+======================================== */
+
+:root{
+    --bg:#080808;
+    --surface:#111;
+    --border:#222;
+    --text:#fff;
+    --text-muted:#aaa;
+    --accent:#ff2b3a;
+
+    --radius:12px;
+    --header-mobile:100px;
+    --header-desktop:76px;
+}
+
+/* ========================================
+   RESET
 ======================================== */
 
 *{
@@ -9,28 +26,29 @@
 }
 
 /* ========================================
-   BODY / HALAMAN UTAMA
+   BODY
 ======================================== */
 
 body{
     font-family:Arial,sans-serif;
-    background:#080808;
-    color:#fff;
-    padding-top:100px;
+    background:var(--bg);
+    color:var(--text);
+    padding-top:var(--header-mobile);
     overflow-x:hidden;
 }
-
-/* ========================================
-   LINK
-======================================== */
 
 a{
     text-decoration:none;
     color:inherit;
 }
 
+img{
+    display:block;
+    max-width:100%;
+}
+
 /* ========================================
-   HEADER ATAS
+   HEADER
 ======================================== */
 
 .header{
@@ -38,26 +56,20 @@ a{
     top:0;
     left:0;
     width:100%;
-    background:#080808;
-    border-bottom:1px solid #222;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
     z-index:9999;
 }
-
-/* ========================================
-   LOGO FINWARDANA
-======================================== */
 
 .logo-bar{
     height:50px;
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:10px;
     padding:0 16px;
     font-size:18px;
     font-weight:900;
 }
-
-/* Icon logo */
 
 .logo-icon{
     width:24px;
@@ -66,30 +78,42 @@ a{
 }
 
 /* ========================================
-   NAVIGATION MENU
-   Home - Games - Tools - Invitations
+   NAVBAR
 ======================================== */
 
 .navbar{
     height:50px;
     display:flex;
     overflow-x:auto;
+    white-space:nowrap;
+    border-top:1px solid var(--border);
+    scrollbar-width:none;
+}
+
+.navbar::-webkit-scrollbar{
+    display:none;
 }
 
 .navbar a{
     padding:0 16px;
+    height:50px;
     display:flex;
     align-items:center;
+    color:var(--text-muted);
+    transition:.2s;
 }
 
-/* Menu aktif */
+.navbar a:hover{
+    color:var(--text);
+}
 
 .navbar a.active{
-    border-bottom:2px solid #ff2b3a;
+    color:var(--text);
+    border-bottom:2px solid var(--accent);
 }
 
 /* ========================================
-   BANNER UTAMA
+   HERO BANNER
 ======================================== */
 
 .hero{
@@ -98,9 +122,8 @@ a{
     margin:10px 12px;
     border-radius:14px;
     overflow:hidden;
+    border:1px solid var(--border);
 }
-
-/* Gambar banner */
 
 .hero-image{
     width:100%;
@@ -108,103 +131,65 @@ a{
     object-fit:cover;
 }
 
-/* Overlay gelap di atas banner */
-
 .hero-overlay{
     position:absolute;
     inset:0;
+
+    background:
+    linear-gradient(
+        rgba(0,0,0,.1),
+        rgba(0,0,0,.75)
+    );
+
     display:flex;
     flex-direction:column;
     justify-content:flex-end;
+
+    padding:14px;
+}
+
+.hero-overlay h1{
+    font-size:16px;
+    font-weight:900;
+}
+
+.hero-overlay p{
+    font-size:11px;
+    color:#ccc;
+    margin-top:4px;
 }
 
 /* ========================================
    SECTION
-   RECENTLY ADDED
-   GAMES
-   TOOLS
-   INVITATIONS
 ======================================== */
 
 .section{
     padding:12px;
 }
 
-/* Judul section */
-
 .section-title{
     font-size:14px;
     font-weight:900;
+    letter-spacing:1px;
+    margin-bottom:10px;
+    color:#ddd;
 }
 
 /* ========================================
-   SLIDER HORIZONTAL
+   SLIDER
 ======================================== */
 
 .slider{
     display:flex;
     gap:8px;
     overflow-x:auto;
+    padding-bottom:4px;
+    scrollbar-width:none;
+}
+
+.slider::-webkit-scrollbar{
+    display:none;
 }
 
 /* ========================================
-   CARD ITEM
-======================================== */
-
-.card{
-    flex:0 0 120px;
-    background:#111;
-    border-radius:12px;
-}
-
-/* Thumbnail card */
-
-.thumb{
-    width:100%;
-    height:160px;
-    background-size:cover;
-    background-position:center;
-}
-
-/* Judul card */
-
-.card h3{
-    font-size:12px;
-    padding:8px;
-    text-align:center;
-}
-
-/* ========================================
-   FOOTER
-======================================== */
-
-footer{
-    padding:20px;
-    text-align:center;
-}
-
-/* ========================================
-   DESKTOP MODE
-======================================== */
-
-@media(min-width:900px){
-
-    /* Header desktop */
-
-    .header{
-        height:76px;
-    }
-
-    /* Banner desktop */
-
-    .hero{
-        height:280px;
-    }
-
-    /* Card desktop */
-
-    .card{
-        flex:0 0 220px;
-    }
-
-}
+  
