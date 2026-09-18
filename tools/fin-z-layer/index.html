@@ -14,10 +14,9 @@
             margin-top: 10px; 
         }
 
-        /* Banner ditaruh di dalam wadah konten agar aman dari header fixed */
         .hero-backdrop {
             width: 100%;
-            height: 350px; /* Banner lebih tinggi dan lega ala aplikasi streaming */
+            height: 350px;
             border-radius: 12px;
             background-image: url('thumb.webp'); 
             background-size: cover;
@@ -150,14 +149,12 @@
 </head>
 <body>
 
-    <!-- PENTING: Tempat penampung Header dari layout.js -->
     <div id="header"></div>
 
     <div class="detail-container">
-        <!-- 1. Hero / Banner -->
+        <!-- Banner FZL -->
         <div class="hero-backdrop"></div>
 
-        <!-- 2. Judul & Meta Data -->
         <h1 class="detail-title">FZL (FIN Z LAYER)</h1>
         <div class="detail-meta">
             <span class="meta-badge">Web App</span>
@@ -165,27 +162,27 @@
             <span>Editor</span>
         </div>
 
-        <!-- 3. Tombol Utama -->
         <a href="play/" class="btn-primary">
             BUKA TOOLS
         </a>
 
-        <!-- 4. Tombol Aksi Tambahan -->
         <div class="action-row">
             <div class="btn-action">Panduan</div>
             <div class="btn-action">+ Simpan</div>
             <div class="btn-action">Bagikan</div>
         </div>
 
-        <!-- 5. Deskripsi -->
-        <p class="detail-desc">
-            FIN Z-LAYER adalah aplikasi editor berbasis web yang dirancang khusus untuk Smartphone dalam menciptakan animasi paralaks 2.5D, 
-            serta fly-through camera animation. Dilengkapi dengan sistem multi-lapisan (multi-layer), 
-            manajemen keyframe scene, serta fitur Auto-Animate independen untuk 
-            menciptakan efek gerakan berulang.
-        </p>
+        <!-- Deskripsi Tools -->
+        <div class="detail-desc">
+            <p style="margin-bottom: 10px;">Fitur utama:</p>
+            <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 6px;">
+                <li>Animasi paralaks 2.5D & kamera <em>fly-through</em>.</li>
+                <li>Sistem multi-layer objek.</li>
+                <li>Pengaturan keyframe scene.</li>
+                <li>Fitur Auto-Animate looping otomatis.</li>
+            </ul>
+        </div>
 
-        <!-- 6. Info Statistik -->
         <div class="detail-stats">
             <div class="stat-box">
                 <span>Rilis</span>
@@ -197,7 +194,6 @@
             </div>
         </div>
 
-        <!-- 7. Tab Bawah -->
         <div class="detail-tabs">
             <div class="tab-item active">Details</div>
             <div class="tab-item">Updates</div>
@@ -205,10 +201,8 @@
         </div>
     </div>
 
-    <!-- PENTING: Tempat penampung Footer dari layout.js -->
     <div id="footer"></div>
 
-    <!-- SCRIPT LAYOUT & UTAMA -->
     <script src="../../js/layout.js"></script>
     <script src="../../js/main.js"></script>
 
