@@ -16,13 +16,13 @@
 
         .hero-backdrop {
             width: 100%;
-            height: 350px;
+            height: 200px;
             border-radius: 12px;
-            background-image: url('thumb.webp'); 
+            background-image: url('thumb.webp');
             background-size: cover;
             background-position: center;
             margin-bottom: 16px;
-            box-shadow: inset 0 -80px 50px -10px var(--bg); 
+            box-shadow: inset 0 -50px 40px -10px var(--bg); 
             border: 1px solid var(--border);
         }
 
@@ -81,9 +81,9 @@
             background: var(--surface);
             border: 1px solid var(--border);
             color: var(--text);
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: bold;
             text-align: center;
             transition: 0.2s;
@@ -149,12 +149,11 @@
 </head>
 <body>
 
-    <div id="header"></div>
-
     <div class="detail-container">
-        <!-- Banner FZL -->
+        <!-- Hero / Banner -->
         <div class="hero-backdrop"></div>
 
+        <!-- Judul & Meta Data -->
         <h1 class="detail-title">FZL (FIN Z LAYER)</h1>
         <div class="detail-meta">
             <span class="meta-badge">Web App</span>
@@ -162,27 +161,25 @@
             <span>Editor</span>
         </div>
 
+        <!-- Tombol Buka Tools -->
         <a href="play/" class="btn-primary">
             BUKA TOOLS
         </a>
 
+        <!-- Tombol Aksi Tambahan (Hanya Bagikan) -->
         <div class="action-row">
-            <div class="btn-action">Panduan</div>
-            <div class="btn-action">+ Simpan</div>
-            <div class="btn-action">Bagikan</div>
+            <div class="btn-action" id="share-btn">Bagikan</div>
         </div>
 
-        <!-- Deskripsi Tools -->
-        <div class="detail-desc">
-            <p style="margin-bottom: 10px;">Fitur utama:</p>
-            <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 6px;">
-                <li>Animasi paralaks 2.5D & kamera <em>fly-through</em>.</li>
-                <li>Sistem multi-layer objek.</li>
-                <li>Pengaturan keyframe scene.</li>
-                <li>Fitur Auto-Animate looping otomatis.</li>
-            </ul>
-        </div>
+        <!-- Deskripsi -->
+        <p class="detail-desc">
+            FIN Z-LAYER adalah aplikasi editor berbasis web yang dirancang khusus untuk Smartphone dalam menciptakan animasi paralaks 2.5D, 
+            serta fly-through camera animation. Dilengkapi dengan sistem multi-lapisan (multi-layer), 
+            manajemen keyframe scene, serta fitur Auto-Animate independen untuk 
+            menciptakan efek gerakan berulang.
+        </p>
 
+        <!-- Info Statistik (Rilis, Versi, Dev) -->
         <div class="detail-stats">
             <div class="stat-box">
                 <span>Rilis</span>
@@ -192,8 +189,13 @@
                 <span>Versi</span>
                 <strong>1.0.0</strong>
             </div>
+            <div class="stat-box">
+                <span>Dev</span>
+                <strong>Fin Wardana</strong>
+            </div>
         </div>
 
+        <!-- Tab Bawah -->
         <div class="detail-tabs">
             <div class="tab-item active">Details</div>
             <div class="tab-item">Updates</div>
@@ -201,8 +203,29 @@
         </div>
     </div>
 
-    <div id="footer"></div>
+    <!-- Script Tombol Bagikan yang Aman & Berfungsi -->
+    <script>
+        document.getElementById('share-btn').addEventListener('click', async () => {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: document.title,
+                        url: window.location.href
+                    });
+                } catch (err) {
+                    console.log('Share dibatalkan');
+                }
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Link halaman berhasil disalin ke clipboard!');
+            }
+        });
+    </script>
 
+    <!-- Sambungan Layout & Data Global -->
+    <script>
+        window.isSubPage = true;
+    </script>
     <script src="../../js/layout.js"></script>
     <script src="../../js/main.js"></script>
 
