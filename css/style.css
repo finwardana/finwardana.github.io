@@ -171,7 +171,7 @@ img{
     font-size:14px;
     font-weight:900;
     letter-spacing:1px;
-    margin-top:20px;   /* Memberi jarak atas agar tidak dempet */
+    margin-top:20px;
     margin-bottom:10px;
     color:#ddd;
 }
@@ -206,21 +206,20 @@ img{
     display: flex;
     flex-direction: column;
     text-decoration: none;
-    transition: transform 0.2s;
-}
-
-.card:hover {
-    transform: translateY(-4px);
+    
+    /* Mematikan efek geser/transform agar kartu diam dan tidak kepotong */
+    transform: none !important;
+    /* Menghilangkan kotak biru saat di-tap di HP */
+    -webkit-tap-highlight-color: transparent;
 }
 
 .thumb {
     width: 100%;
-    height: 165px; /* Bentuk vertikal ala poster film */
+    height: 165px;
     background-size: cover;
     background-position: center;
-    background-color: #1a1a1a; /* Warna latar belakang jika gambar kosong */
+    background-color: #1a1a1a;
     
-    /* Mengatur tulisan "Coming Soon" otomatis di tengah jika gambar belum ada */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -229,6 +228,14 @@ img{
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;
+    
+    /* Transisi mulus untuk efek redup */
+    transition: filter 0.15s ease;
+}
+
+/* Efek saat kartu disentuh/ditekan (tap) jadi sedikit menggelap */
+.card:active .thumb {
+    filter: brightness(0.7);
 }
 
 .card h3 {
