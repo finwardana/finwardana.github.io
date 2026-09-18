@@ -1,122 +1,108 @@
 console.log("FINWARDANA Loaded");
 
-const dataPath =
-window.location.pathname.includes("/games/") ||
-window.location.pathname.includes("/tools/") ||
-window.location.pathname.includes("/invitations/")
-? "../data.json"
-: "data.json";
+/* ========================================
+   DATA.JSON PATH
+======================================== */
 
-fetch(dataPath)
-.then(res => res.json())
-.then(data => {
+const isSubPage =
+    window.location.pathname.includes("/games/") ||
+    window.location.pathname.includes("/tools/") ||
+    window.location.pathname.includes("/invitations/");
 
-const recent = document.getElementById("recent-slider");
-const games = document.getElementById("games-slider");
-const tools = document.getElementById("tools-slider");
-const invitations = document.getElementById("invitations-slider");
+const dataPath = isSubPage
+    ? "../data.json"
+    : "data.json";
 
-const gamesList = document.getElementById("games-list");
-const toolsList = document.getElementById("tools-list");
-const invitationsList = document.getElementById("invitations-list");
+/* ========================================
+   CARD TEMPLATE
+======================================== */
 
 function createCard(item){
+    return `
+    <a href="/${item.url}" class="card">
 
-return `
-<a href="/${item.url}" class="card">
+        <div
+            class="thumb"
+            style="background-image:url('/${item.thumb}')">
+        </div>
 
-<div
-class="thumb"
-style="background-image:url('/${item.thumb}')">
-</div>
+        <h3>${item.title}</h3>
 
-<h3>${item.title}</h3>
-
-</a>
-`;
-
+    </a>
+    `;
 }
 
-/* HOME - RECENTLY ADDED */
+/* ========================================
+   RENDER CONTAINER
+======================================== */
 
-if(recent){
+function render(id, items){
 
-recent.innerHTML = data
-.slice(0,10)
-.map(createCard)
-.join("");
+    const container = document.getElementById(id);
 
+    if(!container) return;
+
+    container.innerHTML = items
+        .map(createCard)
+        .join("");
 }
 
-/* HOME - GAMES */
+/* ========================================
+   LOAD DATA
+======================================== */
 
-if(games){
+fetch(dataPath)
 
-games.innerHTML = data
-.filter(item => item.type === "game")
-.map(createCard)
-.join("");
+.then(response => response.json())
 
-}
+.then(data => {
 
-/* HOME - TOOLS */
+    /* HOME */
 
-if(tools){
+    render(
+        "recent-slider",
+        data.slice(0,10)
+    );
 
-tools.innerHTML = data
-.filter(item => item.type === "tool")
-.map(createCard)
-.join("");
+    render(
+        "games-slider",
+        data.filter(item => item.type === "game")
+    );
 
-}
+    render(
+        "tools-slider",
+        data.filter(item => item.type === "tool")
+    );
 
-/* HOME - INVITATIONS */
+    render(
+        "invitations-slider",
+        data.filter(item => item.type === "invitation")
+    );
 
-if(invitations){
+    /* PAGE */
 
-invitations.innerHTML = data
-.filter(item => item.type === "invitation")
-.map(createCard)
-.join("");
+    render(
+        "games-list",
+        data.filter(item => item.type === "game")
+    );
 
-}
+    render(
+        "tools-list",
+        data.filter(item => item.type === "tool")
+    );
 
-/* PAGE - GAMES */
-
-if(gamesList){
-
-gamesList.innerHTML = data
-.filter(item => item.type === "game")
-.map(createCard)
-.join("");
-
-}
-
-/* PAGE - TOOLS */
-
-if(toolsList){
-
-toolsList.innerHTML = data
-.filter(item => item.type === "tool")
-.map(createCard)
-.join("");
-
-}
-
-/* PAGE - INVITATIONS */
-
-if(invitationsList){
-
-invitationsList.innerHTML = data
-.filter(item => item.type === "invitation")
-.map(createCard)
-.join("");
-
-}
+    render(
+        "invitations-list",
+        data.filter(item => item.type === "invitation")
+    );
 
 })
-.catch(err => {
 
-console.error("JSON ERROR:", err);
+.catch(error => {
+
+    console.error(
+        "DATA.JSON ERROR:",
+        error
+    );
 
 });
