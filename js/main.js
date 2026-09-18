@@ -18,12 +18,15 @@ const dataPath = isSubPage
 ======================================== */
 
 function createCard(item){
+    // Menyesuaikan jalur prefix secara otomatis (jika di sub-halaman naik satu folder dengan "../")
+    const prefix = isSubPage ? "../" : "";
+
     return `
-    <a href="/${item.url}" class="card">
+    <a href="${prefix}${item.url}" class="card">
 
         <div
             class="thumb"
-            style="background-image:url('/${item.thumb}')">
+            style="background-image:url('${prefix}${item.thumb}')">
         </div>
 
         <h3>${item.title}</h3>
