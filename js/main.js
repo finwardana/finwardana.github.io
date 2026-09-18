@@ -3,24 +3,16 @@ console.log("FINWARDANA Loaded");
 /* ========================================
    DATA.JSON PATH
 ======================================== */
-
-// Menyesuaikan jalur data.json secara dinamis berdasarkan window.root dari layout.js
 const dataPath = window.root ? window.root + "data.json" : "data.json";
 
 /* ========================================
    CARD TEMPLATE
 ======================================== */
-
 function createCard(item){
     const prefix = window.root || "";
     
-    // Cek apakah data thumb benar-benar ada isinya dan tidak kosong
     const hasThumb = item.thumb && item.thumb.trim() !== "";
-    
-    // Jika ada thumb, pasang background-image. Jika tidak, kosongkan.
     const bgStyle = hasThumb ? `style="background-image:url('${prefix}${item.thumb}')"` : "";
-    
-    // Jika ada thumb, teks kosong. Jika kosong, tampilkan "COMING SOON".
     const cardContent = hasThumb ? "" : "COMING SOON";
 
     return `
@@ -34,7 +26,6 @@ function createCard(item){
 /* ========================================
    RENDER CONTAINER
 ======================================== */
-
 function render(id, items){
     const container = document.getElementById(id);
     if(!container) return;
@@ -47,22 +38,17 @@ function render(id, items){
 /* ========================================
    LOAD DATA
 ======================================== */
-
 fetch(dataPath)
 .then(response => response.json())
 .then(data => {
-
-    /* HOME */
     render("recent-slider", data.slice(0,10));
     render("games-slider", data.filter(item => item.type === "game"));
     render("tools-slider", data.filter(item => item.type === "tool"));
     render("invitations-slider", data.filter(item => item.type === "invitation"));
 
-    /* PAGE */
     render("games-list", data.filter(item => item.type === "game"));
     render("tools-list", data.filter(item => item.type === "tool"));
     render("invitations-list", data.filter(item => item.type === "invitation"));
-
 })
 .catch(error => {
     console.error("DATA.JSON ERROR:", error);
