@@ -35,11 +35,6 @@ body{
     color:var(--text);
     padding-top:var(--header-mobile);
     overflow-x:hidden;
-
-    /* Supaya footer otomatis turun ke bawah */
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 a{
@@ -170,7 +165,6 @@ img{
 
 .section{
     padding:12px;
-    flex: 1; /* Mengisi ruang sisa agar footer terdorong ke bawah */
 }
 
 .section-title{
@@ -241,7 +235,6 @@ img{
 ======================================== */
 
 footer {
-    margin-top: auto;
     text-align: center;
     padding: 20px;
     color: var(--text-muted);
