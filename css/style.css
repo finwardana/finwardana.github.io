@@ -137,16 +137,15 @@ img{
 }
 
 /* ========================================
-   MARQUEE BOX (Tanpa Border, LED Merah Menyala)
+   MARQUEE BOX (Tanpa Kotak/Border, Hanya Teks LED Merah)
 ======================================== */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
 
 .marquee-box {
-    margin-top: 8px;
-    background: #000000;
-    border: none; /* Border dihilangkan total */
-    border-radius: 8px;
-    padding: 8px 10px;
+    margin-top: 10px;
+    background: transparent;
+    border: none;
+    padding: 0;
 }
 
 .marquee-box marquee {
@@ -217,7 +216,7 @@ img{
 
 .thumb {
     width: 100%;
-    height: 130px; /* Tinggi kartu dikurangi agar lebih proporsional dan tidak terlalu tinggi */
+    height: 130px; /* Tinggi kartu dikurangi agar lebih proporsional */
     background-size: cover;
     background-position: center;
     background-color: #1a1a1a;
