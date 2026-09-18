@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FINWARDANA</title>
+
+<style>
+
 *{
     margin:0;
     padding:0;
@@ -7,9 +17,8 @@
 body{
     font-family:Arial,sans-serif;
     background:#080808;
-    color:#fff;
+    color:white;
     padding-top:100px;
-    overflow-x:hidden;
 }
 
 a{
@@ -33,16 +42,20 @@ a{
     height:50px;
     display:flex;
     align-items:center;
+    gap:8px;
     padding:0 16px;
     font-size:20px;
     font-weight:900;
+}
+
+.logo-icon{
+    color:#ff2b3a;
 }
 
 .navbar{
     height:50px;
     display:flex;
     overflow-x:auto;
-    white-space:nowrap;
     border-top:1px solid #151515;
     scrollbar-width:none;
 }
@@ -52,21 +65,64 @@ a{
 }
 
 .navbar a{
-    padding:0 16px;
     height:50px;
+    padding:0 16px;
     display:flex;
     align-items:center;
     color:#aaa;
-    transition:.2s;
-}
-
-.navbar a:hover{
-    color:#fff;
 }
 
 .navbar a.active{
     color:#fff;
     border-bottom:2px solid #ff2b3a;
+}
+
+/* HERO */
+
+.hero{
+    height:180px;
+    margin:12px;
+    border-radius:16px;
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+    rgba(0,0,0,.3),
+    rgba(0,0,0,.8)
+    ),
+    url("https://picsum.photos/1000/500");
+
+    background-size:cover;
+    background-position:center;
+
+    border:1px solid #222;
+}
+
+.hero-overlay{
+    width:100%;
+    height:100%;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:28px;
+}
+
+.hero p{
+    color:#bbb;
+    margin:10px 0 15px;
+}
+
+.hero-btn{
+    padding:10px 20px;
+    background:#ff2b3a;
+    border-radius:8px;
+    font-weight:bold;
 }
 
 /* SECTION */
@@ -76,28 +132,56 @@ a{
 }
 
 .section-title{
-    font-size:14px;
-    font-weight:800;
+    font-size:18px;
+    font-weight:900;
     letter-spacing:1px;
-    margin-bottom:10px;
-    color:#ddd;
+    margin-bottom:12px;
 }
 
-/* HOME SLIDER */
+/* SLIDER */
 
 .slider{
     display:flex;
-    gap:10px;
+    gap:12px;
     overflow-x:auto;
     scrollbar-width:none;
-    padding-bottom:4px;
 }
 
 .slider::-webkit-scrollbar{
     display:none;
 }
 
-/* GRID PAGE */
+/* CARD */
+
+.card{
+    flex:0 0 150px;
+    background:#111;
+    border:1px solid #222;
+    border-radius:12px;
+    overflow:hidden;
+    transition:.25s;
+}
+
+.card:hover{
+    border-color:#ff2b3a;
+    transform:translateY(-4px);
+}
+
+.thumb{
+    width:100%;
+    height:210px;
+    background:#1a1a1a;
+    background-size:cover;
+    background-position:center;
+}
+
+.card h3{
+    padding:10px;
+    text-align:center;
+    font-size:14px;
+}
+
+/* GRID */
 
 .grid{
     display:grid;
@@ -105,58 +189,22 @@ a{
     gap:12px;
 }
 
-/* CARD */
-
-.card{
-    flex:0 0 130px;
-    background:#111;
-    border:1px solid #222;
-    border-radius:10px;
-    overflow:hidden;
-    display:block;
-    transition:.2s;
-}
-
-.card:hover{
-    border-color:#ff2b3a;
-}
-
 .grid .card{
     width:100%;
-    flex:none;
-}
-
-.thumb{
-    width:100%;
-    height:180px;
-    background:#1a1a1a;
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
 }
 
 .grid .thumb{
-    height:220px;
-}
-
-.card h3{
-    font-size:12px;
-    padding:8px;
-    text-align:center;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    height:230px;
 }
 
 /* FOOTER */
 
 footer{
+    margin-top:30px;
     padding:20px;
     text-align:center;
     color:#666;
-    font-size:12px;
     border-top:1px solid #222;
-    margin-top:20px;
 }
 
 /* DESKTOP */
@@ -169,8 +217,8 @@ footer{
 
     .header{
         display:flex;
-        height:76px;
         align-items:center;
+        height:76px;
     }
 
     .logo-bar{
@@ -181,8 +229,8 @@ footer{
 
     .navbar{
         height:76px;
-        border-top:none;
         margin-left:auto;
+        border:none;
         overflow:visible;
     }
 
@@ -190,19 +238,137 @@ footer{
         height:76px;
     }
 
-    .card{
-        flex:0 0 200px;
-    }
-
-    .thumb{
-        height:280px;
-    }
-
     .grid{
-        grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+        grid-template-columns:
+        repeat(auto-fill,minmax(220px,1fr));
     }
 
-    .grid .thumb{
-        height:300px;
-    }
 }
+
+</style>
+</head>
+<body>
+
+<header class="header">
+
+<div class="logo-bar">
+    FINWARDANA
+    <span class="logo-icon">⚡</span>
+</div>
+
+<nav class="navbar">
+    <a class="active" href="#">Home</a>
+    <a href="#">Games</a>
+    <a href="#">Tools</a>
+    <a href="#">Invitations</a>
+</nav>
+
+</header>
+
+<section class="hero">
+
+<div class="hero-overlay">
+
+<h1>FINWARDANA HUB</h1>
+
+<p>Games • Tools • Projects</p>
+
+<a href="#games" class="hero-btn">
+EXPLORE
+</a>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="section-title">
+RECENTLY ADDED
+</div>
+
+<div class="slider">
+
+<a class="card" href="#">
+<div class="thumb"
+style="background-image:url('https://picsum.photos/300/500?1')">
+</div>
+<h3>FZL</h3>
+</a>
+
+<a class="card" href="#">
+<div class="thumb"
+style="background-image:url('https://picsum.photos/300/500?2')">
+</div>
+<h3>Wedding Gold</h3>
+</a>
+
+<a class="card" href="#">
+<div class="thumb"
+style="background-image:url('https://picsum.photos/300/500?3')">
+</div>
+<h3>Zombie War</h3>
+</a>
+
+</div>
+
+</section>
+
+<section class="section" id="games">
+
+<div class="section-title">
+GAMES
+</div>
+
+<div class="grid">
+
+<a class="card" href="#">
+<div class="thumb"
+style="background-image:url('https://picsum.photos/400/600?4')">
+</div>
+<h3>Zombie War</h3>
+</a>
+
+<a class="card" href="#">
+<div class="thumb"
+style="background-image:url('https://picsum.photos/400/600?5')">
+</div>
+<h3>Monster Rush</h3>
+</a>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="section-title">
+TOOLS
+</div>
+
+<div class="grid">
+
+<a class="card" href="#">
+<div class="thumb"
+style="background-image:url('https://picsum.photos/400/600?6')">
+</div>
+<h3>FZL</h3>
+</a>
+
+<a class="card" href="#">
+<div class="thumb"
+style="background-image:url('https://picsum.photos/400/600?7')">
+</div>
+<h3>Editor</h3>
+</a>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 FINWARDANA
+</footer>
+
+</body>
+</html>
