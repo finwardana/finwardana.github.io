@@ -137,17 +137,19 @@ img{
 }
 
 /* ========================================
-   MARQUEE BOX (Gaya LED Digital Segmen Kotak)
+   MARQUEE BOX (Border & Lampu LED Merah Menyala Total)
 ======================================== */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
 
 .marquee-box {
     margin-top: 8px;
     background: #000000;
-    border: 1px solid var(--accent);
+    /* Border diubah langsung jadi merah terang menyala */
+    border: 2px solid #ff0015;
     border-radius: 8px;
     padding: 8px 10px;
-    box-shadow: 0 0 14px rgba(255, 43, 58, 0.6), inset 0 0 6px rgba(255, 43, 58, 0.4);
+    /* Efek cahaya/lightning merah meluber ke luar dan ke dalam */
+    box-shadow: 0 0 15px rgba(255, 0, 21, 0.8), inset 0 0 8px rgba(255, 0, 21, 0.5);
 }
 
 .marquee-box marquee {
@@ -157,8 +159,7 @@ img{
     color: #ff0015;
     letter-spacing: 3px;
     text-transform: uppercase;
-    /* Efek menyala terang (glow) khas lampu LED segmen */
-    text-shadow: 0 0 8px #ff0015, 0 0 15px rgba(255, 0, 21, 0.8);
+    text-shadow: 0 0 8px #ff0015, 0 0 15px rgba(255, 0, 21, 0.9);
 }
 
 /* ========================================
