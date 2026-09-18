@@ -1,20 +1,18 @@
 [
   {
+    "id":"fzl",
     "title":"FZL",
     "type":"tool",
-    "thumb":"tools/Fin Z Layer/thumb.webp",
-    "url":"tools/Fin Z Layer/"
+    "thumb":"tools/fin-z-layer/thumb.webp",
+    "url":"tools/fin-z-layer/",
+    "date":"2026-09-18"
   },
   {
+    "id":"wedding-gold",
     "title":"Wedding Gold",
     "type":"invitation",
     "thumb":"invitations/wedding-gold/thumb.webp",
-    "url":"invitations/wedding-gold/"
-  },
-  {
-    "title":"Weddung Gold",
-    "type":"invitation",
-    "thumb":"invitations/wedding-gold/thumb.webp",
-    "url":"invitations/wedding-gold/"
+    "url":"invitations/wedding-gold/",
+    "date":"2026-09-18"
   }
 ]
