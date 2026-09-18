@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fin Z Layer (FZL)</title>
-    <!-- Pastikan path CSS ini benar sesuai struktur foldermu -->
     <link rel="stylesheet" href="../../css/style.css">
     
     <style>
@@ -16,20 +15,17 @@
             padding: 16px;
             max-width: 800px;
             margin: auto;
-            /* Jarak atas sedikit agar tidak terlalu mepet dengan navbar bawaan */
             margin-top: 10px; 
         }
 
-        /* Banner ditaruh di dalam wadah konten agar tidak menimpa header atas */
         .hero-backdrop {
             width: 100%;
             height: 200px;
             border-radius: 12px;
-            background-image: url('thumb.webp'); /* Memanggil gambar aslimu */
+            background-image: url('thumb.webp');
             background-size: cover;
             background-position: center;
             margin-bottom: 16px;
-            /* Memberikan efek bayangan hitam memudar di bagian bawah gambar */
             box-shadow: inset 0 -50px 40px -10px var(--bg); 
             border: 1px solid var(--border);
         }
@@ -59,13 +55,12 @@
             font-size: 11px;
         }
 
-        /* Tombol Utama ala 'Subscribe' Prime Video */
         .btn-primary {
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
-            background: #fff; /* Warna putih agar sangat menonjol */
+            background: #fff;
             color: #000;
             padding: 14px;
             border-radius: 8px;
@@ -73,13 +68,13 @@
             font-weight: 900;
             margin-bottom: 16px;
             transition: 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-primary:active {
             background: #ccc;
         }
 
-        /* Baris Tombol Aksi Sekunder */
         .action-row {
             display: flex;
             gap: 10px;
@@ -96,8 +91,8 @@
             font-size: 12px;
             font-weight: bold;
             text-align: center;
-            transition: 0.2s;
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-action:active {
@@ -111,7 +106,6 @@
             margin-bottom: 24px;
         }
 
-        /* Kolom Info ala rilis & musim (Releases / Seasons) di Prime */
         .detail-stats {
             display: flex;
             border-top: 1px solid var(--border);
@@ -137,7 +131,6 @@
             font-weight: 900;
         }
 
-        /* Tab ala navigasi konten (Details, Episodes, Related) */
         .detail-tabs {
             display: flex;
             gap: 24px;
@@ -161,7 +154,8 @@
 </head>
 <body>
 
-    <!-- Area ini dibiarkan kosong, Header otomatis dimasukkan oleh layout.js -->
+    <!-- WADAH HEADER OTOMATIS DARI layout.js -->
+    <div id="header"></div>
 
     <div class="detail-container">
         <!-- 1. Hero / Banner -->
@@ -175,7 +169,7 @@
             <span>Editor</span>
         </div>
 
-        <!-- 3. Tombol Buka Aplikasi (Gaya Utama) -->
+        <!-- 3. Tombol Buka Aplikasi -->
         <a href="play/" class="btn-primary">
             BUKA TOOLS
         </a>
@@ -195,7 +189,7 @@
             menciptakan efek gerakan berulang.
         </p>
 
-        <!-- 6. Info Teknis (Versi & Tahun) -->
+        <!-- 6. Info Teknis -->
         <div class="detail-stats">
             <div class="stat-box">
                 <span>Rilis</span>
@@ -215,11 +209,11 @@
         </div>
     </div>
 
-    <!-- ========================================
-         SAMBUNGAN SCRIPT LAYOUT & DATA
-    ======================================== -->
+    <!-- WADAH FOOTER OTOMATIS DARI layout.js -->
+    <div id="footer"></div>
+
+    <!-- SCRIPT LAYOUT -->
     <script>
-        // Deklarasi agar script mengerti ini berada di sub-folder
         window.isSubPage = true;
     </script>
     <script src="../../js/layout.js"></script>
