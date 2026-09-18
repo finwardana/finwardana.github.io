@@ -68,10 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ======================================== */
     const footer = document.getElementById("footer");
     if (footer) {
-        const year = new Date().getFullYear();
+        const currentYear = new Date().getFullYear();
+        const yearDisplay = currentYear > 2015 ? `2015 - ${currentYear}` : "2015";
+
         footer.innerHTML = `
         <footer>
-            © ${year} FINWARDANA
+            &copy; ${yearDisplay} FINWARDANA
         </footer>
         `;
     }
