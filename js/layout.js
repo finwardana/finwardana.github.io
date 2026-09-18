@@ -4,17 +4,25 @@
 ======================================== */
 
 /* ========================================
-   DETECT PAGE
+   DETECT PATH & DEPTH
 ======================================== */
 
 const path = window.location.pathname;
 
+// Deteksi apakah berada di dalam sub-folder (tools, games, invitations)
 window.isSubPage =
     path.includes("/games/") ||
     path.includes("/tools/") ||
     path.includes("/invitations/");
 
-window.root = window.isSubPage ? "../" : "";
+// Deteksi kedalaman folder (apakah berada di dalam sub-folder dari sub-folder, misal /tools/fin-z-layer/)
+const isDeepSubPage = 
+    (path.includes("/tools/") && path.split("/tools/")[1].includes("/")) ||
+    (path.includes("/games/") && path.split("/games/")[1].includes("/")) ||
+    (path.includes("/invitations/") && path.split("/invitations/")[1].includes("/"));
+
+// Menyesuaikan root path secara dinamis
+window.root = isDeepSubPage ? "../../" : (window.isSubPage ? "../" : "");
 
 /* ========================================
    ACTIVE MENU
@@ -51,12 +59,13 @@ function renderHeader(){
 
         <div class="logo-bar">
 
-            <img
-                src="${window.root}assets/img/logo.png"
-                alt="FINWARDANA"
-                class="logo-icon">
-
-            <span>FINWARDANA</span>
+            <a href="${window.root}" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit;">
+                <img
+                    src="${window.root}assets/img/logo.png"
+                    alt="FINWARDANA"
+                    class="logo-icon">
+                <span>FINWARDANA</span>
+            </a>
 
         </div>
 
