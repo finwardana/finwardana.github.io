@@ -52,7 +52,7 @@ function renderHeader(){
         <div class="logo-bar">
 
             <img
-                src="${root}img/logo.png"
+                src="${root}assets/img/logo.png"
                 alt="FINWARDANA"
                 class="logo-icon">
 
