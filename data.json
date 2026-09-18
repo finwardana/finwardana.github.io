@@ -14,7 +14,7 @@
     "title": "Tool Two",
     "description": "Utility tool description",
     "type": "tool",
-    "thumb": "assets/img/tool2.jpg",
+    "thumb": "",
     "url": "#",
     "date": "2026-09-18",
     "featured": false
@@ -24,7 +24,7 @@
     "title": "Tool Three",
     "description": "Utility tool description",
     "type": "tool",
-    "thumb": "assets/img/tool3.jpg",
+    "thumb": "",
     "url": "#",
     "date": "2026-09-18",
     "featured": false
@@ -34,7 +34,7 @@
     "title": "Tool Four",
     "description": "Utility tool description",
     "type": "tool",
-    "thumb": "assets/img/tool4.jpg",
+    "thumb": "",
     "url": "#",
     "date": "2026-09-18",
     "featured": false
@@ -44,7 +44,7 @@
     "title": "Tool Five",
     "description": "Utility tool description",
     "type": "tool",
-    "thumb": "assets/img/tool5.jpg",
+    "thumb": "",
     "url": "#",
     "date": "2026-09-18",
     "featured": false
@@ -54,7 +54,7 @@
     "title": "Game Alpha",
     "description": "Mini game test",
     "type": "game",
-    "thumb": "assets/img/game1.jpg",
+    "thumb": "",
     "url": "#",
     "date": "2026-09-18",
     "featured": false
@@ -64,7 +64,7 @@
     "title": "Game Beta",
     "description": "Mini game test",
     "type": "game",
-    "thumb": "assets/img/game2.jpg",
+    "thumb": "",
     "url": "#",
     "date": "2026-09-18",
     "featured": false
@@ -74,7 +74,7 @@
     "title": "Game Gamma",
     "description": "Mini game test",
     "type": "game",
-    "thumb": "assets/img/game3.jpg",
+    "thumb": "",
     "url": "#",
     "date": "2026-09-18",
     "featured": false
@@ -84,7 +84,7 @@
     "title": "Game Delta",
     "description": "Mini game test",
     "type": "game",
-    "thumb": "assets/img/game4.jpg",
+    "thumb": "",
     "url": "#",
     "date": "2026-09-18",
     "featured": false
@@ -94,7 +94,7 @@
     "title": "Game Epsilon",
     "description": "Mini game test",
     "type": "game",
-    "thumb": "assets/img/game5.jpg",
+    "thumb": "",
     "url": "#",
     "date": "2026-09-18",
     "featured": false
@@ -104,7 +104,7 @@
     "title": "Invitation 1",
     "description": "Digital invitation template",
     "type": "invitation",
-    "thumb": "assets/img/inv1.jpg",
+    "thumb": "",
     "url": "#",
     "date": "2026-09-18",
     "featured": false
@@ -114,7 +114,7 @@
     "title": "Invitation 2",
     "description": "Digital invitation template",
     "type": "invitation",
-    "thumb": "assets/img/inv2.jpg",
+    "thumb": "",
     "url": "#",
     "date": "2026-09-18",
     "featured": false
@@ -124,7 +124,7 @@
     "title": "Invitation 3",
     "description": "Digital invitation template",
     "type": "invitation",
-    "thumb": "assets/img/inv3.jpg",
+    "thumb": "",
     "url": "#",
     "date": "2026-09-18",
     "featured": false
