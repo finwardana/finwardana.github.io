@@ -113,19 +113,21 @@ img{
 }
 
 /* ========================================
-   HERO BANNER
+   HERO BANNER (Tanpa Shading, Rounded, Ada Jarak)
 ======================================== */
+
+.hero-container {
+    padding: 0 0 12px 0;
+}
 
 .hero{
     position: relative;
-    height: 160px;
-    margin: 12px 0;
-    border-radius: 0;
+    height: 150px;
+    width: 100%;
+    border-radius: var(--radius);
     overflow: hidden;
-    border-left: none;
-    border-right: none;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    border: 1px solid var(--border);
+    background: var(--surface);
 }
 
 .hero-image{
@@ -134,32 +136,16 @@ img{
     object-fit:cover;
 }
 
-.hero-overlay{
-    position:absolute;
-    inset:0;
-
-    background:
-    linear-gradient(
-        rgba(0,0,0,.1),
-        rgba(0,0,0,.75)
-    );
-
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-end;
-
-    padding:14px;
-}
-
-.hero-overlay h1{
-    font-size:12px;
-    font-weight:900;
-}
-
-.hero-overlay p{
-    font-size:9px;
-    color:#ccc;
-    margin-top:4px;
+/* Style untuk Text Berjalan di bawah banner */
+.marquee-box {
+    margin-top: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 700;
 }
 
 /* ========================================
