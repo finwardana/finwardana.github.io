@@ -35,6 +35,11 @@ body{
     color:var(--text);
     padding-top:var(--header-mobile);
     overflow-x:hidden;
+
+    /* Supaya footer otomatis turun ke bawah */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 a{
@@ -165,6 +170,7 @@ img{
 
 .section{
     padding:12px;
+    flex: 1; /* Mengisi ruang sisa agar footer terdorong ke bawah */
 }
 
 .section-title{
@@ -228,4 +234,17 @@ img{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
 }
