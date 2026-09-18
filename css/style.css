@@ -1,195 +1,38 @@
 /* ========================================
-   FINWARDANA THEME
+   CARD & THUMBNAIL STYLE
 ======================================== */
 
-:root{
-    --bg:#080808;
-    --surface:#111;
-    --border:#222;
-    --text:#fff;
-    --text-muted:#aaa;
-    --accent:#ff2b3a;
-
-    --radius:12px;
-    --header-mobile:100px;
-    --header-desktop:76px;
+.card {
+    flex: 0 0 140px;
+    width: 140px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: transform 0.2s;
 }
 
-/* ========================================
-   RESET
-======================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+.card:hover {
+    transform: translateY(-4px);
 }
 
-/* ========================================
-   BODY
-======================================== */
-
-body{
-    font-family:Arial,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    padding-top:var(--header-mobile);
-    overflow-x:hidden;
+.thumb {
+    width: 100%;
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    background-color: #222;
 }
 
-a{
-    text-decoration:none;
-    color:inherit;
+.card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    padding: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
-img{
-    display:block;
-    max-width:100%;
-}
-
-/* ========================================
-   HEADER
-======================================== */
-
-.header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    background:var(--bg);
-    border-bottom:1px solid var(--border);
-    z-index:9999;
-}
-
-.logo-bar{
-    height:50px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:0 16px;
-    font-size:18px;
-    font-weight:900;
-}
-
-.logo-icon{
-    width:36px;
-    height:36px;
-    object-fit:contain;
-}
-
-/* ========================================
-   NAVBAR
-======================================== */
-
-.navbar{
-    height:50px;
-    display:flex;
-    overflow-x:auto;
-    white-space:nowrap;
-    border-top:1px solid var(--border);
-    scrollbar-width:none;
-}
-
-.navbar::-webkit-scrollbar{
-    display:none;
-}
-
-.navbar a{
-    padding:0 16px;
-    height:50px;
-    display:flex;
-    align-items:center;
-    color:var(--text-muted);
-    transition:.2s;
-}
-
-.navbar a:hover{
-    color:var(--text);
-}
-
-.navbar a.active{
-    color:var(--text);
-    border-bottom:2px solid var(--accent);
-}
-
-/* ========================================
-   HERO BANNER
-======================================== */
-
-.hero{
-    position:relative;
-    height:120px;
-    margin:10px 12px;
-    border-radius:14px;
-    overflow:hidden;
-    border:1px solid var(--border);
-}
-
-.hero-image{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.hero-overlay{
-    position:absolute;
-    inset:0;
-
-    background:
-    linear-gradient(
-        rgba(0,0,0,.1),
-        rgba(0,0,0,.75)
-    );
-
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-end;
-
-    padding:14px;
-}
-
-.hero-overlay h1{
-    font-size:16px;
-    font-weight:900;
-}
-
-.hero-overlay p{
-    font-size:11px;
-    color:#ccc;
-    margin-top:4px;
-}
-
-/* ========================================
-   SECTION
-======================================== */
-
-.section{
-    padding:12px;
-}
-
-.section-title{
-    font-size:14px;
-    font-weight:900;
-    letter-spacing:1px;
-    margin-bottom:10px;
-    color:#ddd;
-}
-
-/* ========================================
-   SLIDER
-======================================== */
-
-.slider{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    padding-bottom:4px;
-    scrollbar-width:none;
-}
-
-.slider::-webkit-scrollbar{
-    display:none;
-}
-
-/* ========================================
-  
