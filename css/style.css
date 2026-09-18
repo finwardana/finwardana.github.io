@@ -215,10 +215,20 @@ img{
 
 .thumb {
     width: 100%;
-    height: 165px; /* Dibuat vertikal ala poster film */
+    height: 165px; /* Bentuk vertikal ala poster film */
     background-size: cover;
     background-position: center;
-    background-color: #222;
+    background-color: #1a1a1a; /* Warna latar belakang jika gambar kosong */
+    
+    /* Mengatur tulisan "Coming Soon" otomatis di tengah jika gambar belum ada */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 9px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .card h3 {
