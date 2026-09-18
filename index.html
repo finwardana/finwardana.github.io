@@ -1,99 +1,243 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
+/* ========================================
+   FINWARDANA THEME
+======================================== */
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+:root{
+    --bg:#080808;
+    --surface:#111;
+    --border:#222;
+    --text:#fff;
+    --text-muted:#aaa;
+    --accent:#ff2b3a;
 
-<title>FINWARDANA</title>
+    --radius:12px;
+    --header-mobile:100px;
+    --header-desktop:76px;
+}
 
-<link rel="stylesheet" href="css/style.css">
+/* ========================================
+   RESET
+======================================== */
 
-</head>
-<body>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-<!-- HEADER GLOBAL -->
-<div id="header"></div>
+/* ========================================
+   BODY
+======================================== */
 
-<!-- HOME BANNER -->
-<section class="hero">
+body{
+    font-family:Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    padding-top:var(--header-mobile);
+    overflow-x:hidden;
+}
 
-    <img
-    src="assets/img/banner.jpg"
-    alt="Banner"
-    class="hero-image">
+a{
+    text-decoration:none;
+    color:inherit;
+}
 
-    <div class="hero-overlay">
+img{
+    display:block;
+    max-width:100%;
+}
 
-        <h1>FINWARDANA</h1>
+/* ========================================
+   HEADER
+======================================== */
 
-        <p>Games • Tools • Projects</p>
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+    z-index:9999;
+}
 
-    </div>
+.logo-bar{
+    height:50px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 16px;
+    font-size:18px;
+    font-weight:900;
+}
 
-</section>
+.logo-icon{
+    width:36px;
+    height:36px;
+    object-fit:contain;
+}
 
-<!-- RECENTLY ADDED -->
-<section class="section">
+/* ========================================
+   NAVBAR
+======================================== */
 
-    <h2 class="section-title">
-        RECENTLY ADDED
-    </h2>
+.navbar{
+    height:50px;
+    display:flex;
+    overflow-x:auto;
+    white-space:nowrap;
+    border-top:1px solid var(--border);
+    scrollbar-width:none;
+}
 
-    <div
-    class="slider"
-    id="recent-slider">
-    </div>
+.navbar::-webkit-scrollbar{
+    display:none;
+}
 
-</section>
+.navbar a{
+    padding:0 16px;
+    height:50px;
+    display:flex;
+    align-items:center;
+    color:var(--text-muted);
+    transition:.2s;
+}
 
-<!-- GAMES -->
-<section class="section">
+.navbar a:hover{
+    color:var(--text);
+}
 
-    <h2 class="section-title">
-        GAMES
-    </h2>
+.navbar a.active{
+    color:var(--text);
+    border-bottom:2px solid var(--accent);
+}
 
-    <div
-    class="slider"
-    id="games-slider">
-    </div>
+/* ========================================
+   HERO BANNER
+======================================== */
 
-</section>
+.hero{
+    position:relative;
+    height:120px;
+    margin:10px 12px;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid var(--border);
+}
 
-<!-- TOOLS -->
-<section class="section">
+.hero-image{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
 
-    <h2 class="section-title">
-        TOOLS
-    </h2>
+.hero-overlay{
+    position:absolute;
+    inset:0;
 
-    <div
-    class="slider"
-    id="tools-slider">
-    </div>
+    background:
+    linear-gradient(
+        rgba(0,0,0,.1),
+        rgba(0,0,0,.75)
+    );
 
-</section>
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
 
-<!-- INVITATIONS -->
-<section class="section">
+    padding:14px;
+}
 
-    <h2 class="section-title">
-        INVITATIONS
-    </h2>
+.hero-overlay h1{
+    font-size:12px;
+    font-weight:900;
+}
 
-    <div
-    class="slider"
-    id="invitations-slider">
-    </div>
+.hero-overlay p{
+    font-size:9px;
+    color:#ccc;
+    margin-top:4px;
+}
 
-</section>
+/* ========================================
+   SECTION
+======================================== */
 
-<!-- FOOTER GLOBAL -->
-<div id="footer"></div>
+.section{
+    padding:12px;
+}
 
-<script src="js/layout.js"></script>
-<script src="js/main.js"></script>
+.section-title{
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:1px;
+    margin-bottom:10px;
+    color:#ddd;
+}
 
-</body>
-</html>
+/* ========================================
+   SLIDER
+======================================== */
+
+.slider{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:4px;
+    scrollbar-width:none;
+}
+
+.slider::-webkit-scrollbar{
+    display:none;
+}
+
+/* ========================================
+   CARD & THUMBNAIL STYLE
+======================================== */
+
+.card {
+    flex: 0 0 140px;
+    width: 140px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.thumb {
+    width: 100%;
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    background-color: #222;
+}
+
+.card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    padding: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+}
