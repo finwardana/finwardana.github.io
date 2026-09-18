@@ -137,27 +137,28 @@ img{
 }
 
 /* ========================================
-   MARQUEE BOX (Gaya LED Digital Segmen Merah Menyala)
+   MARQUEE BOX (Gaya LED Digital Segmen Kotak)
 ======================================== */
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
 
 .marquee-box {
     margin-top: 8px;
-    background: #000000; /* Latar belakang hitam pekat ala panel digital */
+    background: #000000;
     border: 1px solid var(--accent);
     border-radius: 8px;
     padding: 8px 10px;
-    box-shadow: 0 0 12px rgba(255, 43, 58, 0.5), inset 0 0 6px rgba(255, 43, 58, 0.3);
+    box-shadow: 0 0 14px rgba(255, 43, 58, 0.6), inset 0 0 6px rgba(255, 43, 58, 0.4);
 }
 
 .marquee-box marquee {
-    font-family: 'Share Tech Mono', monospace; /* Font digital kotak-kotak */
-    font-size: 14px;
-    font-weight: bold;
-    color: #ff1e2e; /* Warna merah terang ala lampu LED */
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    color: #ff0015;
     letter-spacing: 3px;
     text-transform: uppercase;
-    text-shadow: 0 0 8px rgba(255, 30, 46, 0.8), 0 0 2px rgba(255, 255, 255, 0.5); /* Efek nyala lampu */
+    /* Efek menyala terang (glow) khas lampu LED segmen */
+    text-shadow: 0 0 8px #ff0015, 0 0 15px rgba(255, 0, 21, 0.8);
 }
 
 /* ========================================
