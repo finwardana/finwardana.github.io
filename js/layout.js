@@ -9,12 +9,12 @@
 
 const path = window.location.pathname;
 
-const isSubPage =
+window.isSubPage =
     path.includes("/games/") ||
     path.includes("/tools/") ||
     path.includes("/invitations/");
 
-const root = isSubPage ? "../" : "";
+window.root = window.isSubPage ? "../" : "";
 
 /* ========================================
    ACTIVE MENU
@@ -52,7 +52,7 @@ function renderHeader(){
         <div class="logo-bar">
 
             <img
-                src="${root}assets/img/logo.png"
+                src="${window.root}assets/img/logo.png"
                 alt="FINWARDANA"
                 class="logo-icon">
 
@@ -63,25 +63,25 @@ function renderHeader(){
         <nav class="navbar">
 
             <a
-                href="${root}"
+                href="${window.root}"
                 class="${active.home ? "active" : ""}">
                 Home
             </a>
 
             <a
-                href="${root}games/"
+                href="${window.root}games/"
                 class="${active.games ? "active" : ""}">
                 Games
             </a>
 
             <a
-                href="${root}tools/"
+                href="${window.root}tools/"
                 class="${active.tools ? "active" : ""}">
                 Tools
             </a>
 
             <a
-                href="${root}invitations/"
+                href="${window.root}invitations/"
                 class="${active.invitations ? "active" : ""}">
                 Invitations
             </a>
