@@ -260,21 +260,20 @@ footer {
 }
 
 /* ========================================
-   GRID KHUSUS HALAMAN ALL LIST (Games, Tools, Invitations)
+   GRID KHUSUS HALAMAN ALL LIST (3 Kolom / 3-3)
 ======================================== */
 .section .slider#games-list, 
 .section .slider#tools-list, 
 .section .slider#invitations-list {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 12px !important;
+    gap: 8px !important;
     overflow-x: visible !important;
 }
 
-@media (max-width: 600px) {
-    .section .slider#games-list, 
-    .section .slider#tools-list, 
-    .section .slider#invitations-list {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
+.section .slider#games-list .card, 
+.section .slider#tools-list .card, 
+.section .slider#invitations-list .card {
+    width: 100% !important;
+    flex: unset !important;
 }
