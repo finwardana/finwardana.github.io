@@ -98,34 +98,14 @@
         }
 
         .stat-box strong {
-            font-size: 15px;
-            font-weight: 900;
-        }
-
-        .detail-tabs {
-            display: flex;
-            gap: 24px;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 16px;
-        }
-
-        .tab-item {
             font-size: 14px;
-            font-weight: bold;
-            color: var(--text-muted);
-            padding-bottom: 10px;
-            cursor: pointer;
-        }
-
-        .tab-item.active {
-            color: var(--text);
-            border-bottom: 2px solid var(--text);
+            font-weight: 900;
         }
     </style>
 </head>
 <body>
 
-    <!-- PENTING: Tempat Header & Navbar -->
+    <!-- Header & Navbar -->
     <div id="header"></div>
 
     <div class="detail-container">
@@ -154,7 +134,12 @@
             </ul>
         </div>
 
+        <!-- Info Statistik & Developer -->
         <div class="detail-stats">
+            <div class="stat-box">
+                <span>Developer</span>
+                <strong>Finwardana</strong>
+            </div>
             <div class="stat-box">
                 <span>Rilis</span>
                 <strong>2026</strong>
@@ -164,18 +149,12 @@
                 <strong>1.0.0</strong>
             </div>
         </div>
-
-        <div class="detail-tabs">
-            <div class="tab-item active">Details</div>
-            <div class="tab-item">Updates</div>
-            <div class="tab-item">Related</div>
-        </div>
     </div>
 
-    <!-- PENTING: Tempat Footer -->
+    <!-- Footer -->
     <div id="footer"></div>
 
-    <!-- SCRIPT LAYOUT & UTAMA (Pastikan jalurnya benar pakai ../../) -->
+    <!-- Script Global -->
     <script src="../../js/layout.js"></script>
     <script src="../../js/main.js"></script>
 
