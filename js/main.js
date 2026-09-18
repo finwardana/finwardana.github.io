@@ -1,3 +1,4 @@
+
 console.log("FINWARDANA Loaded");
 
 /* ========================================
@@ -15,10 +16,15 @@ const dataPath = window.isSubPage
 
 function createCard(item){
     const prefix = window.isSubPage ? "../" : "";
+    
+    // Cek apakah item punya thumb dan tidak kosong
+    const bgStyle = (item.thumb && item.thumb.trim() !== "") 
+        ? `style="background-image:url('${prefix}${item.thumb}')"` 
+        : "";
 
     return `
     <a href="${prefix}${item.url}" class="card">
-        <div class="thumb" style="background-image:url('${prefix}${item.thumb}')"></div>
+        <div class="thumb" ${bgStyle}>COMING SOON</div>
         <h3>${item.title}</h3>
     </a>
     `;
