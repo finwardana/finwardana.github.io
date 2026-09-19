@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* ========================================
-       LIVE 5 STATUS BARS (INVERSE / CROSS LOGIC)
+       LIVE 5 STATUS BARS (ALL HIGH vs ALL LOW LOGIC)
     ======================================== */
     const creativeFill = document.querySelector(".creative-fill");
     const energyFill = document.querySelector(".energy-fill");
@@ -117,23 +117,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function runStatusLoop() {
-        // Skenario 1 (Fokus Mode): Creative 100%, Boredom turun ke 40%, Sanity meledak 100%
-        // Skenario 2 (Burnout Mode): Creative turun ke 60%, Boredom naik ke 100%, Sanity turun ke 15%
+        // Mode 1 (Max / Full): Semua serba tinggi/maksimal
+        // Mode 2 (Min / Minus/Low): Semua serba turun/minimum sesuai range
         
         let targetCreative = isStateAlt ? 60 : 100;
         let startCreative = isStateAlt ? 100 : 60;
 
-        let targetEnergy = isStateAlt ? 20 : 0;
-        let startEnergy = isStateAlt ? 0 : 20;
+        let targetEnergy = isStateAlt ? 0 : 20;
+        let startEnergy = isStateAlt ? 20 : 0;
 
-        let targetConsistency = isStateAlt ? 50 : 10;
-        let startConsistency = isStateAlt ? 10 : 50;
+        let targetConsistency = isStateAlt ? 0 : 50;
+        let startConsistency = isStateAlt ? 50 : 0;
 
-        let targetBoredom = isStateAlt ? 100 : 40;  // Berlawanan arah dengan Creative
-        let startBoredom = isStateAlt ? 40 : 100;
+        let targetBoredom = isStateAlt ? 40 : 100;
+        let startBoredom = isStateAlt ? 100 : 40;
 
-        let targetSanity = isStateAlt ? 15 : 100;   // Ikut naik pas lagi ngebut/fokus
-        let startSanity = isStateAlt ? 100 : 15;
+        let targetSanity = isStateAlt ? 0 : 100;
+        let startSanity = isStateAlt ? 100 : 0;
 
         // Update lebar bar CSS
         if (creativeFill) creativeFill.style.width = targetCreative + "%";
@@ -142,10 +142,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (boredomFill) boredomFill.style.width = targetBoredom + "%";
         if (sanityFill) sanityFill.style.width = targetSanity + "%";
 
-        // Update angka teks dengan animasi halus
+        // Update angka teks dengan animasi halus (Sanity lebih cepat meledaknya)
         animateValue(creativeVal, startCreative, targetCreative, 1500);
         animateValue(energyVal, startEnergy, targetEnergy, 1500);
-        animateValue(consistencyVal, startConsistency, targetConsistency, 1800);
+        animateValue(consistencyVal, startConsistency, targetConsistency, 1500);
         animateValue(boredomVal, startBoredom, targetBoredom, 1500);
         animateValue(sanityVal, startSanity, targetSanity, 800);
 
