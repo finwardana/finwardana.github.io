@@ -226,30 +226,14 @@ img{
     transition: width 1.5s ease-in-out;
 }
 
-/* Warna Masing-masing Bar (5 Bar) */
-.creative-fill {
-    background: #00ffff;
-    box-shadow: 0 0 4px rgba(0, 255, 255, 0.6);
-}
-
-.energy-fill {
-    background: #00ff66;
-    box-shadow: 0 0 4px rgba(0, 255, 102, 0.6);
-}
-
-.consistency-fill {
-    background: #ffcc00;
-    box-shadow: 0 0 4px rgba(255, 204, 0, 0.6);
-}
-
-.boredom-fill {
-    background: #ff7700;
-    box-shadow: 0 0 4px rgba(255, 119, 0, 0.6);
-}
-
+/* Warna Masing-masing Bar (Semua jadi Merah Neon) */
+.creative-fill,
+.energy-fill,
+.consistency-fill,
+.boredom-fill,
 .sanity-fill {
     background: #ff2b3a;
-    box-shadow: 0 0 4px rgba(255, 43, 58, 0.6);
+    box-shadow: 0 0 5px rgba(255, 43, 58, 0.8);
 }
 
 /* SEARCH BAR */
