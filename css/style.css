@@ -113,7 +113,7 @@ img{
 }
 
 /* ========================================
-   HERO BANNER & SEARCH BAR (Fixed & Proportional)
+   HERO BANNER & STATUS BARS
 ======================================== */
 
 .hero-container {
@@ -124,10 +124,10 @@ img{
 
 .hero{
     position: relative;
-    height: 140px; /* Tinggi banner dikunci agar proporsional */
+    height: 140px;
     width: 100%;
     border-radius: var(--radius);
-    overflow: hidden; /* Mengunci gambar agar tidak keluar batas */
+    overflow: hidden;
     border: 1px solid var(--border);
     background: var(--surface);
 }
@@ -139,21 +139,34 @@ img{
     object-position: center;
 }
 
-/* STATUS BARS DI DALAM BANNER */
+/* STATUS BARS (Di sebelah lengan kanan karakter) */
 .status-bars-container {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    left: 140px; /* Disesuaikan di sebelah lengan kanan karakter */
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    background: rgba(0, 0, 0, 0.75);
+    gap: 5px;
+    background: rgba(0, 0, 0, 0.8);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 6px 8px;
     backdrop-filter: blur(4px);
     z-index: 5;
-    width: 115px;
+    width: 125px;
+}
+
+.status-title {
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    font-weight: 900;
+    color: var(--accent);
+    text-align: center;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 3px;
 }
 
 .status-item {
@@ -170,14 +183,13 @@ img{
 
 .status-label {
     font-family: Arial, sans-serif;
-    font-size: 6px;
+    font-size: 5px;
     font-weight: 700;
     color: var(--text-muted);
-    letter-spacing: 0.5px;
 }
 
 .status-value {
-    font-size: 6px;
+    font-size: 5px;
     font-family: monospace;
     color: var(--text);
 }
@@ -197,29 +209,27 @@ img{
     transition: width 0.5s ease-in-out;
 }
 
-/* Warna & Animasi Status Bar */
+/* Warna & Animasi Bar (Boredom: 70%-100%, Energy: 20%-0%) */
 .boredom-fill {
     background: #ff2b3a;
     box-shadow: 0 0 5px rgba(255, 43, 58, 0.6);
-    animation: boredomAnim 8s infinite alternate ease-in-out;
+    animation: boredomAnim 6s infinite alternate ease-in-out;
 }
 
 .energy-fill {
     background: #00ff66;
     box-shadow: 0 0 5px rgba(0, 255, 102, 0.6);
-    animation: energyAnim 8s infinite alternate ease-in-out;
+    animation: energyAnim 6s infinite alternate ease-in-out;
 }
 
 @keyframes boredomAnim {
-    0% { width: 10%; }
-    50% { width: 75%; }
-    100% { width: 95%; }
+    0% { width: 70%; }
+    100% { width: 100%; }
 }
 
 @keyframes energyAnim {
-    0% { width: 90%; }
-    50% { width: 30%; }
-    100% { width: 10%; }
+    0% { width: 20%; }
+    100% { width: 0%; }
 }
 
 /* SEARCH BAR */
