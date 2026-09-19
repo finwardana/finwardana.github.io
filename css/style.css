@@ -1,27 +1,165 @@
 /* ========================================
-   STATUS BARS (Boredom & Social Energy di Banner)
+   FINWARDANA THEME
 ======================================== */
+
+:root{
+    --bg:#080808;
+    --surface:#111;
+    --border:#222;
+    --text:#fff;
+    --text-muted:#aaa;
+    --accent:#ff2b3a;
+
+    --radius:12px;
+    --header-mobile:100px;
+    --header-desktop:76px;
+}
+
+/* ========================================
+   RESET
+======================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ========================================
+   BODY
+======================================== */
+
+body{
+    font-family:Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    padding-top:var(--header-mobile);
+    overflow-x:hidden;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+img{
+    display:block;
+    max-width:100%;
+}
+
+/* ========================================
+   HEADER
+======================================== */
+
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+    z-index:9999;
+}
+
+.logo-bar{
+    height:50px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 16px;
+    font-size:18px;
+    font-weight:900;
+}
+
+.logo-icon{
+    width:36px;
+    height:36px;
+    object-fit:contain;
+}
+
+/* ========================================
+   NAVBAR
+======================================== */
+
+.navbar{
+    height:50px;
+    display:flex;
+    overflow-x:auto;
+    white-space:nowrap;
+    border-top:1px solid var(--border);
+    scrollbar-width:none;
+}
+
+.navbar::-webkit-scrollbar{
+    display:none;
+}
+
+.navbar a{
+    padding:0 16px;
+    height:50px;
+    display:flex;
+    align-items:center;
+    color:var(--text-muted);
+    transition:.2s;
+}
+
+.navbar a:hover{
+    color:var(--text);
+}
+
+.navbar a.active{
+    color:var(--text);
+    border-bottom:2px solid var(--accent);
+}
+
+/* ========================================
+   HERO BANNER & SEARCH BAR (Fixed & Proportional)
+======================================== */
+
+.hero-container {
+    padding: 0;
+    width: 100%;
+    position: relative;
+}
+
+.hero{
+    position: relative;
+    height: 140px; /* Tinggi banner dikunci agar proporsional */
+    width: 100%;
+    border-radius: var(--radius);
+    overflow: hidden; /* Mengunci gambar agar tidak keluar batas */
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.hero-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* STATUS BARS DI DALAM BANNER */
 .status-bars-container {
     position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 10px;
+    top: 10px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    background: rgba(0, 0, 0, 0.7);
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.75);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 8px 10px;
+    padding: 6px 8px;
     backdrop-filter: blur(4px);
-    z-index: 2;
-    width: 130px;
+    z-index: 5;
+    width: 115px;
 }
 
 .status-item {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
 }
 
 .status-info {
@@ -32,24 +170,24 @@
 
 .status-label {
     font-family: Arial, sans-serif;
-    font-size: 7px;
+    font-size: 6px;
     font-weight: 700;
     color: var(--text-muted);
     letter-spacing: 0.5px;
 }
 
 .status-value {
-    font-size: 7px;
+    font-size: 6px;
     font-family: monospace;
     color: var(--text);
 }
 
 .bar-frame {
     width: 100%;
-    height: 5px;
+    height: 4px;
     background: #1a1a1a;
     border: 1px solid var(--border);
-    border-radius: 3px;
+    border-radius: 2px;
     overflow: hidden;
 }
 
@@ -59,20 +197,19 @@
     transition: width 0.5s ease-in-out;
 }
 
-/* Warna & Animasi Bar */
+/* Warna & Animasi Status Bar */
 .boredom-fill {
-    background: #ff2b3a; /* Merah aksen */
-    box-shadow: 0 0 6px rgba(255, 43, 58, 0.6);
+    background: #ff2b3a;
+    box-shadow: 0 0 5px rgba(255, 43, 58, 0.6);
     animation: boredomAnim 8s infinite alternate ease-in-out;
 }
 
 .energy-fill {
-    background: #00ff66; /* Hijau neon */
-    box-shadow: 0 0 6px rgba(0, 255, 102, 0.6);
+    background: #00ff66;
+    box-shadow: 0 0 5px rgba(0, 255, 102, 0.6);
     animation: energyAnim 8s infinite alternate ease-in-out;
 }
 
-/* Keyframes Animasi Naik/Turun Otomatis */
 @keyframes boredomAnim {
     0% { width: 10%; }
     50% { width: 75%; }
@@ -83,4 +220,153 @@
     0% { width: 90%; }
     50% { width: 30%; }
     100% { width: 10%; }
+}
+
+/* SEARCH BAR */
+.search-box {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.search-box input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--text);
+    outline: none;
+    box-shadow: none;
+    transition: 0.2s;
+}
+
+.search-box input:focus {
+    border-color: var(--border);
+    box-shadow: none;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ========================================
+   SECTION
+======================================== */
+
+.section{
+    padding:12px;
+}
+
+.section-title{
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:1px;
+    margin-top:20px;
+    margin-bottom:10px;
+    color:#ddd;
+}
+
+/* ========================================
+   SLIDER (KHUSUS HOME)
+======================================== */
+
+.section > .slider {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+}
+
+.section > .slider::-webkit-scrollbar {
+    display: none;
+}
+
+/* ========================================
+   CARD & THUMBNAIL STYLE
+======================================== */
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    
+    transform: none !important;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Ukuran kartu khusus untuk Home (Slider) */
+.section > .slider .card {
+    flex: 0 0 110px;
+    width: 110px;
+}
+
+.thumb {
+    width: 100%;
+    height: 130px;
+    background-size: cover;
+    background-position: center;
+    background-color: #1a1a1a;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 9px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    
+    transition: filter 0.15s ease;
+}
+
+.card:active .thumb {
+    filter: brightness(0.7);
+}
+
+.card h3 {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text);
+    padding: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+}
+
+/* ========================================
+   GRID LIST KE BAWAH 3 KOLOM (Halaman Games, Tools, Invitations)
+======================================== */
+#games-list, 
+#tools-list, 
+#invitations-list {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+    overflow-x: visible !important;
+}
+
+#games-list .card, 
+#tools-list .card, 
+#invitations-list .card {
+    width: 100% !important;
+    flex: unset !important;
 }
