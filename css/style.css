@@ -113,18 +113,19 @@ img{
 }
 
 /* ========================================
-   HERO BANNER & SEARCH BAR
+   HERO BANNER & SEARCH BAR (Full Lebar Konten, Rounded)
 ======================================== */
 
 .hero-container {
-    padding: 0 12px 12px 12px; /* Memberikan jarak kiri-kanan yang sama untuk banner & search */
+    padding: 0;
+    width: 100%;
 }
 
 .hero{
     position: relative;
     height: 150px;
     width: 100%;
-    border-radius: var(--radius); /* Sudut melengkung diaktifkan kembali */
+    border-radius: var(--radius); /* Sudut melengkung rapi */
     overflow: hidden;
     border: 1px solid var(--border);
     background: var(--surface);
@@ -136,7 +137,7 @@ img{
     object-fit: cover;
 }
 
-/* SEARCH BAR (Lebar 100% mengikuti wadah hero-container sehingga pas sejajar dengan banner) */
+/* SEARCH BAR (Lebar 100% pas selebar banner di atasnya) */
 .search-box {
     margin-top: 10px;
     width: 100%;
@@ -214,7 +215,7 @@ img{
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Ukuran kartu di Home (Slider) */
+/* Ukuran kartu khusus untuk Home (Slider) */
 .section > .slider .card {
     flex: 0 0 110px;
     width: 110px;
