@@ -2,12 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("FINWARDANA Loaded");
 
     /* ========================================
-                   DATA.JSON PATH
+       DATA.JSON PATH
     ======================================== */
     const dataPath = (window.root !== undefined ? window.root : "") + "data.json";
 
     /* ========================================
-                   CARD TEMPLATE
+       CARD TEMPLATE
     ======================================== */
     function createCard(item){
         const prefix = window.root !== undefined ? window.root : "";
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ========================================
-                RENDER CONTAINER
+       RENDER CONTAINER
     ======================================== */
     function render(id, items){
         const container = document.getElementById(id);
@@ -55,9 +55,9 @@ document.addEventListener("DOMContentLoaded", () => {
         render("tools-list", data.filter(item => item.type === "tool"));
         render("invitations-list", data.filter(item => item.type === "invitation"));
 
-   /* ========================================
-                    SEARCH BAR
-    ======================================== */
+        /* ========================================
+           SEARCH BAR
+        ======================================== */
         const searchInput = document.getElementById("search-input");
 
         if (searchInput) {
@@ -80,4 +80,20 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(error => {
         console.error("DATA.JSON ERROR:", error);
     });
+
+    /* ========================================
+       LIVE STATUS BARS ANIMATION (Boredom & Energy)
+    ======================================== */
+    setInterval(() => {
+        const boredomVal = document.getElementById("boredom-val");
+        const energyVal = document.getElementById("energy-val");
+        
+        if(boredomVal && energyVal) {
+            const randomBoredom = Math.floor(Math.random() * 20) + 75; 
+            const randomEnergy = 100 - randomBoredom + Math.floor(Math.random() * 5);
+            
+            boredomVal.textContent = randomBoredom + "%";
+            energyVal.textContent = Math.max(5, randomEnergy) + "%";
+        }
+    }, 3000);
 });
