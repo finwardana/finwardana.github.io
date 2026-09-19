@@ -120,8 +120,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Mode 1 (Max / Full): Semua serba tinggi/maksimal
         // Mode 2 (Min / Minus/Low): Semua serba turun/minimum sesuai range
         
-        let targetCreative = isStateAlt ? 60 : 100;
-        let startCreative = isStateAlt ? 100 : 60;
+        let targetCreative = isStateAlt ? 50 : 50;
+        let startCreative = isStateAlt ? 100 : 0;
 
         let targetEnergy = isStateAlt ? 0 : 20;
         let startEnergy = isStateAlt ? 20 : 0;
@@ -129,11 +129,11 @@ document.addEventListener("DOMContentLoaded", () => {
         let targetConsistency = isStateAlt ? 0 : 50;
         let startConsistency = isStateAlt ? 50 : 0;
 
-        let targetBoredom = isStateAlt ? 40 : 100;
-        let startBoredom = isStateAlt ? 100 : 40;
+        let targetBoredom = isStateAlt ?  0 : 100;
+        let startBoredom = isStateAlt ? 100 : 0;
 
-        let targetSanity = isStateAlt ? 0 : 100;
-        let startSanity = isStateAlt ? 100 : 0;
+        let targetSanity = isStateAlt ? 0 : 10;
+        let startSanity = isStateAlt ? 10 : 0;
 
         // Update lebar bar CSS
         if (creativeFill) creativeFill.style.width = targetCreative + "%";
