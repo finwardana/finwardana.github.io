@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
     console.log("FINWARDANA Loaded");
 
@@ -83,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* ========================================
-       LIVE 5 STATUS BARS SMOOTH ANIMATION
+       LIVE 5 STATUS BARS (INVERSE / CROSS LOGIC)
     ======================================== */
     const creativeFill = document.querySelector(".creative-fill");
     const energyFill = document.querySelector(".energy-fill");
@@ -118,25 +117,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function runStatusLoop() {
-        // Target nilai sesuai kesepakatan range:
-        // 1. Creative Spark: 60% - 100%
+        // Skenario 1 (Fokus Mode): Creative 100%, Boredom turun ke 40%, Sanity meledak 100%
+        // Skenario 2 (Burnout Mode): Creative turun ke 60%, Boredom naik ke 100%, Sanity turun ke 15%
+        
         let targetCreative = isStateAlt ? 60 : 100;
         let startCreative = isStateAlt ? 100 : 60;
 
-        // 2. Social Battery: 0% - 20%
         let targetEnergy = isStateAlt ? 20 : 0;
         let startEnergy = isStateAlt ? 0 : 20;
 
-        // 3. Consistency: 0% - 50%
         let targetConsistency = isStateAlt ? 50 : 10;
         let startConsistency = isStateAlt ? 10 : 50;
 
-        // 4. Boredom: 40% - 100%
-        let targetBoredom = isStateAlt ? 40 : 100;
-        let startBoredom = isStateAlt ? 100 : 40;
+        let targetBoredom = isStateAlt ? 100 : 40;  // Berlawanan arah dengan Creative
+        let startBoredom = isStateAlt ? 40 : 100;
 
-        // 5. Sanity Level: 0% - 100% (Naiknya cepet/responsif)
-        let targetSanity = isStateAlt ? 15 : 100;
+        let targetSanity = isStateAlt ? 15 : 100;   // Ikut naik pas lagi ngebut/fokus
         let startSanity = isStateAlt ? 100 : 15;
 
         // Update lebar bar CSS
@@ -146,12 +142,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (boredomFill) boredomFill.style.width = targetBoredom + "%";
         if (sanityFill) sanityFill.style.width = targetSanity + "%";
 
-        // Update angka teks dengan durasi berbeda (Sanity lebih cepat/responsif)
+        // Update angka teks dengan animasi halus
         animateValue(creativeVal, startCreative, targetCreative, 1500);
         animateValue(energyVal, startEnergy, targetEnergy, 1500);
         animateValue(consistencyVal, startConsistency, targetConsistency, 1800);
         animateValue(boredomVal, startBoredom, targetBoredom, 1500);
-        animateValue(sanityVal, startSanity, targetSanity, 800); // Sanity lebih cepat meledaknya
+        animateValue(sanityVal, startSanity, targetSanity, 800);
 
         isStateAlt = !isStateAlt;
     }
