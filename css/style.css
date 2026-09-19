@@ -113,7 +113,7 @@ img{
 }
 
 /* ========================================
-   HERO BANNER & STATUS BARS
+   HERO BANNER & KARAKTER TERPISAH
 ======================================== */
 
 .hero-container {
@@ -130,20 +130,38 @@ img{
     overflow: hidden;
     border: 1px solid var(--border);
     background: var(--surface);
+    display: flex;
+    align-items: center;
 }
 
-.hero-image{
+/* Background polos hero */
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center;
+    background: var(--surface);
+    z-index: 1;
+}
+
+/* Karakter diposisikan tetap di sebelah kiri */
+.hero-character {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    object-position: bottom left;
+    z-index: 2;
 }
 
 /* STATUS BARS (Di sebelah lengan kanan karakter) */
 .status-bars-container {
     position: absolute;
-    left: 120px;
-    bottom: 8px;
+    left: 110px;
+    bottom: 12px;
     top: auto;
     transform: none;
     display: flex;
@@ -154,7 +172,7 @@ img{
     border-radius: 8px;
     padding: 6px 8px;
     backdrop-filter: blur(4px);
-    z-index: 5;
+    z-index: 3;
     width: 125px;
 }
 
@@ -376,19 +394,16 @@ footer {
    RESPONSIVE DESIGN UNTUK LAYAR PC / LAPTOP (FULL-WIDTH)
 ======================================== */
 @media (min-width: 768px) {
-    /* Padding header menyesuaikan layar lebar */
     .header {
         padding: 0 20px;
     }
 
-    /* Memperbesar ukuran hero banner agar lebih proporsional di PC */
     .hero {
         height: 220px;
     }
 
-    /* Menyesuaikan skala status bar di PC */
     .status-bars-container {
-        left: 180px;
+        left: 170px;
         bottom: 15px;
         width: 150px;
         padding: 8px 10px;
@@ -407,7 +422,6 @@ footer {
         height: 5px;
     }
 
-    /* Memperbesar kartu slider di home */
     .section > .slider .card {
         flex: 0 0 140px;
         width: 140px;
@@ -417,7 +431,6 @@ footer {
         height: 160px;
     }
 
-    /* Mengubah grid halaman list menjadi 5 kolom di PC agar lebih lega */
     #games-list, 
     #tools-list, 
     #invitations-list {
