@@ -120,8 +120,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Mode 1 (Max / Full): Semua serba tinggi/maksimal
         // Mode 2 (Min / Minus/Low): Semua serba turun/minimum sesuai range
         
-        let targetCreative = isStateAlt ? 50 : 50;
-        let startCreative = isStateAlt ? 100 : 0;
+        let targetCreative = isStateAlt ? 50 : 100;
+        let startCreative = isStateAlt ? 100 : 50;
 
         let targetEnergy = isStateAlt ? 0 : 20;
         let startEnergy = isStateAlt ? 20 : 0;
