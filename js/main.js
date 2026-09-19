@@ -82,20 +82,50 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* ========================================
-       LIVE STATUS BARS ANIMATION (Boredom & Social Energy)
+       LIVE STATUS BARS SMOOTH COUNTING ANIMATION
     ======================================== */
-    setInterval(() => {
-        const boredomVal = document.getElementById("boredom-val");
-        const energyVal = document.getElementById("energy-val");
-        
-        if(boredomVal && energyVal) {
-            // Boredom: 70% - 100%
-            const randomBoredom = Math.floor(Math.random() * 31) + 70; 
-            // Social Energy: 0% - 20%
-            const randomEnergy = Math.floor(Math.random() * 21); 
+    const boredomFill = document.querySelector(".boredom-fill");
+    const energyFill = document.querySelector(".energy-fill");
+    const boredomVal = document.getElementById("boredom-val");
+    const energyVal = document.getElementById("energy-val");
+
+    let isMaxState = false;
+
+    function animateValue(element, start, end, duration) {
+        if (!element) return;
+        let startTime = null;
+
+        function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            let progress = Math.min((timestamp - startTime) / duration, 1);
+            let current = Math.floor(progress * (end - start) + start);
+            element.textContent = current + "%";
             
-            boredomVal.textContent = randomBoredom + "%";
-            energyVal.textContent = randomEnergy + "%";
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
         }
-    }, 3000);
+        window.requestAnimationFrame(step);
+    }
+
+    function runStatusLoop() {
+        if (!boredomFill || !energyFill || !boredomVal || !energyVal) return;
+
+        let targetBoredom = isMaxState ? 70 : 100;
+        let startBoredom = isMaxState ? 100 : 70;
+
+        let targetEnergy = isMaxState ? 20 : 0;
+        let startEnergy = isMaxState ? 0 : 20;
+
+        boredomFill.style.width = targetBoredom + "%";
+        energyFill.style.width = targetEnergy + "%";
+
+        animateValue(boredomVal, startBoredom, targetBoredom, 1500);
+        animateValue(energyVal, startEnergy, targetEnergy, 1500);
+
+        isMaxState = !isMaxState;
+    }
+
+    setTimeout(runStatusLoop, 500);
+    setInterval(runStatusLoop, 3500);
 });
