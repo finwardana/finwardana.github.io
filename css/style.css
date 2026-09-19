@@ -139,7 +139,7 @@ img{
     object-position: center;
 }
 
-/* STATUS BARS (Digeser ke kanan menjauhi lengan & diturunkan sedikit) */
+/* STATUS BARS (Di sebelah lengan kanan karakter) */
 .status-bars-container {
     position: absolute;
     left: 120px;
@@ -368,4 +368,51 @@ footer {
 #invitations-list .card {
     width: 100% !important;
     flex: unset !important;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN UNTUK LAYAR PC / LAPTOP
+======================================== */
+@media (min-width: 768px) {
+    body {
+        max-width: 600px;
+        margin: 0 auto;
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .header {
+        max-width: 600px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .hero {
+        height: 180px;
+    }
+
+    .status-bars-container {
+        left: 150px;
+        bottom: 12px;
+        width: 140px;
+        padding: 8px 10px;
+    }
+
+    .status-title {
+        font-size: 7px;
+    }
+
+    .status-label, .status-value {
+        font-size: 6px;
+    }
+
+    .section > .slider .card {
+        flex: 0 0 130px;
+        width: 130px;
+    }
+
+    .thumb {
+        height: 150px;
+    }
 }
