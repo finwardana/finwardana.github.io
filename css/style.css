@@ -139,16 +139,17 @@ img{
     object-position: center;
 }
 
-/* STATUS BARS (Di sebelah lengan kanan karakter) */
+/* STATUS BARS (Di bawah, dekat lengan kanan karakter, judul putih) */
 .status-bars-container {
     position: absolute;
-    left: 140px; /* Disesuaikan di sebelah lengan kanan karakter */
-    top: 50%;
-    transform: translateY(-50%);
+    left: 105px;
+    bottom: 12px;
+    top: auto;
+    transform: none;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 6px 8px;
@@ -161,7 +162,7 @@ img{
     font-family: Arial, sans-serif;
     font-size: 6px;
     font-weight: 900;
-    color: var(--accent);
+    color: var(--text); /* Berubah menjadi putih */
     text-align: center;
     letter-spacing: 0.5px;
     margin-bottom: 2px;
@@ -206,30 +207,18 @@ img{
 .bar-fill {
     height: 100%;
     width: 0%;
-    transition: width 0.5s ease-in-out;
+    transition: width 1.5s ease-in-out;
 }
 
-/* Warna & Animasi Bar (Boredom: 70%-100%, Energy: 20%-0%) */
+/* Warna Bar */
 .boredom-fill {
     background: #ff2b3a;
     box-shadow: 0 0 5px rgba(255, 43, 58, 0.6);
-    animation: boredomAnim 6s infinite alternate ease-in-out;
 }
 
 .energy-fill {
     background: #00ff66;
     box-shadow: 0 0 5px rgba(0, 255, 102, 0.6);
-    animation: energyAnim 6s infinite alternate ease-in-out;
-}
-
-@keyframes boredomAnim {
-    0% { width: 70%; }
-    100% { width: 100%; }
-}
-
-@keyframes energyAnim {
-    0% { width: 20%; }
-    100% { width: 0%; }
 }
 
 /* SEARCH BAR */
