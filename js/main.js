@@ -10,16 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
        CARD TEMPLATE
     ======================================== */
     function createCard(item){
-        // Pastikan prefix mengambil window.root yang sudah dihitung oleh layout.js
         const prefix = window.root !== undefined ? window.root : "";
         
         const hasThumb = item.thumb && item.thumb.trim() !== "";
-        // Jika berada di sub-folder, prefix (misal "../" atau "../../") akan digabung dengan item.thumb
         const bgStyle = hasThumb ? `style="background-image:url('${prefix}${item.thumb}')"` : "";
         const cardContent = hasThumb ? "" : "COMING SOON";
 
         return `
-        <a href="${prefix}${item.url}" class="card">
+        <a href="${prefix}${item.url}" class="card" data-title="${item.title.toLowerCase()}">
             <div class="thumb" ${bgStyle}>${cardContent}</div>
             <h3>${item.title}</h3>
         </a>
@@ -39,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ========================================
-       LOAD DATA
+       LOAD DATA & SEARCH SYSTEM
     ======================================== */
     fetch(dataPath)
     .then(response => {
@@ -47,16 +45,37 @@ document.addEventListener("DOMContentLoaded", () => {
         return response.json();
     })
     .then(data => {
-        /* HOME */
-        render("recent-slider", data.slice(0,10));
+        /* HOME SLIDERS */
         render("games-slider", data.filter(item => item.type === "game"));
         render("tools-slider", data.filter(item => item.type === "tool"));
         render("invitations-slider", data.filter(item => item.type === "invitation"));
 
-        /* PAGE */
+        /* PAGE LISTS */
         render("games-list", data.filter(item => item.type === "game"));
         render("tools-list", data.filter(item => item.type === "tool"));
         render("invitations-list", data.filter(item => item.type === "invitation"));
+
+        /* ========================================
+           FITUR SEARCH BAR (Pencarian Real-time)
+        ======================================== */
+        const searchInput = document.getElementById("search-input");
+
+        if (searchInput) {
+            searchInput.addEventListener("input", (e) => {
+                const keyword = e.target.value.toLowerCase().trim();
+                const cards = document.querySelectorAll(".card");
+
+                cards.forEach(card => {
+                    const cardTitle = card.getAttribute("data-title") || "";
+                    
+                    if (cardTitle.includes(keyword)) {
+                        card.style.display = "";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            });
+        }
     })
     .catch(error => {
         console.error("DATA.JSON ERROR:", error);
