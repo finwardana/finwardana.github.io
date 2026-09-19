@@ -82,18 +82,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* ========================================
-       LIVE STATUS BARS ANIMATION (Boredom & Energy)
+       LIVE STATUS BARS ANIMATION (Boredom & Social Energy)
     ======================================== */
     setInterval(() => {
         const boredomVal = document.getElementById("boredom-val");
         const energyVal = document.getElementById("energy-val");
         
         if(boredomVal && energyVal) {
-            const randomBoredom = Math.floor(Math.random() * 20) + 75; 
-            const randomEnergy = 100 - randomBoredom + Math.floor(Math.random() * 5);
+            // Boredom: 70% - 100%
+            const randomBoredom = Math.floor(Math.random() * 31) + 70; 
+            // Social Energy: 0% - 20%
+            const randomEnergy = Math.floor(Math.random() * 21); 
             
             boredomVal.textContent = randomBoredom + "%";
-            energyVal.textContent = Math.max(5, randomEnergy) + "%";
+            energyVal.textContent = randomEnergy + "%";
         }
     }, 3000);
 });
