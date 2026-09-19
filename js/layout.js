@@ -1,6 +1,6 @@
 /* ========================================
-   FINWARDANA LAYOUT
-   Header + Footer Global
+             FINWARDANA LAYOUT
+         ( Header + Footer Global)
 ======================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.root = isDeepSubPage ? "../../" : (window.isSubPage ? "../" : "");
 
     /* ========================================
-       ACTIVE MENU
+                  ACTIVE MENU
     ======================================== */
     const active = {
         home:
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     /* ========================================
-       HEADER
+                       HEADER
     ======================================== */
     const header = document.getElementById("header");
     if (header) {
@@ -64,12 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ========================================
-       FOOTER
+                        FOOTER
     ======================================== */
     const footer = document.getElementById("footer");
     if (footer) {
         const currentYear = new Date().getFullYear();
-        const yearDisplay = currentYear > 2015 ? `2015 - ${currentYear}` : "2015";
+        const yearDisplay = currentYear > 2013 ? `2013 - ${currentYear}` : "2013";
 
         footer.innerHTML = `
         <footer>
