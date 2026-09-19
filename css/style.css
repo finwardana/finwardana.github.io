@@ -1,3 +1,4 @@
+
 /* ========================================
    FINWARDANA THEME
 ======================================== */
@@ -130,8 +131,6 @@ img{
     overflow: hidden;
     border: 1px solid var(--border);
     background: var(--surface);
-    display: flex;
-    align-items: center;
 }
 
 /* Background polos hero */
@@ -145,22 +144,22 @@ img{
     z-index: 1;
 }
 
-/* Karakter diposisikan tetap di sebelah kiri */
+/* Karakter terpisah di sebelah kiri dengan ukuran pas */
 .hero-character {
     position: absolute;
-    left: 0;
+    left: 10px;
     bottom: 0;
-    height: 100%;
+    height: 125px; /* Pas di dalam banner tanpa keluar garis bawah */
     width: auto;
     object-fit: contain;
     object-position: bottom left;
     z-index: 2;
 }
 
-/* STATUS BARS (Di sebelah lengan kanan karakter) */
+/* STATUS BARS (Di sebelah kanan karakter) */
 .status-bars-container {
     position: absolute;
-    left: 110px;
+    left: 130px;
     bottom: 12px;
     top: auto;
     transform: none;
@@ -399,11 +398,15 @@ footer {
     }
 
     .hero {
-        height: 220px;
+        height: 200px;
+    }
+
+    .hero-character {
+        height: 180px;
     }
 
     .status-bars-container {
-        left: 170px;
+        left: 160px;
         bottom: 15px;
         width: 150px;
         padding: 8px 10px;
