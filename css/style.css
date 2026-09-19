@@ -1,131 +1,371 @@
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("FINWARDANA Loaded");
+/* ========================================
+   FINWARDANA THEME
+======================================== */
 
-    /* ========================================
-       DATA.JSON PATH
-    ======================================== */
-    const dataPath = (window.root !== undefined ? window.root : "") + "data.json";
+:root{
+    --bg:#080808;
+    --surface:#111;
+    --border:#222;
+    --text:#fff;
+    --text-muted:#aaa;
+    --accent:#ff2b3a;
 
-    /* ========================================
-       CARD TEMPLATE
-    ======================================== */
-    function createCard(item){
-        const prefix = window.root !== undefined ? window.root : "";
-        
-        const hasThumb = item.thumb && item.thumb.trim() !== "";
-        const bgStyle = hasThumb ? `style="background-image:url('${prefix}${item.thumb}')"` : "";
-        const cardContent = hasThumb ? "" : "COMING SOON";
+    --radius:12px;
+    --header-mobile:100px;
+    --header-desktop:76px;
+}
 
-        return `
-        <a href="${prefix}${item.url}" class="card" data-title="${item.title.toLowerCase()}">
-            <div class="thumb" ${bgStyle}>${cardContent}</div>
-            <h3>${item.title}</h3>
-        </a>
-        `;
-    }
+/* ========================================
+   RESET
+======================================== */
 
-    /* ========================================
-       RENDER CONTAINER
-    ======================================== */
-    function render(id, items){
-        const container = document.getElementById(id);
-        if(!container) return;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        container.innerHTML = items
-            .map(createCard)
-            .join("");
-    }
+/* ========================================
+   BODY
+======================================== */
 
-    /* ========================================
-       LOAD DATA & SEARCH SYSTEM
-    ======================================== */
-    fetch(dataPath)
-    .then(response => {
-        if (!response.ok) throw new Error("Gagal mengambil data.json");
-        return response.json();
-    })
-    .then(data => {
-        /* HOME SLIDERS */
-        render("games-slider", data.filter(item => item.type === "game"));
-        render("tools-slider", data.filter(item => item.type === "tool"));
-        render("invitations-slider", data.filter(item => item.type === "invitation"));
+body{
+    font-family:Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    padding-top:var(--header-mobile);
+    overflow-x:hidden;
+}
 
-        /* PAGE LISTS */
-        render("games-list", data.filter(item => item.type === "game"));
-        render("tools-list", data.filter(item => item.type === "tool"));
-        render("invitations-list", data.filter(item => item.type === "invitation"));
+a{
+    text-decoration:none;
+    color:inherit;
+}
 
-        /* ========================================
-           SEARCH BAR
-        ======================================== */
-        const searchInput = document.getElementById("search-input");
+img{
+    display:block;
+    max-width:100%;
+}
 
-        if (searchInput) {
-            searchInput.addEventListener("input", (e) => {
-                const keyword = e.target.value.toLowerCase().trim();
-                const cards = document.querySelectorAll(".card");
+/* ========================================
+   HEADER
+======================================== */
 
-                cards.forEach(card => {
-                    const cardTitle = card.getAttribute("data-title") || "";
-                    
-                    if (cardTitle.includes(keyword)) {
-                        card.style.display = "";
-                    } else {
-                        card.style.display = "none";
-                    }
-                });
-            });
-        }
-    })
-    .catch(error => {
-        console.error("DATA.JSON ERROR:", error);
-    });
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+    z-index:9999;
+}
 
-    /* ========================================
-       LIVE STATUS BARS SMOOTH COUNTING ANIMATION
-    ======================================== */
-    const boredomFill = document.querySelector(".boredom-fill");
-    const energyFill = document.querySelector(".energy-fill");
-    const boredomVal = document.getElementById("boredom-val");
-    const energyVal = document.getElementById("energy-val");
+.logo-bar{
+    height:50px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 16px;
+    font-size:18px;
+    font-weight:900;
+}
 
-    let isMaxState = false;
+.logo-icon{
+    width:36px;
+    height:36px;
+    object-fit:contain;
+}
 
-    function animateValue(element, start, end, duration) {
-        if (!element) return;
-        let startTime = null;
+/* ========================================
+   NAVBAR
+======================================== */
 
-        function step(timestamp) {
-            if (!startTime) startTime = timestamp;
-            let progress = Math.min((timestamp - startTime) / duration, 1);
-            let current = Math.floor(progress * (end - start) + start);
-            element.textContent = current + "%";
-            
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            }
-        }
-        window.requestAnimationFrame(step);
-    }
+.navbar{
+    height:50px;
+    display:flex;
+    overflow-x:auto;
+    white-space:nowrap;
+    border-top:1px solid var(--border);
+    scrollbar-width:none;
+}
 
-    function runStatusLoop() {
-        if (!boredomFill || !energyFill || !boredomVal || !energyVal) return;
+.navbar::-webkit-scrollbar{
+    display:none;
+}
 
-        let targetBoredom = isMaxState ? 70 : 100;
-        let startBoredom = isMaxState ? 100 : 70;
+.navbar a{
+    padding:0 16px;
+    height:50px;
+    display:flex;
+    align-items:center;
+    color:var(--text-muted);
+    transition:.2s;
+}
 
-        let targetEnergy = isMaxState ? 20 : 0;
-        let startEnergy = isMaxState ? 0 : 20;
+.navbar a:hover{
+    color:var(--text);
+}
 
-        boredomFill.style.width = targetBoredom + "%";
-        energyFill.style.width = targetEnergy + "%";
+.navbar a.active{
+    color:var(--text);
+    border-bottom:2px solid var(--accent);
+}
 
-        animateValue(boredomVal, startBoredom, targetBoredom, 1500);
-        animateValue(energyVal, startEnergy, targetEnergy, 1500);
+/* ========================================
+   HERO BANNER & STATUS BARS
+======================================== */
 
-        isMaxState = !isMaxState;
-    }
+.hero-container {
+    padding: 0;
+    width: 100%;
+    position: relative;
+}
 
-    setTimeout(runStatusLoop, 500);
-    setInterval(runStatusLoop, 3500);
-});
+.hero{
+    position: relative;
+    height: 140px;
+    width: 100%;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.hero-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* STATUS BARS (Digeser ke kanan menjauhi lengan & diturunkan sedikit) */
+.status-bars-container {
+    position: absolute;
+    left: 120px;
+    bottom: 8px;
+    top: auto;
+    transform: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 8px;
+    backdrop-filter: blur(4px);
+    z-index: 5;
+    width: 125px;
+}
+
+.status-title {
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    font-weight: 900;
+    color: var(--text);
+    text-align: center;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 3px;
+}
+
+.status-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.status-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-label {
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.status-value {
+    font-size: 5px;
+    font-family: monospace;
+    color: var(--text);
+}
+
+.bar-frame {
+    width: 100%;
+    height: 4px;
+    background: #1a1a1a;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    width: 0%;
+    transition: width 1.5s ease-in-out;
+}
+
+/* Warna Bar */
+.boredom-fill {
+    background: #ff2b3a;
+    box-shadow: 0 0 5px rgba(255, 43, 58, 0.6);
+}
+
+.energy-fill {
+    background: #00ff66;
+    box-shadow: 0 0 5px rgba(0, 255, 102, 0.6);
+}
+
+/* SEARCH BAR */
+.search-box {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.search-box input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--text);
+    outline: none;
+    box-shadow: none;
+    transition: 0.2s;
+}
+
+.search-box input:focus {
+    border-color: var(--border);
+    box-shadow: none;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ========================================
+   SECTION
+======================================== */
+
+.section{
+    padding:12px;
+}
+
+.section-title{
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:1px;
+    margin-top:20px;
+    margin-bottom:10px;
+    color:#ddd;
+}
+
+/* ========================================
+   SLIDER (KHUSUS HOME)
+======================================== */
+
+.section > .slider {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+}
+
+.section > .slider::-webkit-scrollbar {
+    display: none;
+}
+
+/* ========================================
+   CARD & THUMBNAIL STYLE
+======================================== */
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    
+    transform: none !important;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Ukuran kartu khusus untuk Home (Slider) */
+.section > .slider .card {
+    flex: 0 0 110px;
+    width: 110px;
+}
+
+.thumb {
+    width: 100%;
+    height: 130px;
+    background-size: cover;
+    background-position: center;
+    background-color: #1a1a1a;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 9px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    
+    transition: filter 0.15s ease;
+}
+
+.card:active .thumb {
+    filter: brightness(0.7);
+}
+
+.card h3 {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text);
+    padding: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+}
+
+/* ========================================
+   GRID LIST KE BAWAH 3 KOLOM (Halaman Games, Tools, Invitations)
+======================================== */
+#games-list, 
+#tools-list, 
+#invitations-list {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+    overflow-x: visible !important;
+}
+
+#games-list .card, 
+#tools-list .card, 
+#invitations-list .card {
+    width: 100% !important;
+    flex: unset !important;
+}
