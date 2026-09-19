@@ -1,5 +1,5 @@
 /* ========================================
-            FINWARDANA THEME
+   FINWARDANA THEME
 ======================================== */
 
 :root{
@@ -16,7 +16,7 @@
 }
 
 /* ========================================
-                  RESET
+   RESET
 ======================================== */
 
 *{
@@ -26,7 +26,7 @@
 }
 
 /* ========================================
-                  BODY
+   BODY
 ======================================== */
 
 body{
@@ -48,7 +48,7 @@ img{
 }
 
 /* ========================================
-                  HEADER
+   HEADER
 ======================================== */
 
 .header{
@@ -78,7 +78,7 @@ img{
 }
 
 /* ========================================
-                 NAVBAR
+   NAVBAR
 ======================================== */
 
 .navbar{
@@ -113,23 +113,20 @@ img{
 }
 
 /* ========================================
-        HERO BANNER & SEARCH BAR 
+   HERO BANNER & SEARCH BAR
 ======================================== */
 
 .hero-container {
-    padding: 0 0 12px 0;
+    padding: 0 12px 12px 12px; /* Memberikan jarak kiri-kanan yang sama untuk banner & search */
 }
 
 .hero{
     position: relative;
     height: 150px;
     width: 100%;
-    border-radius: 0;
+    border-radius: var(--radius); /* Sudut melengkung diaktifkan kembali */
     overflow: hidden;
-    border-left: none;
-    border-right: none;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    border: 1px solid var(--border);
     background: var(--surface);
 }
 
@@ -139,10 +136,10 @@ img{
     object-fit: cover;
 }
 
-/* SEARCH BAR (Diberi jarak kiri-kanan agar selaras dengan konten lain) */
+/* SEARCH BAR (Lebar 100% mengikuti wadah hero-container sehingga pas sejajar dengan banner) */
 .search-box {
-    margin: 10px 12px 0 12px;
-    width: auto;
+    margin-top: 10px;
+    width: 100%;
 }
 
 .search-box input {
@@ -168,7 +165,7 @@ img{
 }
 
 /* ========================================
-                 SECTION
+   SECTION
 ======================================== */
 
 .section{
@@ -185,7 +182,7 @@ img{
 }
 
 /* ========================================
-             SLIDER (HOME)
+   SLIDER (KHUSUS HOME)
 ======================================== */
 
 .section > .slider {
@@ -201,7 +198,7 @@ img{
 }
 
 /* ========================================
-          CARD & THUMBNAIL STYLE
+   CARD & THUMBNAIL STYLE
 ======================================== */
 
 .card {
@@ -217,7 +214,7 @@ img{
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Ukuran kartu khusus untuk Home (Slider) */
+/* Ukuran kartu di Home (Slider) */
 .section > .slider .card {
     flex: 0 0 110px;
     width: 110px;
@@ -258,7 +255,7 @@ img{
 }
 
 /* ========================================
-                   FOOTER
+   FOOTER
 ======================================== */
 
 footer {
@@ -270,7 +267,7 @@ footer {
 }
 
 /* ========================================
-                GRID LIST 3
+   GRID LIST KE BAWAH 3 KOLOM (Halaman Games, Tools, Invitations)
 ======================================== */
 #games-list, 
 #tools-list, 
