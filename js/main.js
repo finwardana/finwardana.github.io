@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
     console.log("FINWARDANA Loaded");
 
@@ -82,14 +83,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* ========================================
-       LIVE STATUS BARS SMOOTH COUNTING ANIMATION
+       LIVE 5 STATUS BARS SMOOTH ANIMATION
     ======================================== */
-    const boredomFill = document.querySelector(".boredom-fill");
+    const creativeFill = document.querySelector(".creative-fill");
     const energyFill = document.querySelector(".energy-fill");
-    const boredomVal = document.getElementById("boredom-val");
-    const energyVal = document.getElementById("energy-val");
+    const consistencyFill = document.querySelector(".consistency-fill");
+    const boredomFill = document.querySelector(".boredom-fill");
+    const sanityFill = document.querySelector(".sanity-fill");
 
-    let isMaxState = false;
+    const statusItems = document.querySelectorAll(".status-bars-container .status-item");
+    const creativeVal = statusItems[0]?.querySelector(".status-value");
+    const energyVal = statusItems[1]?.querySelector(".status-value");
+    const consistencyVal = statusItems[2]?.querySelector(".status-value");
+    const boredomVal = statusItems[3]?.querySelector(".status-value");
+    const sanityVal = statusItems[4]?.querySelector(".status-value");
+
+    let isStateAlt = false;
 
     function animateValue(element, start, end, duration) {
         if (!element) return;
@@ -109,23 +118,44 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function runStatusLoop() {
-        if (!boredomFill || !energyFill || !boredomVal || !energyVal) return;
+        // Target nilai sesuai kesepakatan range:
+        // 1. Creative Spark: 60% - 100%
+        let targetCreative = isStateAlt ? 60 : 100;
+        let startCreative = isStateAlt ? 100 : 60;
 
-        let targetBoredom = isMaxState ? 70 : 100;
-        let startBoredom = isMaxState ? 100 : 70;
+        // 2. Social Battery: 0% - 20%
+        let targetEnergy = isStateAlt ? 20 : 0;
+        let startEnergy = isStateAlt ? 0 : 20;
 
-        let targetEnergy = isMaxState ? 20 : 0;
-        let startEnergy = isMaxState ? 0 : 20;
+        // 3. Consistency: 0% - 50%
+        let targetConsistency = isStateAlt ? 50 : 10;
+        let startConsistency = isStateAlt ? 10 : 50;
 
-        boredomFill.style.width = targetBoredom + "%";
-        energyFill.style.width = targetEnergy + "%";
+        // 4. Boredom: 40% - 100%
+        let targetBoredom = isStateAlt ? 40 : 100;
+        let startBoredom = isStateAlt ? 100 : 40;
 
-        animateValue(boredomVal, startBoredom, targetBoredom, 1500);
+        // 5. Sanity Level: 0% - 100% (Naiknya cepet/responsif)
+        let targetSanity = isStateAlt ? 15 : 100;
+        let startSanity = isStateAlt ? 100 : 15;
+
+        // Update lebar bar CSS
+        if (creativeFill) creativeFill.style.width = targetCreative + "%";
+        if (energyFill) energyFill.style.width = targetEnergy + "%";
+        if (consistencyFill) consistencyFill.style.width = targetConsistency + "%";
+        if (boredomFill) boredomFill.style.width = targetBoredom + "%";
+        if (sanityFill) sanityFill.style.width = targetSanity + "%";
+
+        // Update angka teks dengan durasi berbeda (Sanity lebih cepat/responsif)
+        animateValue(creativeVal, startCreative, targetCreative, 1500);
         animateValue(energyVal, startEnergy, targetEnergy, 1500);
+        animateValue(consistencyVal, startConsistency, targetConsistency, 1800);
+        animateValue(boredomVal, startBoredom, targetBoredom, 1500);
+        animateValue(sanityVal, startSanity, targetSanity, 800); // Sanity lebih cepat meledaknya
 
-        isMaxState = !isMaxState;
+        isStateAlt = !isStateAlt;
     }
 
     setTimeout(runStatusLoop, 500);
-    setInterval(runStatusLoop, 3500);
+    setInterval(runStatusLoop, 4000);
 });
